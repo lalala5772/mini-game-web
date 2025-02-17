@@ -1,9 +1,10 @@
 package auth.dto;
 
 import java.sql.Timestamp;
+
 import java.util.regex.Pattern;
 
-import auth.enums.Enums.Status;
+import auth.enums.Status;
 
 public class UsersDTO {
     

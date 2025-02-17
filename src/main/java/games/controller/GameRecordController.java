@@ -1,16 +1,14 @@
-package auth.controller;
+package games.controller;
 
 import java.io.IOException;
 
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("*.users")
-public class UsersController extends HttpServlet {
+@WebServlet("*.record")
+public class GameRecordController {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -25,16 +23,7 @@ public class UsersController extends HttpServlet {
 		//dao 인스턴스 생성
 
 		try {
-			//요청은 필요에 따라 추가/삭제 
-			if (cmd.equals("/add.users")) {
-				
-			} else if (cmd.equals("/selectAll.users")) {
-				
-			} else if (cmd.equals("/update.users")) {
-				
-			} else if (cmd.equals("/delete.users")) {
-				
-			} 
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

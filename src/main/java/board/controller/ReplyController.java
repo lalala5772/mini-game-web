@@ -1,17 +1,15 @@
-package auth.controller;
+package board.controller;
 
 import java.io.IOException;
 
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("*.users")
-public class UsersController extends HttpServlet {
-
+@WebServlet("*.reply")
+public class ReplyController {
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
@@ -26,13 +24,13 @@ public class UsersController extends HttpServlet {
 
 		try {
 			//요청은 필요에 따라 추가/삭제 
-			if (cmd.equals("/add.users")) {
+			if (cmd.equals("/add.board")) {
 				
-			} else if (cmd.equals("/selectAll.users")) {
+			} else if (cmd.equals("/list.board")) {
 				
-			} else if (cmd.equals("/update.users")) {
+			} else if (cmd.equals("/update.board")) {
 				
-			} else if (cmd.equals("/delete.users")) {
+			} else if (cmd.equals("/delete.board")) {
 				
 			} 
 		} catch(Exception e) {
