@@ -1,5 +1,5 @@
 @charset "EUC-KR";
-/* ±âº» ¸®¼Â */
+/* ê¸°ë³¸ ë¦¬ì…‹ */
 * {
 	box-sizing: border-box;
 	margin: 0;
@@ -10,12 +10,12 @@ body {
 	font-family: Arial, sans-serif;
 	background-color: #F9FAFB;
 }
-/* ÀüÃ¼ ÄÁÅ×ÀÌ³Ê: »çÀÌµå¹Ù¿Í ¸ŞÀÎ ÄÜÅÙÃ÷ ¿µ¿ª */
+/* ì „ì²´ ì»¨í…Œì´ë„ˆ: ì‚¬ì´ë“œë°”ì™€ ë©”ì¸ ì½˜í…ì¸  ì˜ì—­ */
 .container-fluid {
 	display: flex;
 	min-height: 100vh;
 }
-/* »çÀÌµå¹Ù ¿µ¿ª (°ü¸®ÀÚ ´ë½Ãº¸µå¿Í µ¿ÀÏÇÑ ½ºÅ¸ÀÏ) */
+/* ì‚¬ì´ë“œë°” ì˜ì—­ (ê´€ë¦¬ì ëŒ€ì‹œë³´ë“œì™€ ë™ì¼í•œ ìŠ¤íƒ€ì¼) */
 .sidebar {
 	background-color: #343a40;
 	color: #fff;
@@ -56,7 +56,7 @@ body {
 .sidebar-menu .nav-link i {
 	margin-right: 10px;
 }
-/* ¸ŞÀÎ ÄÜÅÙÃ÷ ¿µ¿ª */
+/* ë©”ì¸ ì½˜í…ì¸  ì˜ì—­ */
 .main-content {
 	width: 100%;
 	padding: 2rem;
@@ -67,7 +67,7 @@ body {
 	font-weight: bold;
 	margin-bottom: 20px;
 }
-/* ½Å±Ô °Ô½Ã±Û ¼½¼Ç */
+/* ì‹ ê·œ ê²Œì‹œê¸€ ì„¹ì…˜ */
 .new-members {
 	background-color: #F2F2FD;
 	padding: 15px;
@@ -113,7 +113,7 @@ body {
 	font-size: 16px;
 	font-weight: bold;
 }
-/* È¸¿ø ¸®½ºÆ® Å×ÀÌºí */
+/* íšŒì› ë¦¬ìŠ¤íŠ¸ í…Œì´ë¸” */
 .table-container {
 	margin-bottom: 20px;
 }
@@ -138,7 +138,7 @@ body {
 #member-table tbody tr:nth-child(even) {
 	background-color: #F9FAFB;
 }
-/* ¹öÆ° ½ºÅ¸ÀÏ */
+/* ë²„íŠ¼ ìŠ¤íƒ€ì¼ */
 button {
 	padding: 8px 12px;
 	border: none;
@@ -165,7 +165,7 @@ button.delete {
 	background-color: #F59E0B;
 	color: #fff;
 }
-/* ÆäÀÌÁö³×ÀÌ¼Ç */
+/* í˜ì´ì§€ë„¤ì´ì…˜ */
 .pagination {
 	margin-top: 20px;
 	display: flex;
@@ -194,7 +194,7 @@ button.delete {
 	background-color: #3B82F6;
 	color: #fff;
 }
-/* È¸¿ø ´Ğ³×ÀÓ °Ë»ö ¿µ¿ª */
+/* íšŒì› ë‹‰ë„¤ì„ ê²€ìƒ‰ ì˜ì—­ */
 .search-container {
 	display: flex;
 	justify-content: flex-end;
