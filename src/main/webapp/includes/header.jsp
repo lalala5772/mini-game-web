@@ -5,7 +5,7 @@
     <div class="header-inner">
         <div class="logo-section">
             <a href="/" class="nav-link">
-                <img class="logo-img" src="./assets/img/logoW.png" alt="TechX Logo" />
+                <img class="logo-img" src="/assets/img/logoW.png" alt="TechX Logo" />
             </a>
         </div>
         <nav class="nav-section">
