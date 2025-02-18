@@ -5,7 +5,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>È¸¿ø ¸®½ºÆ®</title>
+  <title>íšŒì› ë¦¬ìŠ¤íŠ¸</title>
   
   <!-- Font Awesome CDN -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -22,7 +22,7 @@
 <body>
   <div class="container-fluid p-0">
     <div class="row g-0" style="width: 100%;">
-      <!-- »çÀÌµå¹Ù ¿µ¿ª -->
+      <!-- ì‚¬ì´ë“œë°” ì˜ì—­ -->
       <div class="col-md-3 col-lg-2 p-0">
         <div class="sidebar">
           <div class="logo">
@@ -34,89 +34,89 @@
             <li class="nav-item">
               <a class="nav-link active" href="/views/AdminDashBoard.jsp">
                 <i class="fa-solid fa-toolbox"></i>
-                <span class="ms-2">°ü¸®ÀÚ ÆäÀÌÁö</span>
+                <span class="ms-2">ê´€ë¦¬ìž íŽ˜ì´ì§€</span>
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/views/AdminCustomerList.jsp">
                 <i class="fa-solid fa-users"></i>
-                <span class="ms-2">È¸¿ø ¸®½ºÆ®</span>
+                <span class="ms-2">íšŒì› ë¦¬ìŠ¤íŠ¸</span>
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/views/AdminBoard.jsp">
                 <i class="fa-solid fa-file-lines"></i>
-                <span class="ms-2">°Ô½Ã±Û ¸®½ºÆ®</span>
+                <span class="ms-2">ê²Œì‹œê¸€ ë¦¬ìŠ¤íŠ¸</span>
               </a>
             </li>
           </ul>
         </div>
       </div>
-      <!-- ¸ÞÀÎ ÄÜÅÙÃ÷ ¿µ¿ª -->
+      <!-- ë©”ì¸ ì½˜í…ì¸  ì˜ì—­ -->
       <div class="col-md-9 col-lg-10">
         <div class="main-content">
-          <div class="page-title">È¸¿ø ¸®½ºÆ®</div>
+          <div class="page-title">íšŒì› ë¦¬ìŠ¤íŠ¸</div>
           <div class="content-wrapper">
-            <!-- ½Å±Ô È¸¿ø ¼½¼Ç -->
+            <!-- ì‹ ê·œ íšŒì› ì„¹ì…˜ -->
             <div class="new-members">
-              <div class="section-title">ÀÌ¹øÁÖ ½Å±Ô È¸¿ø</div>
+              <div class="section-title">ì´ë²ˆì£¼ ì‹ ê·œ íšŒì›</div>
               <div class="new-members-grid">
                 <div class="member-card">
-                  <div class="member-image">ÀÌ¹ÌÁö</div>
-                  <div class="member-name">ÀÌµ¿¿±</div>
+                  <div class="member-image">ì´ë¯¸ì§€</div>
+                  <div class="member-name">ì´ë™ì—½</div>
                 </div>
                 <div class="member-card">
-                  <div class="member-image">ÀÌ¹ÌÁö</div>
-                  <div class="member-name">±èÃ¶¼ö</div>
+                  <div class="member-image">ì´ë¯¸ì§€</div>
+                  <div class="member-name">ê¹€ì² ìˆ˜</div>
                 </div>
                 <div class="member-card">
-                  <div class="member-image">ÀÌ¹ÌÁö</div>
-                  <div class="member-name">¹Ú¿µÈñ</div>
+                  <div class="member-image">ì´ë¯¸ì§€</div>
+                  <div class="member-name">ë°•ì˜í¬</div>
                 </div>
               </div>
             </div>
-            <!-- È¸¿ø ´Ð³×ÀÓ °Ë»ö ¿µ¿ª -->
+            <!-- íšŒì› ë‹‰ë„¤ìž„ ê²€ìƒ‰ ì˜ì—­ -->
             <div class="search-container">
-              <input type="text" placeholder="È¸¿ø ´Ð³×ÀÓ °Ë»ö" class="search-input">
+              <input type="text" placeholder="íšŒì› ë‹‰ë„¤ìž„ ê²€ìƒ‰" class="search-input">
               <button class="search-button">
-                <i class="fa-solid fa-magnifying-glass"></i> °Ë»ö
+                <i class="fa-solid fa-magnifying-glass"></i> ê²€ìƒ‰
               </button>
             </div>
-            <!-- È¸¿ø ¸®½ºÆ® Å×ÀÌºí -->
+            <!-- íšŒì› ë¦¬ìŠ¤íŠ¸ í…Œì´ë¸” -->
             <div class="table-container">
               <table id="member-table" class="table">
                 <thead>
                   <tr>
-                    <th>ÀÌ¸§</th>
-                    <th>°¡ÀÔÀÏ</th>
-                    <th>¸¶Áö¸· Á¢¼ÓÀÏ</th>
-                    <th>ÃÑ ÇÃ·¹ÀÌ È½¼ö</th>
-                    <th>È¸¿ø »óÅÂ</th>
-                    <th>Â÷´Ü</th>
-                    <th>»èÁ¦</th>
+                    <th>ì´ë¦„</th>
+                    <th>ê°€ìž…ì¼</th>
+                    <th>ë§ˆì§€ë§‰ ì ‘ì†ì¼</th>
+                    <th>ì´ í”Œë ˆì´ íšŸìˆ˜</th>
+                    <th>íšŒì› ìƒíƒœ</th>
+                    <th>ì°¨ë‹¨</th>
+                    <th>ì‚­ì œ</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td>ÀÌµ¿¿±</td>
+                    <td>ì´ë™ì—½</td>
                     <td>2020/01/01</td>
                     <td>2025/02/17</td>
-                    <td>30000È¸</td>
+                    <td>30000íšŒ</td>
                     <td>user</td>
                     <td><button class="unban">unban</button></td>
                     <td><button class="delete">delete</button></td>
                   </tr>
-                  <!-- Ãß°¡ Çàµé... -->
+                  <!-- ì¶”ê°€ í–‰ë“¤... -->
                 </tbody>
               </table>
-              <!-- ÆäÀÌÁö³×ÀÌ¼Ç -->
+              <!-- íŽ˜ì´ì§€ë„¤ì´ì…˜ -->
               <div class="pagination">
                 <ul>
-                  <li>ÀÌÀü</li>
+                  <li>ì´ì „</li>
                   <li class="active">1</li>
                   <li>2</li>
                   <li>3</li>
-                  <li>´ÙÀ½</li>
+                  <li>ë‹¤ìŒ</li>
                 </ul>
               </div>
             </div>
@@ -126,7 +126,7 @@
     </div>
   </div>
 
-  <!-- ÇªÅÍ -->
+  <!-- í‘¸í„° -->
   <footer class="sticky-footer">
     <div class="container">
       <div class="text-center">
@@ -140,7 +140,7 @@
           integrity="sha384-cVKIPhGKtYv2/7R+FtM2ZLCVYQ7LNPV+Ze8FouO8nG5pq4nE1tvFq+0VYU73nMyg" 
           crossorigin="anonymous"></script>
   <script>
-    // ÇÊ¿ä½Ã Ãß°¡ ½ºÅ©¸³Æ® ¿©±â¿¡ ÀÛ¼ºÇÕ´Ï´Ù.
+    // í•„ìš”ì‹œ ì¶”ê°€ ìŠ¤í¬ë¦½íŠ¸ ì—¬ê¸°ì— ìž‘ì„±í•©ë‹ˆë‹¤.
   </script>
 </body>
 </html>
