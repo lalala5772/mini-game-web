@@ -24,5 +24,6 @@
 	<%@ include file="./includes/footer.jsp" %>
 
 <!-- 메인 화면 -->
+<a  href="/views/AdminBoard.jsp"><button></button></a>
 </body>
 </html>
