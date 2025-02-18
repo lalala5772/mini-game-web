@@ -1,5 +1,5 @@
 @charset "EUC-KR";
-  /* »çÀÌµå¹Ù ½ºÅ¸ÀÏ */
+  /* ì‚¬ì´ë“œë°” ìŠ¤íƒ€ì¼ */
   .sidebar {
     height: auto;
     background-color: #343a40;
@@ -17,12 +17,12 @@
   .sidebar.toggled {
     width: 80px;
   }
-  /* ¸ŞÀÎ ÄÜÅÙÃ÷ ¿µ¿ª */
+  /* ë©”ì¸ ì½˜í…ì¸  ì˜ì—­ */
   #main-content {
     padding: 2rem;
     transition: margin-left 0.3s ease-in-out;
   }
-  /* Â÷Æ® ÄÁÅ×ÀÌ³Ê */
+  /* ì°¨íŠ¸ ì»¨í…Œì´ë„ˆ */
   .chart-container {
     width: 100%;
     max-width: 800px;
@@ -33,12 +33,12 @@
     width: 100% !important;
     height: auto !important;
   }
-  /* Ä«µå ½ºÅ¸ÀÏ */
+  /* ì¹´ë“œ ìŠ¤íƒ€ì¼ */
   .card {
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   }
-  /* ÇªÅÍ ½ºÅ¸ÀÏ */
+  /* í‘¸í„° ìŠ¤íƒ€ì¼ */
   .sticky-footer {
     background-color: #f8f9fc;
     padding: 15px 0;
