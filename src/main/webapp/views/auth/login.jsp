@@ -23,17 +23,6 @@
 	height: 848px;
 }
 
-/* .title {
-    position: absolute;
-    top: 15px;
-    left: 290px;
-    width: 366px;
-    height: 90px;
-    font-size: 64px;
-    line-height: 84px;
-    font-weight: 400;
-    color: #171A1FFF;
-} */
 .title img {
 	position: absolute;
 	top: 50px;
@@ -273,7 +262,7 @@ input::placeholder {
 		<div class="title">
 			<img src="logo.png" alt="">
 		</div>
-		<div class="subtitle">SING IN</div>
+		<div class="subtitle">SIGN IN</div>
 		<input type="text" class="id" placeholder="TechX 아이디 입력"> <input
 			type="text" class="pw" placeholder="비밀번호 입력">
 		<div class="rememberId">
@@ -283,7 +272,7 @@ input::placeholder {
 
 
 		<div class="container2">
-			<img src="sign.jpg" alt="" class="sing"> <img src="logo.png"
+			<img src="sign.jpg" alt="" class="sign"> <img src="logo.png"
 				alt="" class="logo">
 		</div>
 		<button type="button" class="signIn">Sign In</button>

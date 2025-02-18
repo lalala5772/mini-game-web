@@ -14,33 +14,98 @@ public class UsersDTO {
     private String nickname;
     private String phone;
     private String email;
+    private String rnum;
     private Timestamp birthDate; // 생년월일 추가
     private Timestamp joinDate;
     private int warningCount;
     private String withdraw;
-    private Status status;
+    private int status;
     private Boolean isAdmin;
     private Timestamp lastLogin;
 
-    // 생성자
-    public UsersDTO(String id, String pw, String name, String nickname, String phone, String email, Timestamp birthDate,
-                   Timestamp joinDate, int warningCount, String withdraw, Status status, Boolean isAdmin, Timestamp lastLogin) {
-        this.id = id;
-        this.pw = pw;
-        this.name = name;
-        this.nickname = nickname;
-        this.phone = phone;
-        this.email = email;
-        this.birthDate = birthDate;
-        this.joinDate = joinDate;
-        this.warningCount = warningCount;
-        this.withdraw = withdraw;
-        this.status = status;
-        this.isAdmin = isAdmin;
-        this.lastLogin = lastLogin;
-    }
 
-    // 유효성 검사 메서드
+
+    public UsersDTO(String id, String pw, String name, String nickname, String phone, String email, String rnum,
+			Timestamp birthDate, Timestamp joinDate, int warningCount, String withdraw, int status, Boolean isAdmin,
+			Timestamp lastLogin) {
+		super();
+		this.id = id;
+		this.pw = pw;
+		this.name = name;
+		this.nickname = nickname;
+		this.phone = phone;
+		this.email = email;
+		this.rnum = rnum;
+		this.birthDate = birthDate;
+		this.joinDate = joinDate;
+		this.warningCount = warningCount;
+		this.withdraw = withdraw;
+		this.status = status;
+		this.isAdmin = isAdmin;
+		this.lastLogin = lastLogin;
+	}
+    
+    
+
+	public String getId() {
+		return id;
+	}
+
+	public String getPw() {
+		return pw;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+
+	public String getEmail() {
+		return email;
+	}
+
+	public String getRnum() {
+		return rnum;
+	}
+
+	public Timestamp getBirthDate() {
+		return birthDate;
+	}
+
+	public Timestamp getJoinDate() {
+		return joinDate;
+	}
+
+	public int getWarningCount() {
+		return warningCount;
+	}
+
+	public String getWithdraw() {
+		return withdraw;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public Boolean getIsAdmin() {
+		return isAdmin;
+	}
+
+	public Timestamp getLastLogin() {
+		return lastLogin;
+	}
+
+
+	// 유효성 검사 메서드
     public void validate() throws IllegalArgumentException {
         if (!isValidId(this.id)) {
             throw new IllegalArgumentException("아이디는 6자 이상, 영어 대소문자와 숫자만 가능합니다.");
