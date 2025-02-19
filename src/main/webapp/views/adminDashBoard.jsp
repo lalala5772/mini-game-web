@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -15,7 +15,7 @@
     <!-- Bootstrap CSS CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- 사용자 정의 CSS (필요에 따라 별도 파일로 분리) -->
-    <link href="/assets/css/AdminDashBoard.css" rel="stylesheet">
+    <link href="/assets/css/adminDashBoard.css" rel="stylesheet">
     <style>
 
     </style>
@@ -28,25 +28,25 @@
             <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
                 <div class="position-sticky">
                     <div class="text-center mb-4">
-                        <a href="/views/AdminCustomerList.jsp">
+                        <a href="/views/adminCustomerList.jsp">
                             <img src="logo.png" alt="로고" class="img-fluid" style="max-width: 100%;">
                         </a>
                     </div>
                     <ul class="sidebar-menu nav flex-column">
                         <li class="nav-item">
-                          <a class="nav-link active" href="/views/AdminDashBoard.jsp">
+                          <a class="nav-link active" href="/views/adminDashBoard.jsp">
                             <i class="fa-solid fa-toolbox"></i>
                             <span class="ms-2">관리자 페이지</span>
                           </a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" href="/views/AdminCustomerList.jsp">
+                          <a class="nav-link" href="/views/adminCustomerList.jsp">
                             <i class="fa-solid fa-users"></i>
                             <span class="ms-2">회원 리스트</span>
                           </a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" href="/views/AdminBoard.jsp">
+                          <a class="nav-link" href="/views/adminBoard.jsp">
                             <i class="fa-solid fa-file-lines"></i>
                             <span class="ms-2">게시글 리스트</span>
                           </a>
