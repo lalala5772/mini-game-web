@@ -26,7 +26,7 @@
       <div class="col-md-3 col-lg-2 p-0">
         <div class="sidebar">
           <div class="logo">
-            <a href="AdminCustomerList.jsp">
+            <a href="adminDashBoard.jsp">
               <img src="logo.png" alt="Logo">
             </a>
           </div>
