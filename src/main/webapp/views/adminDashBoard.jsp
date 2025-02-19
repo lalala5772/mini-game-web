@@ -28,7 +28,7 @@
             <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
                 <div class="position-sticky">
                     <div class="text-center mb-4">
-                        <a href="/views/adminCustomerList.jsp">
+                        <a href="/views/adminDashBoard.jsp">
                             <img src="logo.png" alt="로고" class="img-fluid" style="max-width: 100%;">
                         </a>
                     </div>
