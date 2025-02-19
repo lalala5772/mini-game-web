@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -14,7 +14,7 @@
   <!-- Bootstrap CSS CDN -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-  <link href="/assets/css/AdminBoard.css" rel="stylesheet">
+  <link href="/assets/css/adminBoard.css" rel="stylesheet">
   <style>
    
   </style>
@@ -32,19 +32,19 @@
           </div>
           <ul class="sidebar-menu nav flex-column">
             <li class="nav-item">
-              <a class="nav-link active" href="/views/AdminDashBoard.jsp">
+              <a class="nav-link active" href="/views/adminDashBoard.jsp">
                 <i class="fa-solid fa-toolbox"></i>
                 <span class="ms-2">관리자 페이지</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/views/AdminCustomerList.jsp">
+              <a class="nav-link" href="/views/adminCustomerList.jsp">
                 <i class="fa-solid fa-users"></i>
                 <span class="ms-2">회원 리스트</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/views/AdminBoard.jsp">
+              <a class="nav-link" href="/views/adminBoard.jsp">
                 <i class="fa-solid fa-file-lines"></i>
                 <span class="ms-2">게시글 리스트</span>
               </a>
