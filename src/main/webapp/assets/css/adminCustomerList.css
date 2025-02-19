@@ -12,14 +12,14 @@ body {
 /* 전체 컨테이너: 사이드바와 메인 콘텐츠 영역 */
 .container-fluid {
 	display: flex;
-	min-height: 100vh;
+	min-height: auto;
 }
 /* 사이드바 영역 (관리자 대시보드 스타일) */
 .sidebar {
 	background-color: #343a40;
 	color: #fff;
 	padding: 20px;
-	height: 100vh;
+	height: 100%;
 }
 
 .sidebar .logo {

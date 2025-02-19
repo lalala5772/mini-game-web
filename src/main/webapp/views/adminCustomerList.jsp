@@ -27,18 +27,18 @@
         <div class="sidebar">
           <div class="logo">
             <a href="/views/adminDashBoard.jsp">
-              <img src="logo.png" alt="Logo">
+              <img src="/assets/img/logoW.png" alt="Logo">
             </a>
           </div>
           <ul class="sidebar-menu nav flex-column">
             <li class="nav-item">
-              <a class="nav-link active" href="/views/adminDashBoard.jsp">
+              <a class="nav-link" href="/views/adminDashBoard.jsp">
                 <i class="fa-solid fa-toolbox"></i>
                 <span class="ms-2">관리자 페이지</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/views/adminCustomerList.jsp">
+              <a class="nav-link active" href="/views/adminCustomerList.jsp">
                 <i class="fa-solid fa-users"></i>
                 <span class="ms-2">회원 리스트</span>
               </a>
