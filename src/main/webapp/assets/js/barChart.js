@@ -3,6 +3,7 @@ class ChartManager {
       this.canvasId = canvasId;
       this.chartType = chartType;
       this.chart = null; // Chart.js 인스턴스
+      
     }
     async fetchDatas(){
     try{
