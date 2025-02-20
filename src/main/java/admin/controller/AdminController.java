@@ -24,6 +24,7 @@ public class AdminController extends HttpServlet {
 		
 		if(cmd.equals("/dashboard.admin")) {
 			Gson g = new Gson();
+			
 			try {
 				int todayVisit = dao.getTodayVisit();
 				String json = g.toJson(todayVisit);
