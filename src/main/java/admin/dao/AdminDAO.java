@@ -1,0 +1,90 @@
+package admin.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
+
+public class AdminDAO {
+	private AdminDAO() {
+
+	};
+
+	private static AdminDAO instance;
+
+	public static synchronized AdminDAO getInstance() {
+		if (instance == null) {
+			instance = new AdminDAO();
+
+		}
+		return instance;
+	}
+
+	private Connection getConnection() throws Exception {
+		Context ctx = new InitialContext();
+		DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/orcl");
+		return ds.getConnection();
+	}
+
+	public List<String> getLineChartData() throws Exception {
+		List<String> lineChartData = new ArrayList<>();
+
+		String sql = "select m.month, (select count(*) from users where trunc(joindate,'MM') = to_date(m.month,'YYYY-MM')) as newusers from (select to_char(add_months(trunc(sysdate,'MM'),level-5),'YYYY-MM')as month from dual connect by level <=5) m order by m.month";
+		try (Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				ResultSet rs = pstat.executeQuery();) {
+			while (rs.next()) {
+				lineChartData.add(rs.getString(2));
+			}
+			return lineChartData;
+
+		}
+	}
+
+	public List<String> getDoughnutChartData() throws Exception {
+		List<String> doughnutChartData = new ArrayList<>();
+
+String sql ="WITH AGE_GROUPS AS (SELECT '10대' AS AGE_GROUP FROM DUAL UNION ALL SELECT '20대' FROM DUAL UNION ALL SELECT '30대' FROM DUAL UNION ALL SELECT '40대' FROM DUAL UNION ALL SELECT '50대 이상' FROM DUAL)SELECT AG.AGE_GROUP, NVL(COUNT(U.ID), 0) AS USER_COUNT FROM AGE_GROUPS AG LEFT JOIN (SELECT ID, (CASE WHEN (TO_NUMBER(TO_CHAR(SYSDATE, 'YYYY')) - (CASE WHEN TO_NUMBER(SUBSTR(RNUM, 1, 2)) <= TO_NUMBER(TO_CHAR(SYSDATE, 'YY')) THEN 2000 + TO_NUMBER(SUBSTR(RNUM, 1, 2)) ELSE 1900 + TO_NUMBER(SUBSTR(RNUM, 1, 2)) END)) BETWEEN 10 AND 19 THEN '10대' WHEN (TO_NUMBER(TO_CHAR(SYSDATE, 'YYYY')) - (CASE WHEN TO_NUMBER(SUBSTR(RNUM, 1, 2)) <= TO_NUMBER(TO_CHAR(SYSDATE, 'YY')) THEN 2000 + TO_NUMBER(SUBSTR(RNUM, 1, 2)) ELSE 1900 + TO_NUMBER(SUBSTR(RNUM, 1, 2)) END)) BETWEEN 20 AND 29 THEN '20대' WHEN (TO_NUMBER(TO_CHAR(SYSDATE, 'YYYY')) - (CASE WHEN TO_NUMBER(SUBSTR(RNUM, 1, 2)) <= TO_NUMBER(TO_CHAR(SYSDATE, 'YY')) THEN 2000 + TO_NUMBER(SUBSTR(RNUM, 1, 2)) ELSE 1900 + TO_NUMBER(SUBSTR(RNUM, 1, 2)) END)) BETWEEN 30 AND 39 THEN '30대' WHEN (TO_NUMBER(TO_CHAR(SYSDATE, 'YYYY')) - (CASE WHEN TO_NUMBER(SUBSTR(RNUM, 1, 2)) <= TO_NUMBER(TO_CHAR(SYSDATE, 'YY')) THEN 2000 + TO_NUMBER(SUBSTR(RNUM, 1, 2)) ELSE 1900 + TO_NUMBER(SUBSTR(RNUM, 1, 2)) END)) BETWEEN 40 AND 49 THEN '40대' WHEN (TO_NUMBER(TO_CHAR(SYSDATE, 'YYYY')) - (CASE WHEN TO_NUMBER(SUBSTR(RNUM, 1, 2)) <= TO_NUMBER(TO_CHAR(SYSDATE, 'YY')) THEN 2000 + TO_NUMBER(SUBSTR(RNUM, 1, 2)) ELSE 1900 + TO_NUMBER(SUBSTR(RNUM, 1, 2)) END)) >= 50 THEN '50대 이상' END) AS AGE_GROUP FROM USERS) U ON AG.AGE_GROUP = U.AGE_GROUP GROUP BY AG.AGE_GROUP ORDER BY AG.AGE_GROUP";
+		
+		try (Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				ResultSet rs = pstat.executeQuery();) {
+			while (rs.next()) {
+				doughnutChartData.add(rs.getString(2));
+			}
+			return doughnutChartData;
+		}
+
+	}
+	
+	public List<String> getBarChartData() throws Exception{
+		List<String> barChartData = new ArrayList<>();
+		
+		String sql = "select count(*) from GAMERECORD group by GAMEID";
+		
+		Connection con = this.getConnection();
+		PreparedStatement pstat = con.prepareStatement(sql);
+		ResultSet rs = pstat.executeQuery();
+		
+		while(rs.next()) {
+			barChartData.add(rs.getString(1));
+		}
+		return barChartData;
+	}
+	
+	public int getTodayVisit() throws Exception {
+		String sql = "select count(*) from USERS where trunc(lastlogin,'dd')=trunc(sysdate,'dd')";
+		
+		Connection con = this.getConnection();
+		PreparedStatement pstat = con.prepareStatement(sql);
+		ResultSet rs = pstat.executeQuery();
+		rs.next();
+		return rs.getInt(1);
+		
+	}
+}

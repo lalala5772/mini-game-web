@@ -5,7 +5,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>회원 리스트</title>
+  <title>게시글 리스트</title>
   
   <!-- Font Awesome CDN -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -14,9 +14,9 @@
   <!-- Bootstrap CSS CDN -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-  <link href="/assets/css/adminCustomerList.css" rel="stylesheet">
+  <link href="/assets/css/adminBoards.css" rel="stylesheet">
   <style>
-    
+   
   </style>
 </head>
 <body>
@@ -38,13 +38,13 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="/views/adminCustomerList.jsp">
+              <a class="nav-link" href="/views/adminCustomerList.jsp">
                 <i class="fa-solid fa-users"></i>
                 <span class="ms-2">회원 리스트</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/views/adminBoards.jsp">
+              <a class="nav-link active" href="/views/adminBoards.jsp">
                 <i class="fa-solid fa-file-lines"></i>
                 <span class="ms-2">게시글 리스트</span>
               </a>
@@ -55,11 +55,11 @@
       <!-- 메인 콘텐츠 영역 -->
       <div class="col-md-9 col-lg-10">
         <div class="main-content">
-          <div class="page-title">회원 리스트</div>
+          <div class="page-title">게시글 리스트</div>
           <div class="content-wrapper">
-            <!-- 신규 회원 섹션 -->
+            <!-- 신규 게시글 섹션 -->
             <div class="new-members">
-              <div class="section-title">이번주 신규 회원</div>
+              <div class="section-title">이번주 신규 게시글</div>
               <div class="new-members-grid">
                 <div class="member-card">
                   <div class="member-image">이미지</div>
@@ -67,11 +67,11 @@
                 </div>
                 <div class="member-card">
                   <div class="member-image">이미지</div>
-                  <div class="member-name">김철수</div>
+                  <div class="member-name">이동엽</div>
                 </div>
                 <div class="member-card">
                   <div class="member-image">이미지</div>
-                  <div class="member-name">박영희</div>
+                  <div class="member-name">이동엽</div>
                 </div>
               </div>
             </div>
@@ -82,31 +82,29 @@
                 <i class="fa-solid fa-magnifying-glass"></i> 검색
               </button>
             </div>
-            <!-- 회원 리스트 테이블 -->
+            <!-- 게시글 리스트 테이블 -->
             <div class="table-container">
               <table id="member-table" class="table">
                 <thead>
                   <tr>
-                    <th>이름</th>
-                    <th>가입일</th>
-                    <th>마지막 접속일</th>
-                    <th>총 플레이 횟수</th>
-                    <th>회원 상태</th>
-                    <th>차단</th>
+                    <th>게시글 종류</th>
+                    <th>유저 닉네임</th>
+                    <th>제목</th>
+                    <th>내용</th>
+                    <th>작성일</th>
                     <th>삭제</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
+                    <td>공지</td>
                     <td>이동엽</td>
-                    <td>2020/01/01</td>
-                    <td>2025/02/17</td>
-                    <td>30000회</td>
-                    <td>user</td>
-                    <td><button class="unban">unban</button></td>
+                    <td>저 집에 갈래요...</td>
+                    <td>대시보드 진짜 찢어버리고싶다..</td>
+                    <td>2025/02/18</td>
                     <td><button class="delete">delete</button></td>
                   </tr>
-                  <!-- 추가 행들... -->
+                  <!-- 추가 행 -->
                 </tbody>
               </table>
               <!-- 페이지네이션 -->
@@ -140,7 +138,7 @@
           integrity="sha384-cVKIPhGKtYv2/7R+FtM2ZLCVYQ7LNPV+Ze8FouO8nG5pq4nE1tvFq+0VYU73nMyg" 
           crossorigin="anonymous"></script>
   <script>
-    // 필요시 추가 스크립트 여기에 작성합니다.
+    // 추가 스크립트가 필요하면 여기에 작성합니다.
   </script>
 </body>
 </html>

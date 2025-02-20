@@ -22,8 +22,7 @@
     </main>
     
 	<%@ include file="./includes/footer.jsp" %>
-	<a href="/views/adminDashBoard.jsp"><button></button></a>
-
+	<a href="/dashboard.admin"><button>관리자페이지</button></a>
 <!-- 메인 화면 -->
 </body>
 </html>
