@@ -25,7 +25,7 @@
 
 </head>
 <body>
-	<script>
+<!-- 	<script>
 		$(function() {
 			$.ajax({
 				url : "/dashboard.admin"
@@ -33,8 +33,8 @@
 				resp = Json.parse(resp);
 				resp
 			})
-		})
-	</script>
+		}) 
+	</script> -->
 	<div class="container-fluid p-0">
 		<div class="row g-0" style="width: 100%;">
 			<!-- 사이드바 영역 -->
@@ -216,7 +216,7 @@
 	<script type="module">
     import ChartManager from '/assets/js/lineChart.js';
     import DoughnutChartManager from '/assets/js/doughnutChart.js';
-    import BarChartManager from '/assets/js/barChart.js';
+    import BarChartManager from '/assets/js/BarChart.js';
 
     async function loadCharts() {
         const lineChartManager = new ChartManager('myLineChart', 'line');
