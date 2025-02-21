@@ -19,26 +19,35 @@ public class AdminController extends HttpServlet {
 
 		String cmd = request.getRequestURI();
 		AdminDAO dao = AdminDAO.getInstance();
-		
+
 		System.out.println("클라이언트 요청 : " + cmd);
-		
-		if(cmd.equals("/dashboard.admin")) {
-			Gson g = new Gson();
-			
+
+		if (cmd.equals("/dashboard.admin")) {
+
 			try {
 				int todayVisit = dao.getTodayVisit();
-				String json = g.toJson(todayVisit);
-				response.getWriter().append(json);
+				int todayPost = dao.getTodayPost();
+				int todayPlayGame = dao.getTodayPlayGame();
+				int onlineUser = dao.getOnlineUser();
+				
+				request.setAttribute("todayVisit", todayVisit);
+				request.setAttribute("todayPost", todayPost);
+				request.setAttribute("todayPlayGame", todayPlayGame);
+				request.setAttribute("onlineUser", onlineUser);
+				
+				request.getRequestDispatcher("/views/adminDashBoard.jsp").forward(request, response);
+				
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
-		} else if(cmd.equals("/customerlist.admin")) {
-			
-		} else if(cmd.equals("/boardlist.admin")) {
-			
+
+		} else if (cmd.equals("/customerlist.admin")) {
+
+		} else if (cmd.equals("/boardlist.admin")) {
+
 		} else {
-			
+
 		}
 	}
 

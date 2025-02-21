@@ -4,15 +4,25 @@ class ChartManager {
       this.chartType = chartType;
       this.chart = null; // Chart.js 인스턴스
     }
+    async fetchDatas(){
+    try{
+    const response = await fetch('/barchart.chartdata');
+    return await response.json();
+    }catch (error) {
+    console.error("Error fetching labels:",error);
+    return [];
+    }
+    }
   
     // 차트 데이터 설정 (bar 차트용 색상 추가)
-    getChartData() {
+  	async getChartData() {
+  	const datas = await this.fetchDatas();
       return {
-        labels: ["게임1", "게임2", "게임3", "게임4", "게임5", "게임6"],
+        labels: ["Barbecue_Game", "Rythme_Game", "Zombie_Crusher", "스네이크 게입", "크로스 로드", "참참참!"],
         datasets: [
           {
             label: "플레이횟수",
-            data: [0, 10, 20, 30, 40, 50],
+            data: datas,
             borderColor: "rgba(75, 192, 192, 1)",
             backgroundColor: "rgba(75, 192, 192, 0.2)",
             borderWidth: 1
@@ -40,23 +50,25 @@ class ChartManager {
     }
   
     // 차트 생성 메서드 (중복 차트 제거)
-    createChart() {
+    async createChart() {
       const canvas = document.getElementById(this.canvasId);
-      if (canvas) {
         const ctx = canvas.getContext('2d');
-        // 기존 차트 삭제 (중복 방지)
-        if (this.chart) {
-          this.chart.destroy();
-        }
+      
+      if(this.chart) {
+      	this.chart.destroy();
+      }
+      
+        try{
+        const datas = await this.getChartData();
         // 새 차트 생성
         this.chart = new Chart(ctx, {
           type: this.chartType,
-          data: this.getChartData(),
+          data: datas,
           options: this.getChartOptions()
         });
-      } else {
-        console.error(`Canvas 요소 #${this.canvasId} 를 찾을 수 없습니다.`);
-      }
+     } catch (error) {
+     	console.error('Error creating chart:', error);
+     }
     }
   }
   export default ChartManager;

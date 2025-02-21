@@ -83,8 +83,8 @@
 										<div class="col">
 											<div
 												class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-												금일 접속 유저</div>
-											<div class="h5 mb-0 font-weight-bold text-gray-800"></div>
+												방문 횟수</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">${todayVisit }</div>
 										</div>
 										<div class="col-auto">
 											<i class="fa-solid fa-calendar fa-2x text-gray-300"></i>
@@ -101,8 +101,8 @@
 										<div class="col">
 											<div
 												class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-												접속중인 유저</div>
-											<div class="h5 mb-0 font-weight-bold text-gray-800">1,000</div>
+												온라인 유저수</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">${onlineUser }</div>
 										</div>
 										<div class="col-auto">
 											<i class="fa-solid fa-calendar fa-2x text-gray-300"></i>
@@ -119,8 +119,8 @@
 										<div class="col">
 											<div
 												class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-												신규 게시글</div>
-											<div class="h5 mb-0 font-weight-bold text-gray-800">140,000</div>
+												신규 게시글수</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">${todayPost }</div>
 										</div>
 										<div class="col-auto">
 											<i class="fa-solid fa-calendar fa-2x text-gray-300"></i>
@@ -137,8 +137,8 @@
 										<div class="col">
 											<div
 												class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-												금일 경고 유저</div>
-											<div class="h5 mb-0 font-weight-bold text-gray-800">50</div>
+												플레이 횟수</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">${todayPlayGame }</div>
 										</div>
 										<div class="col-auto">
 											<i class="fa-solid fa-calendar fa-2x text-gray-300"></i>
