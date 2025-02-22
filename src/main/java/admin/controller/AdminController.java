@@ -35,7 +35,7 @@ public class AdminController extends HttpServlet {
 				request.setAttribute("todayPlayGame", todayPlayGame);
 				request.setAttribute("onlineUser", onlineUser);
 				
-				request.getRequestDispatcher("/views/adminDashBoard.jsp").forward(request, response);
+				request.getRequestDispatcher("/views/admin/adminDashBoard.jsp").forward(request, response);
 				
 				
 			} catch (Exception e) {
