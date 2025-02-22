@@ -1,5 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ page import="auth.dto.UsersDTO"%>
+<%
+	/* login 완료 후 login.users 에서 받아온 user 세션 정보 */
+    UsersDTO loginUser = (UsersDTO) session.getAttribute("loginUser");
+    System.out.println("헤더에서 loginUser: " + loginUser);
+    if (loginUser != null) {
+        System.out.println("로그인된 사용자 닉네임: " + loginUser.getNickname());
+    }
+%>
 
 <header class="header">
     <div class="header-inner">
@@ -11,14 +21,21 @@
         <nav class="nav-section">
             <ul class="nav-list">
                 <li><a href="/games" class="nav-link">게임하기</a></li>
-                <li><a href="/board" class="nav-link">게시판</a></li>
-                <li><a href="/support" class="nav-link">고객센터</a></li>
+                <li><a href="views/board/generalList.jsp" class="nav-link">게시판</a></li>
+                <li><a href="/chat.users" class="nav-link">고객센터</a></li> <!-- 임시 경로 -->
+                <li><a href="/dashboard.admin" class="nav-link">관리자 페이지</a></li> 
             </ul>
         </nav>
         <div class="auth-section">
-            <a href="/login" class="nav-link">로그인</a>
-            <a href="/register" class="nav-link signup-button">회원가입</a>
-        </div>
+			<% if (loginUser != null) { %>
+			<span class="welcome-msg">안녕하세요, <%= loginUser.getNickname() %>님!
+			</span> <a href="/info.mypage" class="nav-link mypage-button" >마이페이지</a> 
+				<a href="/logout.users" class="nav-link logout-button">로그아웃</a>
+			<% } else { %>
+			<a href="views/auth/login.jsp" class="nav-link">로그인</a> 
+			<a href="views/auth/signup.jsp" class="nav-link signup-button">회원가입</a>
+			<% } %>
+		</div>
         <button class="mobile-menu-button">
             <i class="fas fa-bars"></i>
         </button>
