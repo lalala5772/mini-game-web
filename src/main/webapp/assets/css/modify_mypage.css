@@ -1,0 +1,347 @@
+* {
+	box-sizing: border-box;
+	color: white;
+	background-color: black;
+}
+
+.title {
+	position: absolute;
+	top: 57px;
+	left: 521px;
+	width: 397px;
+	font-size: 64px;
+	line-height: 84px;
+	font-weight: 700;
+}
+
+/* Textbox 116 */
+.name {
+	position: absolute;
+	top: 173px;
+	left: 284px;
+	opacity: 1;
+}
+
+.name input {
+	width: 864px;
+	height: 36px;
+	padding-left: 12px;
+	padding-right: 12px;
+	font-size: 14px;
+	line-height: 22px;
+	font-weight: 400;
+	background: #F3F4F6FF;
+	border-radius: 6px;
+	border-width: 0px;
+	outline: none;
+}
+
+label {
+	display: block;
+}
+
+/* Textbox 117 */
+.id {
+	position: absolute;
+	top: 256px;
+	left: 284px;
+	opacity: 1;
+}
+
+.id input {
+	width: 864px;
+	height: 36px;
+	padding-left: 12px;
+	padding-right: 12px;
+	font-size: 14px;
+	line-height: 22px;
+	font-weight: 400;
+	background: #F3F4F6FF;
+	border-radius: 6px;
+	border-width: 0px;
+	outline: none;
+}
+
+/* Textbox 118 */
+.password {
+	position: absolute;
+	top: 339px;
+	left: 284px;
+	opacity: 1;
+}
+
+.password input {
+	width: 759px;
+	height: 36px;
+	padding-left: 12px;
+	padding-right: 12px;
+	font-size: 14px;
+	line-height: 22px;
+	font-weight: 400;
+	background: #F3F4F6FF;
+	border-radius: 6px;
+	border-width: 0px;
+	outline: none;
+}
+
+/* Button 85 */
+.modify_btn1 {
+	position: absolute;
+	top: 360px;
+	left: 1070px;
+	height: 36px;
+	padding: 0 12px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-family: Inter;
+	font-size: 14px;
+	line-height: 22px;
+	font-weight: 400;
+	color: #FFFFFFFF;
+	background: #636AE8FF;
+	opacity: 1;
+	border: none;
+	border-radius: 6px;
+	cursor: pointer;
+}
+
+/* Textbox 119 */
+.nickname {
+	position: absolute;
+	top: 422px;
+	left: 284px;
+	opacity: 1;
+}
+
+.nickname input {
+	width: 759px;
+	height: 36px;
+	padding-left: 12px;
+	padding-right: 12px;
+	font-size: 14px;
+	line-height: 22px;
+	font-weight: 400;
+	background: #F3F4F6FF;
+	border-radius: 6px;
+	border-width: 0px;
+	outline: none;
+}
+
+.modify_btn2 {
+	position: absolute;
+	top: 443px;
+	left: 1070px;
+	height: 36px;
+	padding: 0 12px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 14px;
+	line-height: 22px;
+	font-weight: 400;
+	color: #FFFFFFFF;
+	background: #636AE8FF;
+	opacity: 1;
+	border: none;
+	border-radius: 6px;
+	cursor: pointer;
+}
+
+/* Textbox 120 */
+.phone {
+	position: absolute;
+	top: 505px;
+	left: 284px;
+	opacity: 1;
+}
+
+.phone input {
+	width: 759px;
+	height: 36px;
+	padding-left: 12px;
+	padding-right: 12px;
+	font-size: 14px;
+	line-height: 22px;
+	font-weight: 400;
+	background: #F3F4F6FF;
+	border-radius: 6px;
+	border-width: 0px;
+	outline: none;
+}
+
+.modify_btn3 {
+	position: absolute;
+	top: 526px;
+	left: 1070px;
+	height: 36px;
+	padding: 0 12px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 14px;
+	line-height: 22px;
+	font-weight: 400;
+	color: #FFFFFFFF;
+	background: #636AE8FF;
+	opacity: 1;
+	border: none;
+	border-radius: 6px;
+	cursor: pointer;
+}
+
+/* Textbox 120 */
+.email {
+	position: absolute;
+	top: 588px;
+	left: 284px;
+	opacity: 1;
+}
+
+.email input {
+	width: 759px;
+	height: 36px;
+	padding-left: 12px;
+	padding-right: 12px;
+	font-size: 14px;
+	line-height: 22px;
+	font-weight: 400;
+	background: #F3F4F6FF;
+	border-radius: 6px;
+	border-width: 0px;
+	outline: none;
+}
+
+.modify_btn4 {
+	position: absolute;
+	top: 610px;
+	left: 1070px;
+	height: 36px;
+	padding: 0 12px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 14px;
+	line-height: 22px;
+	font-weight: 400;
+	color: #FFFFFFFF;
+	background: #636AE8FF;
+	opacity: 1;
+	border: none;
+	border-radius: 6px;
+	cursor: pointer;
+}
+
+/* Textbox 120 */
+.birth {
+	position: absolute;
+	top: 671px;
+	left: 284px;
+	opacity: 1;
+}
+
+.birth input {
+	width: 864px;
+	height: 36px;
+	padding-left: 12px;
+	padding-right: 12px;
+	font-size: 14px;
+	line-height: 22px;
+	font-weight: 400;
+	background: #F3F4F6FF;
+	border-radius: 6px;
+	border-width: 0px;
+	outline: none;
+}
+
+/* Textbox 120 */
+.join_date {
+	position: absolute;
+	top: 754px;
+	left: 284px;
+	opacity: 1;
+}
+
+.join_date input {
+	width: 864px;
+	height: 36px;
+	padding-left: 12px;
+	padding-right: 12px;
+	font-family: Inter;
+	font-size: 14px;
+	line-height: 22px;
+	font-weight: 400;
+	background: #F3F4F6FF;
+	border-radius: 6px;
+	border-width: 0px;
+	outline: none;
+}
+
+/* Container 124 */
+.complete_btn {
+	position: absolute;
+	top: 850px;
+	left: 600px;
+	height: 36px;
+	padding: 0 12px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 14px;
+	line-height: 22px;
+	font-weight: 400;
+	color: #FFFFFFFF;
+	background: #636AE8FF;
+	opacity: 1;
+	border: none;
+	border-radius: 6px;
+	cursor: pointer;
+}
+
+.cancel_btn {
+	position: absolute;
+	top: 850px;
+	left: 750px;
+	height: 36px;
+	padding: 0 12px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 14px;
+	line-height: 22px;
+	font-weight: 400;
+	color: #FFFFFFFF;
+	background: #636AE8FF;
+	opacity: 1;
+	border: none;
+	border-radius: 6px;
+	cursor: pointer;
+}
+
+.unregister_btn {
+	position: absolute;
+	top: 950px;
+	left: 1070px;
+	height: 36px;
+	padding: 0 12px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 14px;
+	line-height: 22px;
+	font-weight: 400;
+	color: #FFFFFFFF;
+	background: #636AE8FF;
+	opacity: 1;
+	border: none;
+	border-radius: 6px;
+	cursor: pointer;
+}
+
+.container {
+	height: 1050px;
+}
+
+input{
+	color:black;
+}

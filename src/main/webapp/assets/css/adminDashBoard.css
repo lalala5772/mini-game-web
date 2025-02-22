@@ -1,0 +1,240 @@
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: Arial, sans-serif;
+	background-color: #F9FAFB;
+}
+
+/* 전체 컨테이너: 사이드바와 메인 콘텐츠 영역 */
+.container-fluid {
+	display: flex;
+	min-height: auto;
+}
+
+/* 사이드바 영역 (관리자 대시보드 스타일) */
+.sidebar {
+	background-color: #343a40;
+	color: #fff;
+	padding: 20px;
+	min-height: 100vh;
+	height: 100%;
+}
+
+.sidebar .logo {
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+.sidebar .logo img {
+	max-width: 100%;
+	width: 100%;
+}
+
+.sidebar-menu {
+	list-style: none;
+	padding: 0;
+}
+
+.sidebar-menu .nav-link {
+	display: flex;
+	align-items: center;
+	padding: 10px 15px;
+	color: #fff;
+	text-decoration: none;
+	margin-bottom: 10px;
+	border-radius: 4px;
+	transition: background-color 0.3s ease-in-out;
+}
+
+.sidebar-menu .nav-link:hover, 
+.sidebar-menu .nav-link.active {
+	background-color: #495057;
+}
+
+.sidebar-menu .nav-link i {
+	margin-right: 10px;
+}
+
+/* 메인 콘텐츠 영역 */
+.main-content {
+	width: 100%;
+	padding: 2rem;
+}
+
+.page-title {
+	font-size: 28px;
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+
+.content-wrapper {
+	/* 필요시 추가 스타일 */
+}
+
+/* 신규 회원 섹션 */
+.new-members {
+	background-color: #F2F2FD;
+	padding: 15px;
+	border-radius: 8px;
+	margin-bottom: 20px;
+}
+
+.section-title {
+	font-size: 20px;
+	margin-bottom: 10px;
+}
+
+.new-members-grid {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 15px;
+	justify-content: center;
+}
+
+.member-card {
+	background: #fff;
+	padding: 10px;
+	width: calc(33.333% - 10px);
+	border-radius: 10px;
+	text-align: center;
+	box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.member-image {
+	background-color: #E5E7EB;
+	width: 80px;
+	height: 80px;
+	border-radius: 50%;
+	margin: 0 auto 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 14px;
+	color: #555;
+}
+
+.member-name {
+	font-size: 16px;
+	font-weight: bold;
+}
+
+/* 회원 리스트 테이블 */
+.table-container {
+	margin-bottom: 20px;
+}
+
+#member-table {
+	width: 100%;
+	border-collapse: collapse;
+	background-color: #fff;
+	border-radius: 8px;
+	box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+#member-table thead {
+	background-color: #E5E7EB;
+}
+
+#member-table th, 
+#member-table td {
+	padding: 12px;
+	text-align: center;
+}
+
+#member-table tbody tr:nth-child(even) {
+	background-color: #F9FAFB;
+}
+
+/* 버튼 스타일 */
+button {
+	padding: 8px 12px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: opacity 0.2s;
+}
+
+button:hover {
+	opacity: 0.8;
+}
+
+button.unban {
+	background-color: #34D399;
+	color: #fff;
+}
+
+button.ban {
+	background-color: #EF4444;
+	color: #fff;
+}
+
+button.delete {
+	background-color: #F59E0B;
+	color: #fff;
+}
+
+/* 페이지네이션 */
+.pagination {
+	margin-top: 20px;
+	display: flex;
+	justify-content: flex-end;
+}
+
+.pagination ul {
+	display: flex;
+	list-style: none;
+	gap: 10px;
+}
+
+.pagination li {
+	background-color: #fff;
+	padding: 8px 12px;
+	border-radius: 6px;
+	cursor: pointer;
+	transition: background-color 0.2s ease-in-out;
+}
+
+.pagination li:hover {
+	background-color: #E5E7EB;
+}
+
+.pagination li.active {
+	background-color: #3B82F6;
+	color: #fff;
+}
+
+/* 회원 닉네임 검색 영역 */
+.search-container {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	gap: 10px;
+	margin: 20px 0;
+}
+
+.search-input {
+	padding: 8px 12px;
+	font-size: 16px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	width: 300px;
+}
+
+.search-button {
+	padding: 8px 12px;
+	font-size: 16px;
+	background-color: #3B82F6;
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: background-color 0.2s;
+}
+
+.search-button:hover {
+	background-color: #2563EB;
+}
