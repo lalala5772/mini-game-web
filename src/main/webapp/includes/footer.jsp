@@ -5,7 +5,7 @@
     <div class="footer-content">
         <div class="footer-logo">
             <a href="/">
-                <img src="./assets/img/logoW.png" alt="TechX Logo" />
+                <img src="/assets/img/logoW.png" alt="TechX Logo" />
             </a>
         </div>
         <div class="footer-copyright">© 2025 TechX. All rights reserved.</div>

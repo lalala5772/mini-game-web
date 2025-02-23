@@ -24,14 +24,12 @@ public class AdminDAO {
 		}
 		return instance;
 	}
-	
 
 	private Connection getConnection() throws Exception {
 		Context ctx = new InitialContext();
 		DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/orcl");
 		return ds.getConnection();
 	}
-	
 
 	public List<String> getLineChartData() throws Exception {
 		List<String> lineChartData = new ArrayList<>();
@@ -47,7 +45,6 @@ public class AdminDAO {
 
 		}
 	}
-
 	public List<String> getDoughnutChartData() throws Exception {
 		List<String> doughnutChartData = new ArrayList<>();
 
