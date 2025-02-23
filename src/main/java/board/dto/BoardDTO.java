@@ -167,5 +167,13 @@ public class BoardDTO {
 		this.boardCategory = boardCategory;
 	}
 	
+	// 관리자 사용 250223 ::s 
+    public int getIsAdmin() {  // JSP EL에서 이 메서드를 호출함
+        return isAdmin;
+    }
 
+    public void setIsAdmin(int isAdmin) {
+        this.isAdmin = isAdmin;
+    }
+ // 관리자 사용 250223 ::e
 }
