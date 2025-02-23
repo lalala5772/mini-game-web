@@ -11,16 +11,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import admin.dao.AdminDAO;
+import admin.dao.AdminDAO;d
 import auth.dao.UsersDAO;
 import board.dao.BoardDAO;
 import board.dto.BoardDTO;
 import utils.Statics;
 
+
 @WebServlet("*.admin")
 public class AdminController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
 
 		response.setContentType("application/json; charset=UTF-8"); // ✅ UTF-8 설정
 		response.setCharacterEncoding("UTF-8");
@@ -164,11 +166,8 @@ public class AdminController extends HttpServlet {
 			    } catch (Exception e) {
 			        e.printStackTrace();
 			        response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); // 500 오류
-			    }
-		    
-		} else {
-
-		}
+       }
+		} 
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

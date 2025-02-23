@@ -45,7 +45,6 @@ public class AdminDAO {
 
 		}
 	}
-
 	public List<String> getDoughnutChartData() throws Exception {
 		List<String> doughnutChartData = new ArrayList<>();
 
