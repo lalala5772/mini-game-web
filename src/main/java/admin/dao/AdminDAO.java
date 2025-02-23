@@ -10,6 +10,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import auth.dto.UsersDTO;
+
 public class AdminDAO {
 	private AdminDAO() {
 
@@ -36,7 +38,7 @@ public class AdminDAO {
 	public List<String> getLineChartData() throws Exception {
 		List<String> lineChartData = new ArrayList<>();
 
-		String sql = "select m.month, (select count(*) from users where trunc(joindate,'MM') = to_date(m.month,'YYYY-MM')) as newusers from (select to_char(add_months(trunc(sysdate,'MM'),level-5),'YYYY-MM')as month from dual connect by level <=5) m order by m.month";
+		String sql = "SELECT m.month, COALESCE((SELECT COUNT(*) FROM users WHERE TRUNC(joindate, 'MM') = TO_DATE(m.month, 'YYYY-MM')), 0) AS newusers FROM (SELECT TO_CHAR(ADD_MONTHS(TRUNC(SYSDATE, 'MM'), LEVEL-5), 'YYYY-MM') AS month FROM DUAL CONNECT BY LEVEL <= 5) m ORDER BY m.month";
 		try (Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
 				ResultSet rs = pstat.executeQuery();) {
@@ -67,20 +69,20 @@ public class AdminDAO {
 	public List<String> getBarChartData() throws Exception {
 		List<String> barChartData = new ArrayList<>();
 
-		String sql = "select count(*) from GAMERECORD group by GAMEID";
+		String sql = "SELECT g.seq, COALESCE(COUNT(r.gameid), 0) FROM GAMES g LEFT JOIN GAMERECORD r ON g.seq = r.gameid GROUP BY g.seq ORDER BY g.seq";
 
 		Connection con = this.getConnection();
 		PreparedStatement pstat = con.prepareStatement(sql);
 		ResultSet rs = pstat.executeQuery();
 
 		while (rs.next()) {
-			barChartData.add(rs.getString(1));
+			barChartData.add(rs.getString(2));
 		}
 		return barChartData;
 	}
 
 	public int getTodayVisit() throws Exception {
-		String sql = "select count(*) from USERS where trunc(lastlogin,'dd')=trunc(sysdate,'dd')";
+		String sql = "SELECT COALESCE((SELECT COUNT(*) FROM USERS WHERE TRUNC(lastlogin, 'DD') = TRUNC(SYSDATE, 'DD')), 0) FROM DUAL";
 
 		try (Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
@@ -92,7 +94,7 @@ public class AdminDAO {
 	}
 
 	public int getTodayPost() throws Exception {
-		String sql = "select count(*) from board where trunc(writedate,'dd') = trunc(sysdate,'dd')";
+		String sql = "SELECT COALESCE((SELECT COUNT(*) FROM board WHERE TRUNC(writedate, 'DD') = TRUNC(SYSDATE, 'DD')), 0) FROM DUAL";
 
 		try (Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
@@ -103,7 +105,7 @@ public class AdminDAO {
 	}
 
 	public int getTodayPlayGame() throws Exception {
-		String sql = "select count(*) from GAMERECORD where trunc(playtime,'dd') = trunc(sysdate,'dd')";
+		String sql = "SELECT COALESCE((SELECT COUNT(*) FROM GAMERECORD WHERE TRUNC(playtime, 'DD') = TRUNC(SYSDATE, 'DD')), 0) FROM DUAL";
 
 		try (Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
@@ -114,7 +116,59 @@ public class AdminDAO {
 	}
 
 	public int getOnlineUser() throws Exception {
-		String sql = "select count(*) from users where status = 0";
+		String sql = "SELECT COALESCE((SELECT COUNT(*) FROM users WHERE status = 0), 0) FROM DUAL";
+
+		try (Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				ResultSet rs = pstat.executeQuery();) {
+			rs.next();
+			return rs.getInt(1);
+		}
+	}
+
+	public List<UsersDTO> getNewUserList() throws Exception {
+		String sql = "select * from (select * from users order by joindate desc) where rownum <=3";
+		List<UsersDTO> newUserList = new ArrayList<>();
+
+		try (Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				ResultSet rs = pstat.executeQuery();) {
+			while (rs.next()) {
+				UsersDTO user = new UsersDTO(rs.getString("id"), rs.getString("pw"), rs.getString("name"),
+						rs.getString("nickname"), rs.getString("phone"), rs.getString("email"), rs.getString("rnum"),
+						rs.getTimestamp("joinDate"), rs.getInt("warningCount"), rs.getInt("withdraw"),
+						rs.getInt("status"), rs.getInt("isAdmin"), rs.getTimestamp("lastLogin"));
+				newUserList.add(user);
+			}
+			return newUserList;
+		}
+	}
+
+	public List<UsersDTO> selectFromTotalUsersList(int start, int end) throws Exception {
+		String sql = "select * from (select users.*,row_number() over(order by users.joindate desc) AS rownumber from users) where rownumber between ? and ? order by joindate desc";
+		List<UsersDTO> totalUserList = new ArrayList<>();
+
+		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+			pstat.setInt(1, start);
+			pstat.setInt(2, end);
+			try (ResultSet rs = pstat.executeQuery();) {
+
+				while (rs.next()) {
+					UsersDTO user = new UsersDTO(rs.getString("id"), rs.getString("pw"), rs.getString("name"),
+							rs.getString("nickname"), rs.getString("phone"), rs.getString("email"),
+							rs.getString("rnum"), rs.getTimestamp("joinDate"), rs.getInt("warningCount"),
+							rs.getInt("withdraw"), rs.getInt("status"), rs.getInt("isAdmin"),
+							rs.getTimestamp("lastLogin"));
+					totalUserList.add(user);
+
+				}
+				return totalUserList;
+			}
+		}
+	}
+
+	public int getRecordUserListCount() throws Exception {
+		String sql = "select count(*) from users";
 
 		try (Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);

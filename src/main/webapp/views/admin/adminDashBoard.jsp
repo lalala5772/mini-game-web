@@ -25,7 +25,7 @@
 
 </head>
 <body>
-<!-- 	<script>
+	<!-- 	<script>
 		$(function() {
 			$.ajax({
 				url : "/dashboard.admin"
@@ -51,13 +51,12 @@
 								<span class="ms-2">관리자 페이지</span>
 						</a></li>
 						<li class="nav-item"><a class="nav-link"
-							href="/views/adminCustomerList.jsp"> <i
-								class="fa-solid fa-users"></i> <span class="ms-2">회원 리스트</span>
+							href="/customerlist.admin"> <i class="fa-solid fa-users"></i>
+								<span class="ms-2">회원 리스트</span>
 						</a></li>
 						<li class="nav-item"><a class="nav-link"
-							href="/views/adminBoards.jsp"> <i
-								class="fa-solid fa-file-lines"></i> <span class="ms-2">게시글
-									리스트</span>
+							href="/boardlist.admin"> <i class="fa-solid fa-file-lines"></i>
+								<span class="ms-2">게시글 리스트</span>
 						</a></li>
 					</ul>
 				</div>
@@ -208,8 +207,9 @@
 	<!-- Bootstrap Bundle with Popper -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-cNVdD69H/hyKz6V1h3Z5t6o0IuPus9BnSf5L32nOhk/IOn4q6eNpgVReE2qLEm8W"
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 		crossorigin="anonymous"></script>
+
 	<!-- Chart.js CDN -->
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<!-- 사용자 정의 차트 모듈 -->
