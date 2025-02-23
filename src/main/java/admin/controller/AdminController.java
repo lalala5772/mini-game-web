@@ -110,7 +110,7 @@ public class AdminController extends HttpServlet {
 				request.setAttribute("newUserList", newUserList);
 				request.setAttribute("userList", userList);
 
-				request.getRequestDispatcher("views/adminCustomerList.jsp").forward(request, response);
+				request.getRequestDispatcher("views/admin/adminCustomerList.jsp").forward(request, response);
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -226,7 +226,7 @@ public class AdminController extends HttpServlet {
 				request.setAttribute("needPrev", needPrev);
 				request.setAttribute("needNext", needNext);
 
-				request.getRequestDispatcher("/views/adminBoards.jsp").forward(request, response);
+				request.getRequestDispatcher("/views/admin/adminBoards.jsp").forward(request, response);
 
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
