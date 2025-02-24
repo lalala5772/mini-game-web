@@ -9,11 +9,6 @@
 		
 	}
 	
-   /*  System.out.println("헤더에서 loginUser: " + loginUser);
-    if (loginUser == null) {
-         // 로그인 안 되어 있으면 로그인 페이지로 리디렉션
-        return;
-    } */
 %>
 
 <header class="header">
@@ -27,7 +22,7 @@
             <ul class="nav-list">
                 <li><a href="/games" class="nav-link">게임하기</a></li>
                 <li><a href="views/board/generalList.jsp" class="nav-link">게시판</a></li>
-                <li><a href="/" class="nav-link">고객센터</a></li> <!-- 임시 경로 -->
+                <li><a href="views/auth/faq.jsp" class="nav-link">고객센터</a></li> <!-- 임시 경로 -->
                 <li><a href="/dashboard.admin" class="nav-link">관리자 페이지</a></li> 
             </ul>
         </nav>
@@ -38,7 +33,7 @@
 				<a href="/logout.users" class="nav-link logout-button">로그아웃</a>
 			<% } else { %>
 			<a href="views/auth/login.jsp" class="nav-link">로그인</a> 
-			<a href="views/auth/signup.jsp" class="nav-link signup-button">회원가입</a>
+			<a href="views/auth/agreement.jsp" class="nav-link signup-button">회원가입</a>
 			<% } %>
 		</div>
         <button class="mobile-menu-button">

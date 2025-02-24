@@ -97,13 +97,23 @@
         </div>
         </form>
         <div class="write-notice">
-            <button class="write-notice-btn">공지사항 작성하기</button>
+        <!--admin인 경우만 공지사할 작성버튼 생성 -->
+           <c:choose>
+        		<c:when test="${nickname == 'admin'}">
+                   
+                   <button class="write-notice-btn">공지사항 작성하기</button>
+                </c:when>
+        		<c:otherwise>    
+                    
+                </c:otherwise> 
+                </c:choose> 
         </div>
 	
     </section>
     </div>
     </main>
-  		
+    
+	
         <footer>
              <%@ include file="/includes/footer.jsp" %>
         </footer>
@@ -127,12 +137,14 @@ document.getElementById("search-btn").addEventListener("click", function(event) 
 
 
 		$(".paging").on("click",function(){
-			
 			let pageNum = $(this).attr("page");
 			sessionStorage.setItem("last_cpage",pageNum);
 			location.href="/noticeList.board?cpage="+pageNum;
 		})
 		
+		$(".write-notice-btn").on("click",function(){
+			location.href = "/toWrite.board";
+		})
 	
 	</script>
 </html>

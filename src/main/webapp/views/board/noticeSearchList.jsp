@@ -104,7 +104,16 @@
         </div>
         </form>
         <div class="write-notice">
-                <button class="write-notice-btn">공지사항 작성하기</button>
+               <!--admin인 경우만 공지사할 작성버튼 생성 -->
+           <c:choose>
+        		<c:when test="${nickname == 'admin'}">
+                   
+                   <button class="write-notice-btn">공지사항 작성하기</button>
+                </c:when>
+        		<c:otherwise>    
+                    
+                </c:otherwise> 
+                </c:choose> 
         </div>
 
     </section>
@@ -156,7 +165,10 @@ $(".paging").on("click",function(){
     sessionStorage.setItem("last_cpage", pageNum);
     location.href = url;
 })
-		
+
+$(".write-notice-btn").on("click",function(){
+	location.href = "/toWrite.board";
+})
 		
 	
 </script>

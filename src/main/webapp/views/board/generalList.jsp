@@ -101,41 +101,48 @@
         
         
         <div class="write-general">
-                <button class="write-general-btn" id="writeBtn">게시글 작성하기</button>
+        <c:choose>
+        		<c:when test="${nickname == null}">
+                   <button class="write-general-btn" id="write-false-Btn">게시글 작성하기</button>
+                   
+                </c:when>
+        		<c:otherwise>    
+                    <button class="write-general-btn" id="writeBtn">게시글 작성하기</button>
+                </c:otherwise> 
+                </c:choose>   
+                
         </div>
 
     </section>
     </div>
 	<script>
 			
-			 document.getElementById("search-btn").addEventListener("click", function(event) {
-			        event.preventDefault(); // 기본 폼 제출 방지
+		document.getElementById("search-btn").addEventListener("click", function(event) {
+			event.preventDefault(); // 기본 폼 제출 방지
 
-			        let searchInput = document.querySelector(".search-bar").value;
-			        let searchCategory = document.querySelector("#searchCategory").value;
-			        let currentPage = 1; // 초기 페이지 번호 설정
+			let searchInput = document.querySelector(".search-bar").value;
+			let searchCategory = document.querySelector("#searchCategory").value;
+			let currentPage = 1; // 초기 페이지 번호 설정
 
-			        // 검색어와 카테고리를 URL에 포함
-			        let url = "/generalSearchList.board?cpage=" + currentPage +
-			                  "&searchKeyword=" + encodeURIComponent(searchInput) +
-			                  "&searchCategory=" + encodeURIComponent(searchCategory);
-			        location.href = url;
-			    });
+			// 검색어와 카테고리를 URL에 포함
+			let url = "/generalSearchList.board?cpage=" + currentPage +
+							"&searchKeyword=" + encodeURIComponent(searchInput) +
+			                "&searchCategory=" + encodeURIComponent(searchCategory);
+			location.href = url;
+		});
 			 
 		$(".paging").on("click",function(){
-			
 			let pageNum = $(this).attr("page");
 			sessionStorage.setItem("last_cpage",pageNum);
 			location.href="/generalList.board?cpage="+pageNum;
 		});
 		
 		$("#writeBtn").on("click",function(){
-			
-			location.href = "/add.board";
-			
-			
+			location.href = "/toWrite.board";
 		})
-		
+		$("#write-false-Btn").on("click",function(){
+			alert("로그인이 필요합니다.");
+		})
 	
 	</script>
 	</main>		

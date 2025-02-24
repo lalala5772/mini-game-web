@@ -31,8 +31,8 @@ public class MyPageController  extends HttpServlet {
         String cmd = request.getRequestURI();
         System.out.println("클라이언트 요청: " + cmd);
         
-        GameRecordDAO gameRecordDao = new GameRecordDAO();
-        BoardDAO userBoardDao = new BoardDAO();
+        GameRecordDAO gameRecordDao = GameRecordDAO.getInstance();
+        BoardDAO userBoardDao = BoardDAO.getInstance();
         
         if(cmd.equals("/info.mypage")) {
         	
@@ -44,20 +44,11 @@ public class MyPageController  extends HttpServlet {
 
                 // 사용자의 전체 게시글 목록
                 List<BoardDTO> userBoardList = userBoardDao.userBoardList(loginUser.getId());
-
-//                // 📌 무한스크롤을 위한 페이징 변수
-//                int pageSize = 10; // 한 번에 불러올 게시글 개수
-//                int page = 1; // 기본 페이지 번호
-//                if (request.getParameter("page") != null) {
-//                    page = Integer.parseInt(request.getParameter("page"));
-//                }
-//                int offset = (page - 1) * pageSize;
-//
-//                // 페이징된 게시글 목록 (무한스크롤용)
-//                List<BoardDTO> userBoardList2 = userBoardDao.getUserPosts(loginUser.getId(), pageSize, offset);
+                
+//                GameRecordDTO gameRecordDTO = 
 
                 // 데이터 저장
-                request.setAttribute("loginUser", loginUser);
+//                request.setAttribute("loginUser", loginUser);
                 request.setAttribute("highestScores", highestScores);
                 request.setAttribute("userBoardList", userBoardList);
 

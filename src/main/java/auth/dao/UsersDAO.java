@@ -200,7 +200,7 @@ public class UsersDAO {
  	}
  	
  	public int withdraw(String id) throws Exception { // 탈퇴
-		String sql = "delete from users where id = '?'";
+		String sql = "delete from users where id = ?";
 		
 		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 			pstat.setString(1, id);

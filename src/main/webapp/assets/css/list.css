@@ -95,10 +95,11 @@ main {
 }
 
 .pagination .page-link {
+background-color:black;
   margin: 0 5px;
   padding: 5px 10px;
   text-decoration: none;
-  color: #b5b5b5;
+  color: white;
   border: 1px solid #ffffff;
   border-radius: 3px;
 }
@@ -108,8 +109,11 @@ main {
   color: #fff;
 }
 
+.paging:hover{
+	cursor: pointer;
+	color: #b5b5b5;
+}
 .search{
-  
   width: 100%;
   text-align: center;
   margin-top: 20px;
@@ -186,7 +190,6 @@ main {
 }
 
 footer {
-  
   margin-top: 20px;
   padding-top: 10px;
   
