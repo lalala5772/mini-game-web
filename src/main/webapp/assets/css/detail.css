@@ -1,0 +1,342 @@
+*{
+    box-sizing: border-box;
+    /* border: 1px solid black; */
+}
+
+body{
+    margin: 0px;
+    background-color:white !important;
+    color:black !important;
+}
+
+/* MAIN CONTENT */
+.main-content{
+    width: 60%;
+    margin: 0 auto;
+    background-color: white;    
+    margin-bottom: 100px;
+}
+.board-name{
+    
+}
+.board-name>h2{
+    font-size: 35px;
+    padding: 30px 10px;
+    padding-top:300px;
+    margin-top: 0; 
+}
+
+/* MAIN CONTENT - POST SECTION*/
+.post-section{
+    margin-top: 10px;
+    padding: 20px 10px;
+}
+
+.post-title{
+    border-top: 2px solid black;
+}
+.post-title h2{
+    font-size: 25px;
+    padding: 30px 30px;
+}
+
+.post-info{
+	height: 55px;
+    background-color: rgb(250, 250, 250);
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid rgb(235, 235, 235);
+    border-bottom: 1px solid rgb(235, 235, 235);
+    
+    padding: 5px 20px 5px 30px;
+}
+.post-info .post-info-left{
+    display: flex;
+}
+.post-info .post-info-left p{
+    margin: 0;
+}
+.post-info .post-info-left .post-writer{
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+    font-size: 14px;
+}
+.post-info .post-info-left .post-write-date{
+    display: flex;
+    align-items: center;
+    color: gray;
+    font-size: 12px;
+}
+
+.post-info .post-info-right{
+    display: flex;
+    gap: 10px;
+}
+.post-info .post-info-right p{
+    margin: 0;
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+}
+.post-info .post-info-right .share-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    padding: 0;
+    padding-left: 20px;
+    margin-left: 20px;
+    border: none;
+    cursor: pointer;
+}
+/* 햄버거 메뉴 */
+.post-menu{
+    position: relative;
+}
+.menu-btn {
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 10px;
+}
+/* 드롭다운 메뉴 스타일 */
+.menu-dropdown {
+    position: absolute;
+    top: 40px;
+    right: 0;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: none;
+    flex-direction: column;
+    width: 100px;
+}
+.menu-item {
+    background: none;
+    border: none;
+    padding: 10px;
+    text-align: center;
+    width: 100%;
+    cursor: pointer;
+    font-size: 16px;
+}
+.menu-item:hover {
+    background: #f0f0f0;
+}
+/* 드롭다운 메뉴가 열릴 때 */
+.menu-dropdown.show {
+    display: flex;
+}
+
+.file-area{
+    /* background-color: rgb(250, 250, 250); */
+    border-bottom: 1px solid rgb(235, 235, 235);
+    display: flex;
+    padding: 10px 0 10px 30px;
+    gap: 20px;
+}
+.file-title{
+    font-size: 14px;
+}
+.file-list{
+    display: flex;
+    gap: 15px;
+    font-size: 12px;
+    
+}
+.content-cell a{
+    color: gray;
+    text-decoration: none;
+    vertical-align: middle;
+}
+.content-cell a:visited {
+    color: gray;
+}
+
+.post-contents{
+    margin: 20px 10px;
+    padding: 50px 50px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.post-btn-area{
+    display: flex;
+    justify-content: center;
+    padding: 60px 20px 30px 20px;
+    border-bottom: 1px solid rgb(230, 230, 230);
+}
+.post-btn-area .to-board-btn{
+    background-color: #7D3CCC;
+    color: white;
+    padding: 15px 20px;
+    font-size: 14px;
+    border: none;
+    border-radius: 7px;
+    transition-duration: 0.2s;
+    cursor: pointer;
+}
+.post-btn-area .to-board-btn:hover{
+    background-color: rgb(92, 42, 158);
+}
+
+/* ------- MAIN CONTENT ------- */
+/* --- COMMENT SECTION --- */
+.reply-section{
+    margin-top: 10px;
+    
+}
+
+/* - COMMENT INBOX - */
+.reply-inbox{
+    width: 98%;
+    margin: auto;
+    border: 1px solid rgb(224, 224, 224);
+    border-radius: 5px;
+    padding: 10px 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+}
+.reply-inbox .reply-inbox-name{
+    margin: 15px 5px;
+}
+.reply-inbox .reply-inbox-text{
+    width: 100%;
+    height: 60px;
+    padding: 10px;
+    border: none;
+    
+}
+
+.reply-inbox .reply-btns{
+	display: flex;
+	justify-content: right;
+	gap:15px;
+}
+
+.reply-inbox .reply-btns .reply-resister-btn{
+    background-color: #7D3CCC;
+    color: white;
+    padding: 5px 9px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition-duration: 0.2s;
+    font-size: 11px;
+}
+.reply-inbox .reply-resister-btn:hover{
+    background-color: rgb(92, 42, 158);
+}
+
+/* - COMMENT-COUNT - */
+.reply-count{
+    font-size: 20px;
+    margin: 30px 0;
+    padding: 25px 25px;
+    /* background-color: rgb(250, 250, 250); */
+    border-bottom: 1px solid rgb(230, 230, 230);
+}
+
+
+/* - COMMENT-LIST - */
+.reply-ul{
+    padding: 0 0;
+}
+.reply-ul .reply-li{
+    list-style-type: none;
+    margin: 20px 20px;
+}
+
+.reply{
+    margin: 10px 15px;
+    padding-left: 20px;
+    border-bottom: 1px solid rgb(230, 230, 230);
+    
+}
+.reply .reply-writer{
+    margin-left: 10px;
+    margin-bottom: 13px;
+    font-weight: bold;
+}
+.reply .reply-contents{
+    margin: 10px 220px 10px 25px;
+    font-size: 15px;
+}
+
+.reply .reply-info{
+    display: flex;
+    gap: 7px;
+    padding: 0;
+    margin: 10px 0 23px 28px;
+}
+.reply .reply-info .reply-write-date{
+    margin: 0;
+    font-size: 12px;
+    color: gray;
+    margin-right: 10px;
+}
+.reply .reply-info button{
+    font-size: 10px;
+    color: gray;
+    line-height: 14px;
+    border: none;
+    background-color: transparent;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: end;
+    cursor: pointer;
+}
+.reply .reply-info button:hover{
+    color:crimson;
+}
+
+/* 댓글 수정 inbox 스타일 */
+.update-reply-inbox{
+    width: 97%;
+    margin: 0 0 20px 0;
+}
+.reply-save-btn{
+	background-color: #7D3CCC;
+    color: white;
+    padding: 5px 9px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition-duration: 0.2s;
+    font-size: 11px;
+}
+.reply-cancel-btn{
+    background-color: transparent;
+    color: gray;
+    padding: 5px 9px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition-duration: 0.2s;
+    font-size: 11px;
+}
+
+
+
+.scroll-top-btn {
+    position: fixed;
+    right: 50px;
+    bottom: 30px;
+    background: transparent;
+    border: 1px solid rgb(211, 211, 211);
+    padding: 15px;
+    cursor: pointer;
+    display:none;
+}
+
+.scroll-top-btn:hover {
+    
+}
+
+
+
+
