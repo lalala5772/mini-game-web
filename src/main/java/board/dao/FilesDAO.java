@@ -50,7 +50,7 @@ public class FilesDAO {
 		}
 	}
 
-	// 파일 목록 받기
+	// 파일 목록 받기 수정
 	public List<FilesDTO> getFilesBySeq(int boardSeq) throws Exception {
 		String sql = "SELECT * FROM FILES WHERE PARENTSEQ = ? ORDER BY 1 DESC";
 
