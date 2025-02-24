@@ -75,20 +75,6 @@
 			                <%
 			                }
 			                %>
-			               <!-- <div class="chat-interface">
-                                    <div class="chat-messages">
-                                        <div class="message">사용자 1: 어떻구 저쩌구?</div>
-                                        <div class="message">사용자 2: 어쩌구 저쩌구~</div>
-                                        <div class="message">사용자 2: 어쩌구 저쩌구~</div>
-                                    </div>
-                                    <div class="message-input">
-                                        <input type="text" placeholder="Message">
-                                        <button style="background: none; border: none; cursor: pointer;">
-                                            <i class="fa-regular fa-paper-plane"
-                                                style="color: var(--color-primary);"></i>
-                                        </button>
-                                    </div>
-                            </div> -->
                              <%
 			                if (loginUser != null) {
 			                %>

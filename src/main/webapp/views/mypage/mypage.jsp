@@ -8,7 +8,8 @@
 <%@ page import="java.util.List, java.util.Map, board.dto.BoardDTO"%>
 
 <%
-    UsersDTO loginUser = (UsersDTO) request.getAttribute("loginUser");
+    
+    UsersDTO loginUser = (UsersDTO) session.getAttribute("loginUser");
     if (loginUser == null) {
         response.sendRedirect("views/auth/login.jsp"); // 로그인 안 되어 있으면 로그인 페이지로 리디렉션
         return;
@@ -21,13 +22,13 @@
     }
     
     List<BoardDTO> userBoardList = (List<BoardDTO>) request.getAttribute("userBoardList");
+    System.out.println(userBoardList);
     if (userBoardList == null) {
         // 게시물이 없을 때, 어떻게 처리할 지 의논하기 
         //return;
     }
     
     Map<String, Integer> highestScores = (Map<String, Integer>) request.getAttribute("highestScores");
-    System.out.println(highestScores);
     pageContext.setAttribute("highestScores", highestScores);
 
 %>

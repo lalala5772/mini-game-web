@@ -140,7 +140,8 @@ public class BoardDAO {
 		List<BoardDTO> userBoardList = new ArrayList<>();
 		String sql = "SELECT * FROM board WHERE writer = ?";
 
-		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
+		    try (Connection con = this.getConnection();
+		         PreparedStatement pstat = con.prepareStatement(sql)) {
 
 			pstat.setString(1, nickname);
 			try (ResultSet rs = pstat.executeQuery()) {
