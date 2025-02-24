@@ -31,8 +31,8 @@ public class BoardController extends HttpServlet {
 //		request.getSession().setAttribute("nickname", "테스트용닉네임");
 //		request.getSession().setAttribute("id", "idfortest");
 		
-		request.getSession().setAttribute("nickname", "admin");
-		request.getSession().setAttribute("id", "admin");
+		request.getSession().setAttribute("nickname", "엽복치");
+		request.getSession().setAttribute("id", "booo7575");
 		// !!! 테스트용 코드 !!!
 		
 		

@@ -42,10 +42,10 @@
                   <li class="nav-item"><a class="nav-link" href="/dashboard.admin"> <i class="fa-solid fa-toolbox"></i>
                       <span class="ms-2">관리자 페이지</span>
                     </a></li>
-                  <li class="nav-item"><a class="nav-link" href="/views/adminCustomerList.jsp"> <i
+                  <li class="nav-item"><a class="nav-link" href="/customerlist.admin"> <i
                         class="fa-solid fa-users"></i> <span class="ms-2">회원 리스트</span>
                     </a></li>
-                  <li class="nav-item"><a class="nav-link active" href="/views/adminBoards.jsp"> <i
+                  <li class="nav-item"><a class="nav-link active" href="/boardlist.admin"> <i
                         class="fa-solid fa-file-lines"></i> <span class="ms-2">게시글
                         리스트</span>
                     </a></li>
@@ -167,9 +167,8 @@
 
         <!-- Bootstrap Bundle with Popper -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-          integrity="sha384-cVKIPhGKtYv2/7R+FtM2ZLCVYQ7LNPV+Ze8FouO8nG5pq4nE1tvFq+0VYU73nMyg"
-          crossorigin="anonymous"></script>
-        <script>
+        crossorigin="anonymous"></script>
+
           // 추가 스크립트가 필요하면 여기에 작성합니다.
 
           //게시글 삭제 
