@@ -25,7 +25,7 @@
 	rel="stylesheet"
 	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
 	crossorigin="anonymous">
-<link href="/assets/css/adminBoards.css" rel="stylesheet">
+<link href="/assets/css/adminBoard.css" rel="stylesheet">
 <style>
 </style>
 

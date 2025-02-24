@@ -31,14 +31,14 @@
 <style>
 </style>
 <script>
+// 전체 로드 완료후 데이터 불러오는 펑션
 	$(function() {
-		getcustomerlist();
-		getnewcustomerlist();
+		getCustomerList();
+		getNewCustomerList();
 	})
 </script>
 </head>
 <body>
-	리퀘스트 도착
 	<div class="container-fluid p-0">
 		<div class="row g-0" style="width: 100%;">
 			<!-- 사이드바 영역 -->
@@ -74,52 +74,14 @@
 						<div class="new-members">
 							<div class="section-title">이번주 신규 회원</div>
 							<div class="new-members-grid" id="newuserlist">
-<%-- 								<c:choose> --%>
-<%-- 									<c:when test="${empty newUserList }"> --%>
-<!-- 										<div class="member-card"> -->
-<!-- 											<div class="member-image">이미지</div> -->
-<!-- 											<div class="member-name">없음</div> -->
-<!-- 										</div> -->
-<!-- 										<div class="member-card"> -->
-<!-- 											<div class="member-image">이미지</div> -->
-<!-- 											<div class="member-name">없음</div> -->
-<!-- 										</div> -->
-<!-- 										<div class="member-card"> -->
-<!-- 											<div class="member-image">이미지</div> -->
-<!-- 											<div class="member-name">없음</div> -->
-<!-- 										</div> -->
-
-<%-- 									</c:when> --%>
-
-<%-- 									<c:otherwise> --%>
-<%-- 										<c:forEach var="i" begin="0" end="${newUserList.size()-1 }"> --%>
-<!-- 											<div class="member-card"> -->
-<!-- 												<div class="member-image">이미지</div> -->
-<%-- 												<div class="member-name">${newUserList[i].nickname }</div> --%>
-<!-- 											</div> -->
-
-<%-- 										</c:forEach> --%>
-<%-- 									</c:otherwise> --%>
-<%-- 								</c:choose> --%>
-								<!-- <div class="new-members-grid">
-                <div class="member-card">
-                  <div class="member-image">이미지</div>
-                  <div class="member-name">이동엽</div>
-                </div>
-                <div class="member-card">
-                  <div class="member-image">이미지</div>
-                  <div class="member-name">김철수</div>
-                </div>
-                <div class="member-card">
-                  <div class="member-image">이미지</div>
-                  <div class="member-name">박영희</div>
-                </div> -->
+								<!-- 신규회원 정보 들어갈 곳  -->
 							</div>
 						</div>
 						<!-- 회원 닉네임 검색 영역 -->
 						<div class="search-container">
-							<input type="text" placeholder="회원 닉네임 검색" class="search-input">
-							<button class="search-button">
+							<input type="text" placeholder="회원 닉네임 검색" class="search-input"
+								id="search-input">
+							<button class="search-button" id="searchbtn">
 								<i class="fa-solid fa-magnifying-glass"></i> 검색
 							</button>
 						</div>
@@ -128,7 +90,7 @@
 							<table id="member-table" class="table">
 								<thead>
 									<tr>
-										<th>이름</th>
+										<th>닉네임</th>
 										<th>가입일</th>
 										<th>마지막 접속일</th>
 										<th>총 플레이 횟수</th>
@@ -138,38 +100,7 @@
 									</tr>
 								</thead>
 								<tbody id="getuserlist">
-									<%-- 									<c:choose> --%>
-									<%-- 										<c:when test="${empty userList }"> --%>
-									<!-- 											<tr> -->
-
-									<!-- 												<td>회원이 존재하지 않습니다.</td> -->
-									<!-- 											</tr> -->
-
-									<%-- 										</c:when> --%>
-									<%-- 										<c:otherwise> --%>
-									<%-- 											<c:forEach var="i" begin="0" end="${userList.size() -1}"> --%>
-									<!-- 												<tr> -->
-
-									<%-- 													<td>${userList[i].nickname }</td> --%>
-									<%-- 													<td>${userList[i].joinDate }</td> --%>
-									<%-- 													<td>${userList[i].lastLogin }</td> --%>
-									<%-- 													<td>${userList[i].warningCount }</td> --%>
-									<%-- 													<td>${userList[i].status }</td> --%>
-									<!-- 													<td><button class="unban" id="banbtn">unban</button></td> -->
-									<!-- 													<td><button class="delete">delete</button></td> -->
-									<!-- 												</tr> -->
-
-									<%-- 											</c:forEach> --%>
-									<%-- 										</c:otherwise> --%>
-									<%-- 									</c:choose> --%>
-
-									<!--   <td>이동엽</td>
-                    <td>2020/01/01</td>
-                    <td>2025/02/17</td>
-                    <td>30000회</td>
-                    <td>user</td>
-                    <td><button class="unban" id="banbtn">unban</button></td>
-                    <td><button class="delete">delete</button></td> -->
+									<!-- 유저 리스트 출력 할 부분 -->
 								</tbody>
 							</table>
 							<!-- 페이지네이션 -->
@@ -201,11 +132,7 @@
 			</div>
 		</div>
 	</footer>
-	<script>
-		$("#banbtn").on("click", function() {
 
-		})
-	</script>
 
 	<!-- Bootstrap Bundle with Popper -->
 	<script
@@ -215,13 +142,14 @@
 
 
 	<script>
+// 	페이지네비 작동 펑션
 		$(".paging").on("click", function() {
 			let pageNum = $(this).attr("page");
 			sessionStorage.setItem("last_user_cpage", pageNum);
 			location.href = "/customerlist.admin?cpage=" + pageNum;
 			console.log(pageNum);
 		});
-
+// 삭제버튼 작동 펑션
 		$(document).on("click", ".delete", function() {
 			let userseq = $(this).data("seq"); // data-seq 속성에서 ID 가져오기
 			console.log(userseq);
@@ -229,12 +157,14 @@
 				$.ajax({
 					url : "/deleteuser.admin",
 					method : "POST", // HTTP 메서드 명시
-					data : {userid:userseq},
+					data : {
+						userid : userseq
+					},
 					success : function(resp) {
 						console.log(resp);
 						alert(resp);
-						getcustomerlist();
-						getnewcustomerlist();
+						getCustomerList();
+						getNewCustomerList();
 					},
 					error : function() {
 						alert("삭제 중 오류 발생");
@@ -242,9 +172,62 @@
 				});
 			}
 		});
-		
-		function getcustomerlist() {
+// 찾기버튼 작동 펑션
+		$("#searchbtn").on("click", function() {
+			getSearchUserList();
+
+		});
+// 찾는 유저 불러오는 펑션
+		function getSearchUserList(){
+			let userNickName = $("#search-input").val();
 			$.ajax({
+				url : "/searchuser.admin",
+				data : {userNickName:userNickName}
+			}).done(
+					function(resp) {
+						$("#getuserlist").empty();
+						if (resp.length == 0) {
+							let tr = $("<tr>")
+							let td = $("<td colspan='7'>").html(
+									"회원이 없습니다.");
+
+							tr.append(td);
+							$("#getuserlist").append(tr);
+						} else {
+							
+								let tr = $("<tr>");
+								let nickname = $("<td>").html(
+										resp.nickname);
+								let joinDate = $("<td>").html(
+										resp.joinDate);
+								let lastLogin = $("<td>").html(
+										resp.lastLogin);
+								let warningCount = $("<td>").html(
+										resp.warningCount);
+								let status = $("<td>").html(
+										resp.status);
+								let banbtn = $(
+										"<button class='unban' id = 'banbtn'>")
+										.html("unban");
+								let delbtn = $(
+										"<button class='delete' data-seq='"+ resp.id+"'>")
+										.html("delete");
+								let bantd = $("<td>");
+								bantd.append(banbtn);
+								let deltd = $("<td>");
+								deltd.append(delbtn);
+								tr.append(nickname, joinDate,
+										lastLogin, warningCount,
+										status, bantd, deltd);
+								$("#getuserlist").append(tr);
+							
+						}
+					})
+		}
+// 유저리스트 불러오는 펑션
+		function getCustomerList() {
+			$
+					.ajax({
 						url : "/getcustomerlist.admin",
 						data : {
 							cpage : "${cpage}"
@@ -254,60 +237,75 @@
 							function(resp) {
 								console.log(resp);
 								$("#getuserlist").empty();
-								if(resp.length==0){
+								if (resp.length == 0) {
 									let tr = $("<tr>")
-									let td = $("<td colspan='7'>").html("회원이 없습니다.");
+									let td = $("<td colspan='7'>").html(
+											"회원이 없습니다.");
 
 									tr.append(td);
 									$("#getuserlist").append(tr);
-								}else{
-								for (let i = 0; i < resp.length; i++) {
-									let tr = $("<tr>");
-									let nickname = $("<td>").html(
-											resp[i].nickname);
-									let joinDate = $("<td>").html(
-											resp[i].joinDate);
-									let lastLogin = $("<td>").html(
-											resp[i].lastLogin);
-									let warningCount = $("<td>").html(
-											resp[i].warningCount);
-									let status = $("<td>").html(resp[i].status);
-									let banbtn = $(
-											"<button class='unban' id = 'banbtn'>")
-											.html("unban");
-									let delbtn = $(
-											"<button class='delete' data-seq='"+ resp[i].id+"'>")
-											.html("delete");
-									let bantd = $("<td>");
-									bantd.append(banbtn);
-									let deltd = $("<td>");
-									deltd.append(delbtn);
-									tr.append(nickname, joinDate, lastLogin,
-											warningCount, status, bantd, deltd);
-									$("#getuserlist").append(tr);
-								}}
+								} else {
+									for (let i = 0; i < resp.length; i++) {
+										let tr = $("<tr>");
+										let nickname = $("<td>").html(
+												resp[i].nickname);
+										let joinDate = $("<td>").html(
+												resp[i].joinDate);
+										let lastLogin = $("<td>").html(
+												resp[i].lastLogin);
+										let warningCount = $("<td>").html(
+												resp[i].warningCount);
+										let status = $("<td>").html(
+												resp[i].status);
+										let banbtn = $(
+												"<button class='unban' id = 'banbtn'>")
+												.html("unban");
+										let delbtn = $(
+												"<button class='delete' data-seq='"+ resp[i].id+"'>")
+												.html("delete");
+										let bantd = $("<td>");
+										bantd.append(banbtn);
+										let deltd = $("<td>");
+										deltd.append(delbtn);
+										tr.append(nickname, joinDate,
+												lastLogin, warningCount,
+												status, bantd, deltd);
+										$("#getuserlist").append(tr);
+									}
+								}
 							})
 		};
-		function getnewcustomerlist() {
-		    $.ajax({
-		        url: "/getnewcustomerlist.admin"
-		    }).done(function(resp) {
-		        console.log(" 신규 회원 리스트 응답:", resp);
-		        $("#newuserlist").empty();  // 기존 리스트 초기화
-				console.log(resp.length);
-		        if (resp.length === 0) {
-		            let emptyMessage = $("<div class='text-center text-muted'>").html("신규 가입한 회원이 없습니다.");
-		            $("#newuserlist").append(emptyMessage);
-		        } else {
-		            for (let i = 0; i < resp.length; i++) {
-		                let memberCard = $("<div class='member-card'>");
-		                let memberImage = $("<div class='member-image'>").html("이미지");
-		                let memberName = $("<div class='member-name'>").html(resp[i].nickname);
-		                memberCard.append(memberImage, memberName);
-		                $("#newuserlist").append(memberCard);
-		            }
-		        }
-		    });
+// 		신규회원 정보 불러오는 펑션
+		function getNewCustomerList() {
+			$
+					.ajax({
+						url : "/getnewcustomerlist.admin"
+					})
+					.done(
+							function(resp) {
+								console.log(" 신규 회원 리스트 응답:", resp);
+								$("#newuserlist").empty(); // 기존 리스트 초기화
+								console.log(resp.length);
+								if (resp.length === 0) {
+									let emptyMessage = $(
+											"<div class='text-center text-muted'>")
+											.html("신규 가입한 회원이 없습니다.");
+									$("#newuserlist").append(emptyMessage);
+								} else {
+									for (let i = 0; i < resp.length; i++) {
+										let memberCard = $("<div class='member-card'>");
+										let memberImage = $(
+												"<div class='member-image'>")
+												.html("이미지");
+										let memberName = $(
+												"<div class='member-name'>")
+												.html(resp[i].nickname);
+										memberCard.append(memberImage,
+												memberName);
+										$("#newuserlist").append(memberCard);
+									}
+								}
+							});
 		}
 	</script>
 </body>

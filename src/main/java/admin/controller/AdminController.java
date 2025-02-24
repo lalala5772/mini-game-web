@@ -46,10 +46,9 @@ public class AdminController extends HttpServlet {
 				request.setAttribute("todayPost", todayPost);
 				request.setAttribute("todayPlayGame", todayPlayGame);
 				request.setAttribute("onlineUser", onlineUser);
-				
+
 				request.getRequestDispatcher("/views/admin/adminDashBoard.jsp").forward(request, response);
-				
-				
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -118,11 +117,10 @@ public class AdminController extends HttpServlet {
 
 		} else if (cmd.equals("/getcustomerlist.admin")) {
 			String scpage = request.getParameter("cpage");
-			if (scpage==null) {
-				scpage="1";
+			if (scpage == null) {
+				scpage = "1";
 			}
 			int cpage = Integer.parseInt(scpage);
-			
 
 			int end = cpage * Statics.recordCountPerPage;
 			int start = end - (Statics.recordCountPerPage - 1);
@@ -137,7 +135,7 @@ public class AdminController extends HttpServlet {
 				e.printStackTrace();
 			}
 
-		} else if(cmd.equals("/getnewcustomerlist.admin")) {
+		} else if (cmd.equals("/getnewcustomerlist.admin")) {
 			try {
 				List<UsersDTO> newUserList = dao.getNewUserList();
 				response.getWriter().append(g.toJson(newUserList));
@@ -146,25 +144,35 @@ public class AdminController extends HttpServlet {
 				e.printStackTrace();
 			}
 
-			
-			
 		} else if (cmd.equals("/deleteuser.admin")) {
 			String userseq = request.getParameter("userid");
 			try {
-		        int result = udao.withdraw(userseq);
-		        String isdelete;
-		        if (result > 0) {
-		            isdelete = "삭제 성공";
-		        } else {
-		        	isdelete = "삭제 실패";
-		        }
-		        response.getWriter().append(g.toJson(isdelete));
-	            response.getWriter().flush();
-		    } catch (Exception e) {
-		        e.printStackTrace();
-		    }
+				int result = udao.withdraw(userseq);
+				String isdelete;
+				if (result > 0) {
+					isdelete = "삭제 성공";
+				} else {
+					isdelete = "삭제 실패";
+				}
+				response.getWriter().append(g.toJson(isdelete));
+				response.getWriter().flush();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		} else if (cmd.equals("/searchuser.admin")) {
+			try {
+				String nickName = request.getParameter("userNickName");
+				UsersDTO user = dao.searchByNickName(nickName);
+				response.getWriter().append(g.toJson(user));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			
 			
 		} else if (cmd.equals("/boardlist.admin")) {
+
 			// 현재페이지
 			String scpage = (String) (request.getParameter("cpage"));
 
@@ -252,7 +260,7 @@ public class AdminController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		 doGet(request, response);
+		doGet(request, response);
 	}
 
 }

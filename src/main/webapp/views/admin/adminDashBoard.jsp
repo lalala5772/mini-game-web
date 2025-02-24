@@ -216,7 +216,7 @@
 	<script type="module">
     import ChartManager from '/assets/js/lineChart.js';
     import DoughnutChartManager from '/assets/js/doughnutChart.js';
-    import BarChartManager from '/assets/js/BarChart.js';
+    import BarChartManager from '/assets/js/barChart.js';
 
     async function loadCharts() {
         const lineChartManager = new ChartManager('myLineChart', 'line');
