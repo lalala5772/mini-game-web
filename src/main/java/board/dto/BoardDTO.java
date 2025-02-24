@@ -18,14 +18,12 @@ public class BoardDTO {
 	//게시글 당 댓글 수 저장변수
 	private int boardReplyCount;
 	
-	
+	public BoardDTO() {
+		
+	}
 
-
-	public BoardDTO() {}
-	
 	public BoardDTO(int seq, String writer, String title, String contents, Timestamp writeDate, int viewCount,
 			int isAdmin, String boardCategory) {
-		super();
 		this.seq = seq;
 		this.writer = writer;
 		this.title = title;
@@ -34,7 +32,6 @@ public class BoardDTO {
 		this.viewCount = viewCount;
 		this.isAdmin = isAdmin;
 		this.boardCategory = boardCategory;
-		
 	}
 	
 	public BoardDTO(int seq, String writer, String title, String contents, Timestamp writeDate, int viewCount,
@@ -50,8 +47,6 @@ public class BoardDTO {
 		this.boardCategory = boardCategory;
 		this.boardReplyCount = boardReplyCount;
 	}
-	
-	
 	
 	/* 데이터베이스에서 가지고 온 게시글 저장시간 커스텀 후 출력 */
 	public String getDateWrite() {
@@ -71,109 +66,76 @@ public class BoardDTO {
             return dateWrite;
         }
     }
-	
-	public void setDateWrite(String dateWrite) {
-		this.dateWrite = dateWrite;
-	}
-
-
-	public int getBoardReplyCount() {
-        return boardReplyCount;
-    }
-
-
-	public String getWriter() {
-		return writer;
-	}
-
-
-
-
-
-	public void setWriter(String writer) {
-		this.writer = writer;
-	}
-
-
-
-
 
 	public int getSeq() {
 		return seq;
 	}
 
-
 	public void setSeq(int seq) {
 		this.seq = seq;
 	}
 
+	public String getWriter() {
+		return writer;
+	}
+
+	public void setWriter(String writer) {
+		this.writer = writer;
+	}
 
 	public String getTitle() {
 		return title;
 	}
 
-
 	public void setTitle(String title) {
 		this.title = title;
 	}
-
 
 	public String getContents() {
 		return contents;
 	}
 
-
 	public void setContents(String contents) {
 		this.contents = contents;
 	}
-
 
 	public Timestamp getWriteDate() {
 		return writeDate;
 	}
 
-
 	public void setWriteDate(Timestamp writeDate) {
 		this.writeDate = writeDate;
 	}
-
 
 	public int getViewCount() {
 		return viewCount;
 	}
 
-
 	public void setViewCount(int viewCount) {
 		this.viewCount = viewCount;
 	}
 
-
-	public int isAdmin() {
+	public int getIsAdmin() {
 		return isAdmin;
 	}
 
-
-	public void setNotice(int isAdmin) {
+	public void setIsAdmin(int isAdmin) {
 		this.isAdmin = isAdmin;
 	}
-
 
 	public String getBoardCategory() {
 		return boardCategory;
 	}
 
-
 	public void setBoardCategory(String boardCategory) {
 		this.boardCategory = boardCategory;
 	}
 	
-	// 관리자 사용 250223 ::s 
-    public int getIsAdmin() {  // JSP EL에서 이 메서드를 호출함
-        return isAdmin;
+	public int getBoardReplyCount() {
+        return boardReplyCount;
     }
-
-    public void setIsAdmin(int isAdmin) {
-        this.isAdmin = isAdmin;
-    }
- // 관리자 사용 250223 ::e
+	
+	public void setBoardReplyCount(int boardReplyCount) {
+		this.boardReplyCount = boardReplyCount;
+	}
 }

@@ -11,7 +11,6 @@ public class FilesDTO {
 	Timestamp uploadDate;
 	
 	public FilesDTO(int seq, int parentSeq, String id, String originName, String fileName, Timestamp uploadDate) {
-		super();
 		this.seq = seq;
 		this.parentSeq = parentSeq;
 		this.id = id;
@@ -24,24 +23,48 @@ public class FilesDTO {
 		return seq;
 	}
 
+	public void setSeq(int seq) {
+		this.seq = seq;
+	}
+
 	public int getParentSeq() {
 		return parentSeq;
+	}
+
+	public void setParentSeq(int parentSeq) {
+		this.parentSeq = parentSeq;
 	}
 
 	public String getId() {
 		return id;
 	}
 
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	public String getOriginName() {
 		return originName;
+	}
+
+	public void setOriginName(String originName) {
+		this.originName = originName;
 	}
 
 	public String getFileName() {
 		return fileName;
 	}
 
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
 	public Timestamp getUploadDate() {
 		return uploadDate;
+	}
+
+	public void setUploadDate(Timestamp uploadDate) {
+		this.uploadDate = uploadDate;
 	}
 
 }

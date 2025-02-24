@@ -23,6 +23,7 @@ body{
     font-size: 35px;
     padding: 30px 10px;
     padding-top:300px;
+    margin-top: 0; 
 }
 
 /* MAIN CONTENT - POST SECTION*/
@@ -131,11 +132,36 @@ body{
     display: flex;
 }
 
-
+.file-area{
+    /* background-color: rgb(250, 250, 250); */
+    border-bottom: 1px solid rgb(235, 235, 235);
+    display: flex;
+    padding: 10px 0 10px 30px;
+    gap: 20px;
+}
+.file-title{
+    font-size: 14px;
+}
+.file-list{
+    display: flex;
+    gap: 15px;
+    font-size: 12px;
+    
+}
+.content-cell a{
+    color: gray;
+    text-decoration: none;
+    vertical-align: middle;
+}
+.content-cell a:visited {
+    color: gray;
+}
 
 .post-contents{
     margin: 20px 10px;
     padding: 50px 50px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
 }
 
 .post-btn-area{
