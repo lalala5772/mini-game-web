@@ -44,14 +44,10 @@ public class MyPageController  extends HttpServlet {
 
                 // 사용자의 전체 게시글 목록
                 List<BoardDTO> userBoardList = userBoardDao.userBoardList(loginUser.getId());
-                
-//                GameRecordDTO gameRecordDTO = 
 
-                // 데이터 저장
-//                request.setAttribute("loginUser", loginUser);
+                request.setAttribute("loginUser", loginUser);
                 request.setAttribute("highestScores", highestScores);
                 request.setAttribute("userBoardList", userBoardList);
-
 
                 // 마이페이지 JSP로 이동
                 request.getRequestDispatcher("/views/mypage/mypage.jsp").forward(request, response);

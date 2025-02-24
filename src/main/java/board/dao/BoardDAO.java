@@ -136,32 +136,37 @@ public class BoardDAO {
 	    }
 	}
 	
-	// 특정 유저의 게시판 목록 출력
-	public List<BoardDTO> userBoardList(String nickname) throws Exception {
-		List<BoardDTO> userBoardList = new ArrayList<>();
-		String sql = "SELECT * FROM board WHERE writer = ?";
+	// 특정 유저의 게시판 목록 출력 
+		public List<BoardDTO> userBoardList(String nickname) throws Exception {
+		    List<BoardDTO> userBoardList = new ArrayList<>();
+		    String sql = "SELECT * FROM board WHERE writer = ?";
 
-		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
+		    try (Connection con = this.getConnection();
+		         PreparedStatement pstat = con.prepareStatement(sql)) {
 
-			pstat.setString(1, nickname);
-			try (ResultSet rs = pstat.executeQuery()) {
-				if (!rs.next()) {
-					System.out.println("해당 user nickname에 대한 게시판 기록이 없습니다.");
-					return null;
-				}
-				while (rs.next()) {
-					BoardDTO userBoard = new BoardDTO(rs.getInt("seq"), rs.getString("writer"), rs.getString("title"),
-							rs.getString("contents"), rs.getTimestamp("writeDate"), rs.getInt("viewCount"),
-							rs.getInt("isAdmin"), rs.getString("boardCategory"));
-					userBoardList.add(userBoard);
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+		        pstat.setString(1, nickname);
+		        try (ResultSet rs = pstat.executeQuery()) {
+		            while (rs.next()) {  // 첫 번째 데이터를 건너뛰지 않도록 수정
+		                BoardDTO userBoard = new BoardDTO(
+		                    rs.getInt("seq"),
+		                    rs.getString("writer"),
+		                    rs.getString("title"),
+		                    rs.getString("contents"),
+		                    rs.getTimestamp("writeDate"),
+		                    rs.getInt("viewCount"),
+		                    rs.getInt("isAdmin"),
+		                    rs.getString("boardCategory")
+		                );
+		                userBoardList.add(userBoard);
+		            }
+		        }
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		        throw e;
+		    }
+
+		    return userBoardList;  // null이 아니라 빈 리스트라도 반환
 		}
-		return userBoardList;
-	}
 	
 	
 	// 공지게시글 총 갯수 확인
