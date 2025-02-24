@@ -178,17 +178,18 @@ public class AdminDAO {
 
 	public UsersDTO searchByNickName(String nickName) throws Exception {
 		String sql = "select * from users where nickname = ? ";
-
+		UsersDTO user = new UsersDTO(sql, sql, sql, sql, sql, sql, sql, null, 0, 0, 0, 0, null);
 		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 			pstat.setString(1, nickName);
 			try (ResultSet rs = pstat.executeQuery();) {
-				rs.next();
+				while (rs.next()) {
 
-				UsersDTO user = new UsersDTO(rs.getString("id"), rs.getString("pw"), rs.getString("name"),
-						rs.getString("nickname"), rs.getString("phone"), rs.getString("email"), rs.getString("rnum"),
-						rs.getTimestamp("joinDate"), rs.getInt("warningCount"), rs.getInt("withdraw"),
-						rs.getInt("status"), rs.getInt("isAdmin"), rs.getTimestamp("lastLogin"));
-
+					user = new UsersDTO(rs.getString("id"), rs.getString("pw"), rs.getString("name"),
+							rs.getString("nickname"), rs.getString("phone"), rs.getString("email"),
+							rs.getString("rnum"), rs.getTimestamp("joinDate"), rs.getInt("warningCount"),
+							rs.getInt("withdraw"), rs.getInt("status"), rs.getInt("isAdmin"),
+							rs.getTimestamp("lastLogin"));
+				}
 				return user;
 			}
 		}

@@ -214,9 +214,9 @@
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<!-- 사용자 정의 차트 모듈 -->
 	<script type="module">
-    import ChartManager from '/assets/js/lineChart.js';
-    import DoughnutChartManager from '/assets/js/doughnutChart.js';
-    import BarChartManager from '/assets/js/barChart.js';
+    import ChartManager from '${pageContext.request.contextPath}/assets/js/lineChart.js';
+    import DoughnutChartManager from '${pageContext.request.contextPath}/assets/js/doughnutChart.js';
+    import BarChartManager from '${pageContext.request.contextPath}/assets/js/barChart.js';
 
     async function loadCharts() {
         const lineChartManager = new ChartManager('myLineChart', 'line');
