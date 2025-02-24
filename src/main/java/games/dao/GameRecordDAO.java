@@ -4,7 +4,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -116,45 +118,115 @@ public class GameRecordDAO {
     }
     
     //특정 유저의 점수(최고기록) 반환  
-    public GameRecordDTO getGameScore(String userid) throws Exception {
-    	 
-    	//특정 유저의 게임별 최대 점수를 조회
-    	//점수가 존재하지 않을 경우 0반환 
-        String sql = "SELECT NVL(MAX(gr.score), 0) AS max_score\r\n"
-        		+ "FROM games g\r\n"
-        		+ "LEFT JOIN gamerecord gr ON g.seq = gr.gameid AND gr.userid = ?\r\n"
-        		+ "WHERE g.seq IN (4001, 4002, 4003, 4004, 4005)\r\n"
-        		+ "GROUP BY g.gamename";
+    public Map<String, Integer> getHighestScoresByGame(String userId) throws Exception {
+        Map<String, Integer> highestScores = new HashMap<>();
         
+        String sql = "SELECT gameId, MAX(record) AS maxScore FROM gamerecord WHERE userid = ? and gameid BETWEEN 4001 AND 4006 GROUP BY gameid";
+
         try (Connection con = this.getConnection();
              PreparedStatement pstat = con.prepareStatement(sql)) {
-            
-            pstat.setString(1, userid);
-            
-            try (ResultSet rs = pstat.executeQuery()) {
-                if (!rs.next()) {
-                    System.out.println("해당 userid에 대한 게임 기록이 없습니다.");
-                    return null;
-                }
+            pstat.setString(1, userId);
 
-                // 결과 처리
-                // 수정 필요 
-                GameRecordDTO gameMypage = new GameRecordDTO(
-                    rs.getInt("seq"),
-                    rs.getString("userid"),
-                    rs.getInt("gameid"),
-                    rs.getInt("record"),
-                    rs.getTimestamp("playtime"),
-                    rs.getTimestamp("duration")
-                );
-                
-                return gameMypage;
+            try (ResultSet rs = pstat.executeQuery()) {
+                while (rs.next()) { // 여러 개의 결과 처리 가능하도록 수정
+                    int gameId = rs.getInt("gameid");
+                    int maxScore = rs.getInt("maxScore");
+                    highestScores.put(String.valueOf(gameId), maxScore);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
-        }        
+        }
+        
+        return highestScores;
     }
+
+    	
+//    }
+    
+  //특정 유저의 점수(최고기록) 반환  
+//    public GameRecordDTO getGameScore(String userid) throws Exception {
+//    	 
+//    	//특정 유저의 게임별 최대 점수를 조회
+//    	//점수가 존재하지 않을 경우 0반환 
+//        String sql = "SELECT NVL(MAX(gr.score), 0) AS max_score\r\n"
+//        		+ "FROM games g\r\n"
+//        		+ "LEFT JOIN gamerecord gr ON g.seq = gr.gameid AND gr.userid = ?\r\n"
+//        		+ "WHERE g.seq IN (4001, 4002, 4003, 4004, 4005)\r\n"
+//        		+ "GROUP BY g.gamename";
+//        
+//        try (Connection con = this.getConnection();
+//             PreparedStatement pstat = con.prepareStatement(sql)) {
+//            
+//            pstat.setString(1, userid);
+//            
+//            try (ResultSet rs = pstat.executeQuery()) {
+//                if (!rs.next()) {
+//                    System.out.println("해당 userid에 대한 게임 기록이 없습니다.");
+//                    return null;
+//                }
+//
+//                // 결과 처리
+//                // 수정 필요 
+//                GameRecordDTO gameMypage = new GameRecordDTO(
+//                    rs.getInt("seq"),
+//                    rs.getString("userid"),
+//                    rs.getInt("gameid"),
+//                    rs.getInt("record"),
+//                    rs.getTimestamp("playtime"),
+//                    rs.getTimestamp("duration")
+//                );
+//                
+//                return gameMypage;
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            throw e;
+//        }        
+//    }
+    
+    
+    
+//    public GameRecordDTO getGameScore(String userid) throws Exception {
+//    	 
+//    	//특정 유저의 게임별 최대 점수를 조회
+//    	//점수가 존재하지 않을 경우 0반환 
+//        String sql = "SELECT NVL(MAX(gr.score), 0) AS max_score\r\n"
+//        		+ "FROM games g\r\n"
+//        		+ "LEFT JOIN gamerecord gr ON g.seq = gr.gameid AND gr.userid = ?\r\n"
+//        		+ "WHERE g.seq IN (4001, 4002, 4003, 4004, 4005)\r\n"
+//        		+ "GROUP BY g.gamename";
+//        
+//        try (Connection con = this.getConnection();
+//             PreparedStatement pstat = con.prepareStatement(sql)) {
+//            
+//            pstat.setString(1, userid);
+//            
+//            try (ResultSet rs = pstat.executeQuery()) {
+//                if (!rs.next()) {
+//                    System.out.println("해당 userid에 대한 게임 기록이 없습니다.");
+//                    return null;
+//                }
+//
+//                // 결과 처리
+//                // 수정 필요 
+//                GameRecordDTO gameMypage = new GameRecordDTO(
+//                    rs.getInt("seq"),
+//                    rs.getString("userid"),
+//                    rs.getInt("gameid"),
+//                    rs.getInt("record"),
+//                    rs.getTimestamp("playtime"),
+//                    rs.getTimestamp("duration")
+//                );
+//                
+//                return gameMypage;
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            throw e;
+//        }        
+//    }
     
     
     //특정 유저의 게임별 랭킹 

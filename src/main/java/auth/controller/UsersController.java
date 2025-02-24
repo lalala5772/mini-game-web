@@ -187,13 +187,13 @@ public class UsersController extends HttpServlet {
 		            response.getWriter().write("fail");
 		        }
 			}
-			else if (cmd.equals("/chat.users")){
-				HttpSession session = request.getSession();
-		        UsersDTO loginUser = (UsersDTO) session.getAttribute("id"); 
-
-		        request.setAttribute("loginUser", loginUser);
-				request.getRequestDispatcher("/views/chat/chat.jsp").forward(request, response);
-			}
+//			else if (cmd.equals("/chat.users")){
+//				HttpSession session = request.getSession();
+//		        UsersDTO loginUser = (UsersDTO) session.getAttribute("id"); 
+//
+//		        request.setAttribute("loginUser", loginUser);
+//				request.getRequestDispatcher("/views/chat/chat.jsp").forward(request, response);
+//			}
 			// 
 //			else if (cmd.equals("/checkDuplicate.users")) {
 //				response.setContentType("text/plain;charset=UTF-8");

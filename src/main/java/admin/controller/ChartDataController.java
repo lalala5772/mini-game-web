@@ -15,7 +15,7 @@ import admin.dao.AdminDAO;
 
 @WebServlet("*.chartdata")
 public class ChartDataController extends HttpServlet {
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String cmd = request.getRequestURI();
 		System.out.println(cmd);
 		AdminDAO dao = AdminDAO.getInstance();
