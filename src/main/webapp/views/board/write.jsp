@@ -1,44 +1,84 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>  
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>게시글 작성하기</title>
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<link rel="stylesheet" href="/assets/css/layout.css">
+<link rel="stylesheet" href="/assets/css/write.css">
 <link rel="stylesheet" href="/assets/summernote/summernote-lite.css">
 <script src="/assets/summernote/summernote-lite.js"></script>
 <script src="/assets/summernote/summernote-ko-KR.js"></script>
 <script>
-    $(document).ready(function() {
+	$(function(){
         $('#summernote').summernote({
-            height: 300,                 // 에디터 높이
-            minHeight: null,             // 최소 높이
-            maxHeight: null,             // 최대 높이
-            focus: true,                 // 에디터 로딩후 포커스를 맞출지 여부
-            lang: "ko-KR",               // 한글 설정
-            placeholder: '최대 2048자까지 쓸 수 있습니다',  // placeholder 설정
+            height: 350,
+            lang: 'ko-KR',
             toolbar: [
-                // 툴바 설정
                 ['style', ['style']],
-                ['font', ['bold', 'italic', 'underline', 'clear']],
-                ['fontname', ['fontname']],
+                ['font', ['bold', 'underline', 'clear']],
                 ['color', ['color']],
                 ['para', ['ul', 'ol', 'paragraph']],
                 //['table', ['table']],
-                ['insert', ['link', 'picture', 'video']],
-                // ['view', ['fullscreen', 'codeview', 'help']], // view 그룹 제거
+                ['insert', ['link', 'video']], // 'picture'
+                // ['view', ['fullscreen', 'codeview', 'help']]
             ]
         });
-    });
+		
+        console.log("${id}");
+        console.log("${id}" == "admin");
+        if("${id}" == "admin"){
+        	let boardCategorySelect = $("<select>").attr({"id": "boardCategorySelect", "name": "boardCategory"});
+        	let optionNotice = $("<option>").attr("value", "notice").html("공지사항");
+        	let optionGeneral = $("<option>").attr("value", "general").html("자유 게시판");
+        	
+        	boardCategorySelect.append(optionNotice, optionGeneral);
+        	
+        	$("#writeForm").prepend(boardCategorySelect);
+        }else {
+            // admin이 아니면 기본 카테고리로 general 설정
+            let hiddenInput = $("<input>").attr({
+                "type": "hidden",
+                "name": "boardCategory",
+                "value": "general"
+            });
+            $("#writeForm").prepend(hiddenInput);
+        }
+	});
+	
 </script>
 </head>
 <body>
-	<main class="main-content">
-        <form method="post">
-              <textarea id="summernote" name="editordata"></textarea>
-        </form>
+
+    <%@ include file="/includes/header.jsp" %>
+
+    <main class="main-content">
+        <div class="write-container">
+            <div class="write-header">
+                <h2>게시글 작성</h2>
+                <button type="submit" class="submit-btn" form="writeForm">등록</button>
+            </div>
+
+            <form id="writeForm" action="/write.board" method="post" enctype="multipart/form-data">
+                <div class="title-input">
+                    <input type="text" name="title" placeholder="제목을 입력해주세요" required>
+                </div>
+	
+				<input type="file" name="file1">   	
+				<input type="file" name="file2">
+
+                <div class="content-input">
+                    <textarea id="summernote" name="contents" required></textarea>
+                </div>
+            </form>
+        </div>
     </main>
+
+    <%@ include file="/includes/footer.jsp" %>
+    
 </body>
+
 </html>

@@ -1,0 +1,117 @@
+@charset "UTF-8";
+* {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        
+        
+        
+
+        body {
+            
+            line-height: 1.5;
+            color: #333;
+        }
+
+        .write-container {
+            max-width: 90%;
+            margin: 0 auto;
+            padding: 20px;
+            padding-top:200px;
+            background-color:white;
+        }
+
+        .write-header {
+            display: flex;
+            justify-content: right;
+            
+            margin-bottom: 20px;
+        }
+        
+
+        .write-header h2 {
+            font-size: 24px;
+            font-weight: bold;
+            color:black;
+        }
+
+        .update-btn,.back-btn{
+            background-color: #19ce60;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin :5px;
+        }
+
+        .update-btn:hover,.back-btn:hover{
+            background-color: #17b854;
+        }
+
+        .title-input {
+            margin-bottom: 20px;
+        }
+
+        .title-input input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            margin-top:10px;
+            margin-bottom:10px;
+        }
+
+        .title-input input:focus {
+            outline: none;
+            border-color: #19ce60;
+        }
+
+        .content-input {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-top : 10px;
+        }
+
+        .note-editor {
+            border-radius: 4px;
+        }
+
+        .note-toolbar {
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .file-list>h3{
+        
+        margin-top:10px;
+        margin-left:5px;
+        }
+        
+        .file-list ul>li{
+        list-style-type: none;
+        height:50px;
+        display: flex;
+  		align-items: center;
+  		margin : 10px;
+        
+        }
+        
+        .delete-btn{
+        	width:50px;
+        	margin: 10px;
+        	background-color : none;
+        }
+        
+        #contentTilte{
+        
+        margin-top:10px;
+        }
+        
+        #file1,#file2{
+        border:0px;
+        }

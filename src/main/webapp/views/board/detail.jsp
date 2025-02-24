@@ -6,8 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>${post.title }</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/detail.css">
-<link rel="stylesheet" href="/assets/css/reset.css">
+<link rel="stylesheet" href="/assets/css/detail.css">
+<!--             <link rel="stylesheet" href="/assets/css/reset.css"> -->
 <link rel="stylesheet" href="/assets/css/layout.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
@@ -37,7 +37,7 @@
             	let replyLi = $("<li>").addClass("reply-li");
             	let reply = $("<div>").addClass("reply").attr("id", replyData.seq);
             	let replyWriter = $("<div>").addClass("reply-writer").html(replyData.writer);
-            	let replyContents = $("<div>").css("white-space", "pre-wrap").addClass("reply-contents").html(replyData.contents);
+            	let replyContents = $("<div>").css({"white-space": "pre-wrap", "word-wrap": "break-word"}).addClass("reply-contents").html(replyData.contents);
             	let replyInfo = $("<div>").addClass("reply-info");
             	let replyWriteDate = $("<p>").addClass("reply-write-date").html(replyData.writeDate);
             	replyInfo.append(replyWriteDate);
@@ -195,7 +195,11 @@
 	
 	    // 게시글 수정 버튼 클릭 이벤트
 	    $("#updatePostBtn").on("click", function(){
+	    	let last_cpage = sessionStorage.getItem("last_cpage");
+	    	let seq = "${post.seq}";
+	    	let boardCategory = "${post.boardCategory}";
 	    	
+	    	location.href = "/updateList.board?seq=" + seq + "&boardCategory=" + boardCategory;	
 	    });
 	    
 
@@ -261,21 +265,22 @@
                         <button class="share-btn">
                             <i class="fa-regular fa-share-from-square"></i>
                         </button>
-					
-<!--                         <div class="post-menu" id="postMenu"> -->
-<!--                             <button id="menuBtn" class="menu-btn"> -->
-<!--                                 <i class="fa-solid fa-ellipsis-vertical fa-2xs"></i> -->
-<!--                             </button> -->
-<!--                             <div id="menuDropdown" class="menu-dropdown"> -->
-<!--                             	<button class="menu-item" id="updatePostBtn">수정하기</button> -->
-<!--                                 <button class="menu-item" id="deletePostBtn">삭제하기</button> -->
-<!--                             </div> -->
-<!--                         </div> -->
-                    
-                        
                     </div>
                 </div>
-
+                
+				<c:if test="${not empty files}">
+					<div class="file-area">
+						<div class="file-title">첨부파일</div>
+						<div class="file-list">
+							<c:forEach var="file" items="${files }">
+                				<div class="content-cell" id="file" name="file">
+									<a href="/download.files?fileName=${file.fileName }&originName=${file.originName }">${file.originName }</a>
+	                			</div>
+        	        		</c:forEach>
+    	            	</div>
+					</div>
+                </c:if>
+				
                 <div class="post-contents">
                 	${post.contents }              
                 </div>
