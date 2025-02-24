@@ -237,7 +237,6 @@ public class AdminController extends HttpServlet {
 				request.getRequestDispatcher("/views/admin/adminBoards.jsp").forward(request, response);
 
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		} else if (cmd.equals("/getboardlist.admin")) {
