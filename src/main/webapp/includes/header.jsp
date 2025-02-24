@@ -5,10 +5,15 @@
 <%
 	/* login 완료 후 login.users 에서 받아온 user 세션 정보 */
     UsersDTO loginUser = (UsersDTO) session.getAttribute("loginUser");
-    System.out.println("헤더에서 loginUser: " + loginUser);
-    if (loginUser != null) {
-        System.out.println("로그인된 사용자 닉네임: " + loginUser.getNickname());
-    }
+	if(loginUser == null){
+		
+	}
+	
+   /*  System.out.println("헤더에서 loginUser: " + loginUser);
+    if (loginUser == null) {
+         // 로그인 안 되어 있으면 로그인 페이지로 리디렉션
+        return;
+    } */
 %>
 
 <header class="header">
@@ -22,7 +27,7 @@
             <ul class="nav-list">
                 <li><a href="/games" class="nav-link">게임하기</a></li>
                 <li><a href="views/board/generalList.jsp" class="nav-link">게시판</a></li>
-                <li><a href="/chat.users" class="nav-link">고객센터</a></li> <!-- 임시 경로 -->
+                <li><a href="/" class="nav-link">고객센터</a></li> <!-- 임시 경로 -->
                 <li><a href="/dashboard.admin" class="nav-link">관리자 페이지</a></li> 
             </ul>
         </nav>
