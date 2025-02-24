@@ -32,7 +32,7 @@ public class UsersDAO {
         return ds.getConnection();
     }
     
-    
+    //로그인 기능 구현 : 사용자의 아이디와 패스워드를 받아 사용자 인스턴스를 반환 
     public UsersDTO login(String id, String pw) throws Exception {
         String sql = "SELECT id, name, nickname, phone, email FROM users WHERE id = ? AND pw = ?";
 
@@ -40,7 +40,7 @@ public class UsersDAO {
              PreparedStatement pstat = con.prepareStatement(sql)) {
 
             pstat.setString(1, id);
-            pstat.setString(2, pw); // 만약 암호화된 비밀번호를 사용한다면, 여기서 비교 방식을 변경해야 함
+            pstat.setString(2, pw);
 
             try (ResultSet rs = pstat.executeQuery()) {
                 if (rs.next()) {
@@ -56,19 +56,20 @@ public class UsersDAO {
                 }
             }
         }
-        return null;
+        return null; 
     }
 
-
     // 중복 검사 메서드
+    // field - db 칼럼 , value - db 칼럼 값 
     public boolean isDuplicate(String field, String value) {
         String query = "SELECT COUNT(*) FROM USERS WHERE " + field + " = ?";
+        
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setString(1, value);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
-                return rs.getInt(1) > 0; // 중복이면 true, 아니면 false
+                return rs.getInt(1) > 0; 
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -99,7 +100,7 @@ public class UsersDAO {
     //selectAll
     public List<UsersDTO> userList() throws Exception {
         List<UsersDTO> userList = new ArrayList<>();
-        String sql = "SELECT * FROM USERS";
+        String sql = "SELECT * FROM users";
         
         try (Connection con = this.getConnection();
              PreparedStatement pstat = con.prepareStatement(sql)) {
@@ -119,6 +120,24 @@ public class UsersDAO {
         }        
         return userList;
     }
+    
+    public boolean checkPassword(String id, String pw) throws Exception  {
+        String sql = "SELECT pw FROM users WHERE id = ?";
+        
+        UsersDTO dto = null;
+        try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
+            pstat.setString(1, id);
+                       
+            try (ResultSet rs = pstat.executeQuery()) {
+            	if (rs.next()) {
+                    String dbPassword = rs.getString("password");
+                    return dbPassword.equals(pw); // 해싱된 비밀번호 비교할 경우 BCrypt 사용
+                }
+            }
+        }
+        return false;
+    }
+    
     
  // 마이페이지
     public UsersDTO myPage(String id) throws Exception {
@@ -181,7 +200,8 @@ public class UsersDAO {
  	}
  	
  	public int withdraw(String id) throws Exception { // 탈퇴
-		String sql = "delete from users where id = ?";
+		String sql = "delete from users where id = '?'";
+		
 		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 			pstat.setString(1, id);
 			int result = pstat.executeUpdate();

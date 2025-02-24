@@ -1,0 +1,383 @@
+body {
+    color: var(--color-white);
+    background-color: var(--color-black);
+}
+
+/* 메인 콘텐츠 영역 */
+section {
+	max-width: 1440px; /* 최대 너비 1440px */
+	padding: 0 5%; /* 좌우 여백을 5%로 설정하여 자연스럽게 반응형으로 처리 */
+	/* 그 안의 내용물 최대 값 : 1296px = 90% */
+    margin: 0 auto;
+}
+
+/* .intro-section ::s */
+.intro-section {
+    min-height: 100vh;
+    padding: calc(80px + 4rem) 8%;
+    display: flex;
+    flex-direction: column;
+}
+
+.title-container {
+    margin-bottom: 4rem;
+}
+
+.title-container h1 {
+    font-size: 3.5rem;
+    line-height: 1.2;
+    font-weight: bold;
+}
+
+.content-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    height: 100%;
+}
+
+.image-container {
+    background-color: rgba(255,255,255,0.1);
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.right-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.login-box {
+    background: rgba(255,255,255,0.1);
+    border-radius: 15px;
+    padding: 2rem;
+}
+
+.login-button {
+    width: 100%;
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    padding: 0.8rem;
+    border-radius: 8px;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-bottom: 1.5rem;
+}
+
+.login-options {
+    text-align: center;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.login-options > span{
+    margin-bottom: 0.5rem;
+}
+
+.login-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.login-links a {
+    color: #666;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.chat-interface {
+    background: rgba(255,255,255,0.1);
+    border-radius: 15px;
+    padding: 2rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-messages {
+    flex-grow: 1;
+    margin-bottom: 1rem;
+}
+
+.message {
+    background: rgba(255,255,255,0.1);
+    padding: 1rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+
+.message-input {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: rgba(255,255,255,0.1);
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+.message-input input {
+    flex-grow: 1;
+    background: transparent;
+    border: none;
+    color: var(--color-white);
+    outline: none;
+}
+/* .intro-section ::e */
+
+
+/* .first-section ::s */
+.first-section {
+    /* height: 100vh; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.vertical-line {
+    width: 1px;
+    height: 200px;
+    background: #fff;
+    margin-bottom: 2rem;
+}
+
+.quote {
+    font-size: 2.5rem;
+    text-align: center;
+    max-width: 800px;
+    line-height: 1.4;
+    color: #999;
+}
+/* .first-section ::e */
+
+/* .techx-section ::s */
+.techx-section {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+#particle-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.content-wrapper {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+.techx-text {
+    font-size: 8rem;
+    font-weight: bold;
+    transform-origin: center;
+    margin-bottom: 2rem;
+    opacity: 0;
+    transform: scale(5);
+    font-size: 230px;
+}
+
+.description {
+    opacity: 0;
+}
+
+.description h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.description p {
+    font-size: 1.2rem;
+    color: #999;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+/* .techx-section ::e */
+
+
+/* 인기게임 ::s */
+.popular-section{
+padding-bottom: 8rem;
+}
+
+.popular-section .category {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-primary);
+}
+
+.popular-section .title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+}
+
+.games-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.game-card {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    transition: height 0.5s ease;
+    cursor: pointer;
+}
+
+.game-card:hover {
+    height: 400px;
+}
+
+.game-content {
+    position: relative;
+    padding: 2rem;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.game-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to right, rgba(0,0,0,0.7), rgba(0,0,0,0.3));
+    z-index: 1;
+}
+
+.game-content > * {
+    position: relative;
+    z-index: 2;
+}
+
+.game-type {
+    font-size: 0.9rem;
+    color: #ccc;
+    margin-bottom: 0.5rem;
+}
+
+.popular-section .game-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.game-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.tag {
+    background: rgba(255,255,255,0.2);
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-size: 0.8rem;
+}
+
+.game-description {
+    margin-top: 2rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease;
+}
+
+.game-description ul li{
+    line-height: 1.6;
+}
+
+.game-card:hover .game-description {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.play-button {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.75rem 2rem;
+    background: #fff;
+    color: #000;
+    text-decoration: none;
+    border-radius: 2rem;
+    font-weight: bold;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease;
+}
+
+.game-card:hover .play-button {
+    opacity: 1;
+    transform: translateY(0);
+}
+/* 인기게임 ::e */
+
+
+
+
+
+/* 미디어 쿼리: 화면 크기 768px 이하 */
+@media screen and (max-width: 768px) {
+    /* 메인 콘텐츠 영역 */
+    section {
+		max-width: 90vw; /* 최대 너비 90% */
+	}
+
+    /* .intro-section ::s */
+    .intro-section {
+        padding: calc(80px + 2rem) 5%;
+    }
+
+    .title-container h1 {
+        font-size: 2.5rem;
+    }
+
+    .content-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .image-container {
+        height: 300px;
+    }
+    /* .intro-section ::e */   
+    
+    /* Text Scale ::s */
+    .techx-text {
+        font-size: 8rem;
+    }
+    /* Text Scale ::e */
+
+    /* 인기게임 ::s */
+    .game-card:hover {
+        height: auto;
+    }
+    /* 인기게임 ::e */
+}

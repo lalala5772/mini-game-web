@@ -44,5 +44,6 @@ public class GameRecordDTO {
 	public Timestamp getDuration() {
 		return duration;
 	}
+	
 
 }
