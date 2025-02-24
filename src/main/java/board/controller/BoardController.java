@@ -48,8 +48,8 @@ public class BoardController extends HttpServlet {
 
 		
 		try {
-			if (cmd.equals("/add.board")) {
-
+			if (cmd.equals("/faq.board")) {
+				response.sendRedirect("/views/auth/faq.jsp");
 			}
 			//공지사항게시판 목록 출력
 			else if (cmd.equals("/noticeList.board")) {
