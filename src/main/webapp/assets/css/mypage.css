@@ -556,6 +556,37 @@
 }
 
 /* Table 1 */
+#pagination {
+	position: absolute;
+	top: 520px; /* 테이블 하단으로부터 적절한 위치로 조정 가능 */
+	left: 750px; /* 테이블과 왼쪽 정렬 */
+	display: flex;
+	gap: 8px;
+	padding: 100px;
+}
+
+#pagination button {
+	padding: 20px 12px;
+	font-size: 14px;
+	background-color: #ffffff;
+	color: #000000;
+	border: 1px solid #DEE1E6;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+#pagination button:hover {
+	background-color: #ACD5F5;
+	color: black;
+}
+
+#pagination button:disabled {
+	background-color: #6e7787;
+	color: white;
+	cursor: default;
+}
+
+
 table {
 	position: absolute;
 	top: 200px;
@@ -570,9 +601,10 @@ table {
 
 th, td {
 	text-align: start;
-	padding: 0px;
+	padding: 5px;
 	border-bottom: 1px solid white;
 }
+
 
 th:nth-child(1), td:nth-child(1) {
 	width: 50px;

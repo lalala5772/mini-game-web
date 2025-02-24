@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ page import="javax.servlet.http.HttpSession" %>
         <!DOCTYPE html>
         <html>
 
@@ -33,12 +34,13 @@
 	                window.location.href = url;
 	            }
             </script>
-
+            
+         
         </head>
-
         <body>
 			        <!-- 공통 Header -->
 			<%@ include file="/includes/header.jsp" %>
+			
 			
 			<!-- 메인 화면 ::s-->
 			<main>
@@ -73,7 +75,94 @@
 			                <%
 			                }
 			                %>
-			               <div class="chat-interface">
+			               <!-- <div class="chat-interface">
+                                    <div class="chat-messages">
+                                        <div class="message">사용자 1: 어떻구 저쩌구?</div>
+                                        <div class="message">사용자 2: 어쩌구 저쩌구~</div>
+                                        <div class="message">사용자 2: 어쩌구 저쩌구~</div>
+                                    </div>
+                                    <div class="message-input">
+                                        <input type="text" placeholder="Message">
+                                        <button style="background: none; border: none; cursor: pointer;">
+                                            <i class="fa-regular fa-paper-plane"
+                                                style="color: var(--color-primary);"></i>
+                                        </button>
+                                    </div>
+                            </div> -->
+                             <%
+			                if (loginUser != null) {
+			                %>
+                            
+                             <script>
+		    let ws;
+		    let nickname = "<%= loginUser.getNickname() %>";  // 서버에서 JSP로 전달된 닉네임
+		
+		    function connectWebSocket() {
+		        ws = new WebSocket("ws://" + window.location.host + "/chat");
+		
+		        ws.onopen = function () {
+		            console.log("✅ WebSocket 연결됨");
+		        };
+		
+		        ws.onmessage = function (event) {
+		            displayMessage(event.data);
+		        };
+		
+		        ws.onerror = function (error) {
+		            console.error("❌ WebSocket 오류:", error);
+		        };
+		
+		        ws.onclose = function () {
+		            console.log("❌ WebSocket 연결 종료됨");
+		        };
+		    }
+		
+		    function sendMessage() {
+		        let messageInput = document.getElementById("message-input");
+		        let messageText = messageInput.value.trim();
+		        
+		        if (messageText !== "") {
+		            let fullMessage = nickname + ": " + messageText;
+		            ws.send(fullMessage);
+		            messageInput.value = "";  // 입력 필드 초기화
+		        }
+		    }
+		
+		    function displayMessage(message) {
+		        let chatBox = document.getElementById("chat-messages");
+		        
+		        if (chatBox.children.length === 0) {
+		            let noticeDiv = document.createElement("div");
+		            noticeDiv.classList.add("notice");
+		            noticeDiv.textContent = "채팅이 시작되었습니다.";
+		            chatBox.appendChild(noticeDiv);
+		        }
+
+		        let messageDiv = document.createElement("div");
+		        messageDiv.classList.add("message");
+		        messageDiv.textContent = message;
+		        chatBox.appendChild(messageDiv);
+
+		        chatBox.scrollTop = chatBox.scrollHeight;
+		    }
+
+		
+		    // WebSocket 연결 시작
+		    window.onload = connectWebSocket;
+		</script>
+					<div class="chat-interface">
+						<div id="chat-messages" class="chat-messages"></div>
+						<div class="message-input">
+							<input id="message-input" type="text" placeholder="메시지를 입력하세요"
+       							onkeypress="if(event.key === 'Enter') sendMessage()">
+							<button onclick="sendMessage()">
+								<i class="fa-regular fa-paper-plane"
+									style="color: var(--color-primary);"></i>
+							</button>
+						</div>
+					</div>
+ 				 <% } else { %>
+ 				<div class="chat-interface">
                                     <div class="chat-messages">
                                         <div class="message">사용자 1: 어떻구 저쩌구?</div>
                                         <div class="message">사용자 2: 어쩌구 저쩌구~</div>
@@ -87,7 +176,11 @@
                                         </button>
                                     </div>
                                 </div>
-			            </div>
+ 				 			
+ 				 			<%
+			                }
+			                %>
+				</div>
 			        </div>
 			    </section>
 			    <!-- 인트로 ::e  -->
@@ -273,155 +366,6 @@
                 <!-- 공통 Footer -->
                 <%@ include file="/includes/footer.jsp" %>
                 
-             <%--    <!-- 채팅 기능 구현 -->
-                <% if (loginUser != null && loginUser.getNickname() != null) { %>
-    <script>
-        let ws;
-
-        function createWebSocket() {
-            ws = new WebSocket("ws://localhost/chat");
-
-            // WebSocket 메시지 수신 처리
-            ws.onmessage = function(event) {
-                let chatMessages = document.getElementById("chatMessages");
-                let messageDiv = document.createElement("div");
-                messageDiv.classList.add("message");
-                messageDiv.textContent = event.data;
-                chatMessages.appendChild(messageDiv);
-            };
-
-            // 연결이 닫히면 재연결 시도
-            ws.onclose = function() {
-                console.log("WebSocket closed. Attempting to reconnect...");
-                setTimeout(createWebSocket, 5000);  // 5초 후 재연결 시도
-            };
-
-            // WebSocket 오류 처리
-            ws.onerror = function() {
-                console.log("WebSocket error. Attempting to reconnect...");
-                setTimeout(createWebSocket, 5000);  // 5초 후 재연결 시도
-            };
-        }
-
-        // WebSocket 연결 상태 확인 및 재연결 처리
-        function reconnectWebSocket() {
-            if (ws.readyState === WebSocket.CLOSED || ws.readyState === WebSocket.CLOSING) {
-                console.log("Reconnecting...");
-                createWebSocket();  // 새 WebSocket 연결 시도
-            }
-        }
-
-        // 메시지 전송 처리
-        document.getElementById("sendButton").addEventListener("click", function() {
-            let messageInput = document.getElementById("messageInput");
-            if (messageInput.value.trim() !== "") {
-                ws.send(messageInput.value);
-                messageInput.value = "";
-            }
-        });
-
-        // Enter 키로 메시지 전송
-        document.getElementById("messageInput").addEventListener("keypress", function(event) {
-            if (event.key === "Enter") {
-                document.getElementById("sendButton").click();
-            }
-        });
-
-        // 처음 WebSocket 연결 시도
-        createWebSocket();
-    </script>
-<% } %>
- --%>
-
-<%-- <script>
-let chatSocket = null;
-let retryCount = 0;
-const maxRetry = 5;
-const retryDelay = 2000; // 2초
-
-// 로그인한 유저 정보 확인 (JSP에서 전달)
-let isLoggedIn = <%= (loginUser != null) ? "true" : "false" %>;
-let senderID = <%= (loginUser != null) ? loginUser.getId() : "null" %>;
-let senderName = "<%= (loginUser != null) ? loginUser.getNickname() : "" %>";
-
-const messageInput = document.getElementById("messageInput");
-const sendButton = document.getElementById("sendButton");
-const chatRoom = document.getElementById("chatMessages");
-
-// 비로그인 유저는 채팅 입력 비활성화
-if (!isLoggedIn || senderID === "null") {
-    messageInput.disabled = true;
-    sendButton.disabled = true;
-} else {
-    connectWebSocket(); // 로그인한 경우 WebSocket 연결
-}
-
-// ✅ WebSocket 연결 함수
-function connectWebSocket() {
-    chatSocket = new WebSocket('ws://127.0.0.1:8000/ws/chat/public/');
-
-    chatSocket.onopen = function () {
-        console.log('✅ WebSocket 연결 성공');
-        retryCount = 0; // 재연결 카운트 초기화
-    };
-
-    chatSocket.onerror = function () {
-        if (retryCount < maxRetry) {
-            setTimeout(() => {
-                console.log(`⚠️ 연결 실패. ${retryCount + 1}번째 재연결 시도 중...`);
-                retryCount++;
-                connectWebSocket();
-            }, retryDelay);
-        } else {
-            console.log('❌ WebSocket 연결 실패. 잠시 후 다시 시도해주세요.');
-        }
-    };
-
-    chatSocket.onmessage = function (e) {
-        const data = JSON.parse(e.data);
-        const opponentName = document.createElement('div');
-        const newMsg = document.createElement('div');
-        newMsg.style.color = 'black';
-
-        if (Number(data.sender_id) === Number(senderID)) {
-            newMsg.textContent = data.message;
-            newMsg.setAttribute('class', 'myChat');
-            chatRoom.appendChild(newMsg);
-            chatRoom.scrollTop = chatRoom.scrollHeight;
-        } else {
-            opponentName.textContent = data.sender_name;
-            opponentName.style.color = 'black';
-            opponentName.style.marginBottom = '-10px';
-            newMsg.textContent = data.message;
-            newMsg.setAttribute('class', 'friendChat');
-            chatRoom.appendChild(opponentName);
-            chatRoom.appendChild(newMsg);
-            chatRoom.scrollTop = chatRoom.scrollHeight;
-        }
-    };
-}
-
-// ✅ 메시지 전송
-sendButton.addEventListener("click", function () {
-    if (messageInput.value.trim() !== "" && chatSocket.readyState === WebSocket.OPEN) {
-        chatSocket.send(JSON.stringify({
-            sender_id: senderID,
-            sender_name: senderName,
-            message: messageInput.value,
-        }));
-        messageInput.value = "";
-    }
-});
-
-// ✅ 엔터 키 입력 시 전송
-messageInput.addEventListener("keypress", function (event) {
-    if (event.key === "Enter") {
-        sendButton.click();
-    }
-});
-
-</script> --%>
-
                     <script src="/assets/js/main.js"></script>
                     <script>
                         $(function () {

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import admin.dao.AdminDAO;d
+import admin.dao.AdminDAO;
 import auth.dao.UsersDAO;
 import board.dao.BoardDAO;
 import board.dto.BoardDTO;
