@@ -187,55 +187,6 @@ public class UsersController extends HttpServlet {
 		            response.getWriter().write("fail");
 		        }
 			}
-//			else if (cmd.equals("/chat.users")){
-//				HttpSession session = request.getSession();
-//		        UsersDTO loginUser = (UsersDTO) session.getAttribute("id"); 
-//
-//		        request.setAttribute("loginUser", loginUser);
-//				request.getRequestDispatcher("/views/chat/chat.jsp").forward(request, response);
-//			}
-			// 
-//			else if (cmd.equals("/checkDuplicate.users")) {
-//				response.setContentType("text/plain;charset=UTF-8");
-//				String field = request.getParameter("field");
-//				String value = request.getParameter("value");
-//				try (PrintWriter out = response.getWriter()) {
-//					out.write(dao.isDuplicate(field, value) ? "duplicate" : "available");
-//				}
-//			}
-//			
-//
-//			
-//
-//			else if (cmd.equals("/withdraw.users")) { //회원탈퇴
-//				String id = (String) request.getSession().getAttribute("id");
-//				int result = dao.withdraw(id);
-//
-//				if (result > 0) {
-//					System.out.println("탈퇴 성공");
-//					request.getSession().invalidate();// 세션에서 정보 삭제
-//					response.sendRedirect("/index.jsp");
-//				} 
-//
-//			}  
-//			
-//
-//
-//						   else if (cmd.equals("/withdraw.users")) { //회원탈퇴
-//							String id = (String) request.getSession().getAttribute("loginID");
-//							int result = dao.withdraw(id);
-//							
-//							if (result > 0) {
-//								System.out.println("탈퇴 성공");
-//								request.getSession().invalidate();// 세션에서 정보 삭제
-//								response.sendRedirect("/index.jsp");
-//							} 
-//							
-//						} else if (cmd.equals("/findID.users")) { //아이디 찾기
-//							String id = request.getParameter("id");
-//							String email = request.getParameter("email");
-//						}
-
 				
 		} catch (Exception e) {
 			e.printStackTrace();
