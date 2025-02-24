@@ -14,7 +14,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <!-- 사용자 정의 CSS -->
-  <link href="/assets/css/adminDashBoard.css" rel="stylesheet">
+  <link href="/assets/css/adminCustomerList.css" rel="stylesheet">
 </head>
 <body>
   <div class="container-fluid p-0">

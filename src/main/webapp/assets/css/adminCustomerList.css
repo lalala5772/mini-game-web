@@ -16,6 +16,7 @@ body {
 }
 /* 사이드바 영역 (관리자 대시보드 스타일) */
 .sidebar {
+	width:10%
 	background-color: #343a40;
 	color: #fff;
 	padding: 20px;
