@@ -4,13 +4,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 import auth.dto.UsersDTO;
+import ban.dto.BanDTO;
 
 public class AdminDAO {
 	private AdminDAO() {
@@ -145,7 +148,6 @@ public class AdminDAO {
 	public List<UsersDTO> selectFromTotalUsersList(int start, int end) throws Exception {
 		String sql = "select * from (select users.*,row_number() over(order by users.joindate desc) AS rownumber from users) where rownumber between ? and ? order by joindate desc";
 		List<UsersDTO> totalUserList = new ArrayList<>();
-
 		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 			pstat.setInt(1, start);
 			pstat.setInt(2, end);
@@ -158,8 +160,7 @@ public class AdminDAO {
 							rs.getInt("withdraw"), rs.getInt("status"), rs.getInt("isAdmin"),
 							rs.getTimestamp("lastLogin"));
 					totalUserList.add(user);
-
-				}
+					}
 				return totalUserList;
 			}
 		}

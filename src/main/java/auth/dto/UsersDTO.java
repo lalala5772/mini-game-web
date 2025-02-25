@@ -22,6 +22,9 @@ public class UsersDTO {
     private int isAdmin;
     private Timestamp lastLogin;
     
+    public UsersDTO() {
+    	
+    }
     
     public UsersDTO(String id, String pw,  String nickname,String name, String phone, String email, String rnum,
 			int warningCount, int withdraw, int status, int isAdmin) {
@@ -40,7 +43,7 @@ public class UsersDTO {
 	}
 
 
-    public UsersDTO(String id, String pw, String name, String nickname, String phone, String email, String rnum,
+    public UsersDTO(String id, String pw, String nickname, String name, String phone, String email, String rnum,
 			Timestamp joinDate, int warningCount, int withdraw, int status, int isAdmin,
 			Timestamp lastLogin) {
 		super();
@@ -68,25 +71,49 @@ public class UsersDTO {
 	public String getPw() {
 		return pw;
 	}
+	
+	public void setPw(String pw) {
+		this.pw = pw;
+	}
 
 	public String getName() {
 		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getNickname() {
 		return nickname;
 	}
+	
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
 
 	public String getPhone() {
 		return phone;
+	}
+	
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 	public String getEmail() {
 		return email;
 	}
+	
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 	public String getRnum() {
 		return rnum;
+	}
+	
+	public void setRnum(String rnum) {
+		this.rnum = rnum;
 	}
 
 	public Timestamp getJoinDate() {

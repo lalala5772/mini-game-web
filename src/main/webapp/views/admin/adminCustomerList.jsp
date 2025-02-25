@@ -31,7 +31,7 @@
 <style>
 </style>
 <script>
-// 전체 로드 완료후 데이터 불러오는 펑션
+	// 전체 로드 완료후 데이터 불러오는 펑션
 	$(function() {
 		getCustomerList();
 		getNewCustomerList();
@@ -142,17 +142,38 @@
 
 
 	<script>
-// 	페이지네비 작동 펑션
+		// 	페이지네비 작동 펑션
 		$(".paging").on("click", function() {
 			let pageNum = $(this).attr("page");
 			sessionStorage.setItem("last_user_cpage", pageNum);
 			location.href = "/customerlist.admin?cpage=" + pageNum;
 			console.log(pageNum);
 		});
-// 삭제버튼 작동 펑션
+		// 밴버튼 작동 펑션
+		$(document).on("click", "#banbtn", function() {
+			let id = $(this).data("seq");
+			let isBan = $(this).html();
+			console.log(isBan)
+			if (confirm("정말 차단하시겠습니까?")) {
+				$.ajax({
+					url : "/banuser.admin",
+					data : {
+						userid:id, isban:isBan
+					},
+					success : function(resp) {
+						alert(resp);
+						getCustomerList();
+						getNewCustomerList();
+					},
+					error : function() {
+						alert("차단 중 오류 발생");
+					}
+				});
+			}
+		});
+		// 삭제버튼 작동 펑션
 		$(document).on("click", ".delete", function() {
 			let userseq = $(this).data("seq"); // data-seq 속성에서 ID 가져오기
-			console.log(userseq);
 			if (confirm("삭제시 되돌릴 수 없습니다.")) {
 				$.ajax({
 					url : "/deleteuser.admin",
@@ -172,59 +193,61 @@
 				});
 			}
 		});
-// 찾기버튼 작동 펑션
+		// 찾기버튼 작동 펑션
 		$("#searchbtn").on("click", function() {
 			getSearchUserList();
 
 		});
-// 찾는 유저 불러오는 펑션
-		function getSearchUserList(){
+		// 찾는 유저 불러오는 펑션
+		function getSearchUserList() {
 			let userNickName = $("#search-input").val();
-			$.ajax({
-				url : "/searchuser.admin",
-				data : {userNickName:userNickName}
-			}).done(
-					function(resp) {
-						$("#getuserlist").empty();
-						if (resp.length == 0) {
-							let tr = $("<tr>")
-							let td = $("<td colspan='7'>").html(
-									"회원이 없습니다.");
-
-							tr.append(td);
-							$("#getuserlist").append(tr);
-						} else {
-							
-								let tr = $("<tr>");
-								let nickname = $("<td>").html(
-										resp.nickname);
-								let joinDate = $("<td>").html(
-										resp.joinDate);
-								let lastLogin = $("<td>").html(
-										resp.lastLogin);
-								let warningCount = $("<td>").html(
-										resp.warningCount);
-								let status = $("<td>").html(
-										resp.status);
-								let banbtn = $(
-										"<button class='unban' id = 'banbtn'>")
-										.html("unban");
-								let delbtn = $(
-										"<button class='delete' data-seq='"+ resp.id+"'>")
-										.html("delete");
-								let bantd = $("<td>");
-								bantd.append(banbtn);
-								let deltd = $("<td>");
-								deltd.append(delbtn);
-								tr.append(nickname, joinDate,
-										lastLogin, warningCount,
-										status, bantd, deltd);
-								$("#getuserlist").append(tr);
-							
+			$
+					.ajax({
+						url : "/searchuser.admin",
+						data : {
+							userNickName : userNickName
 						}
 					})
+					.done(
+							function(resp) {
+								$("#getuserlist").empty();
+								if (resp.length == 0) {
+									let tr = $("<tr>")
+									let td = $("<td colspan='7'>").html(
+											"회원이 없습니다.");
+
+									tr.append(td);
+									$("#getuserlist").append(tr);
+								} else {
+
+									let tr = $("<tr>");
+									let nickname = $("<td>")
+											.html(resp.nickname);
+									let joinDate = $("<td>")
+											.html(resp.joinDate);
+									let lastLogin = $("<td>").html(
+											resp.lastLogin);
+									let warningCount = $("<td>").html(
+											resp.warningCount);
+									let status = $("<td>").html(resp.status);
+									let banbtn = $(
+											"<button class='unban' id = 'banbtn'>")
+											.html("unban");
+									let delbtn = $(
+											"<button class='delete' data-id='"+ resp.id+"'>")
+											.html("delete");
+									let bantd = $("<td>");
+									bantd.append(banbtn);
+									let deltd = $("<td>");
+									deltd.append(delbtn);
+									tr.append(nickname, joinDate, lastLogin,
+											warningCount, status, bantd, deltd);
+									$("#getuserlist").append(tr);
+
+								}
+							})
 		}
-// 유저리스트 불러오는 펑션
+		// 유저리스트 불러오는 펑션
 		function getCustomerList() {
 			$
 					.ajax({
@@ -249,17 +272,21 @@
 										let tr = $("<tr>");
 										let nickname = $("<td>").html(
 												resp[i].nickname);
+										let name = $("<td>").html(resp[i].name);
 										let joinDate = $("<td>").html(
 												resp[i].joinDate);
 										let lastLogin = $("<td>").html(
 												resp[i].lastLogin);
-										let warningCount = $("<td>").html(
-												resp[i].warningCount);
+
 										let status = $("<td>").html(
 												resp[i].status);
+										let isBan = (resp[i].warningCount > 0) ? "BAN"
+												: "UNBAN";
+										let banClass =(resp[i].warningCount > 0) ? "ban" : "unban";
 										let banbtn = $(
-												"<button class='unban' id = 'banbtn'>")
-												.html("unban");
+												"<button class='"+ banClass +"' id = 'banbtn'>")
+												.attr("data-seq", resp[i].id)
+												.html(isBan);
 										let delbtn = $(
 												"<button class='delete' data-seq='"+ resp[i].id+"'>")
 												.html("delete");
@@ -267,15 +294,16 @@
 										bantd.append(banbtn);
 										let deltd = $("<td>");
 										deltd.append(delbtn);
-										tr.append(nickname, joinDate,
-												lastLogin, warningCount,
-												status, bantd, deltd);
+										tr
+												.append(nickname, name,
+														joinDate, lastLogin,
+														status, bantd, deltd);
 										$("#getuserlist").append(tr);
 									}
 								}
 							})
 		};
-// 		신규회원 정보 불러오는 펑션
+		// 		신규회원 정보 불러오는 펑션
 		function getNewCustomerList() {
 			$
 					.ajax({

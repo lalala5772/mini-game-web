@@ -70,13 +70,13 @@ main {
 
 
 
-.seq, .writer, .writeDate, .viewCount {
+.seq, .writer, .writeDate, .viewCount, .files {
   flex: 1;
   text-align: center;
 }
 
 .title {
-  flex: 4;
+  flex: 5;
   text-align: center;
 }
 

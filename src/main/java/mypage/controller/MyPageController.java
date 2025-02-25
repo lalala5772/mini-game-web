@@ -38,13 +38,16 @@ public class MyPageController  extends HttpServlet {
         	
         	HttpSession session = request.getSession();
             UsersDTO loginUser = (UsersDTO) session.getAttribute("loginUser");
+            System.out.println("로그인유저 아이디 : " + loginUser.getId());
             try {
                 // 게임 최고 기록 가져오기
                 Map<String, Integer> highestScores = gameRecordDao.getHighestScoresByGame(loginUser.getId());
+                
+                // 게임 랭킹 가져오기 
+                
 
                 // 사용자의 전체 게시글 목록
-                List<BoardDTO> userBoardList = userBoardDao.userBoardList(loginUser.getId());
-
+                List<BoardDTO> userBoardList = userBoardDao.userBoardList(loginUser.getNickname());
                 request.setAttribute("loginUser", loginUser);
                 request.setAttribute("highestScores", highestScores);
                 request.setAttribute("userBoardList", userBoardList);

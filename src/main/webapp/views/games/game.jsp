@@ -34,6 +34,7 @@
 
 
         <link rel="stylesheet" href="/assets/css/game.css">
+        <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     </head>
 
     <body>
@@ -85,6 +86,41 @@
 
         <!-- 공통 Footer -->
         <%@ include file="../../includes/footer.jsp" %>
+        
+        
+        <!-- !!! 스코어 기록법 !!!-->
+		<!-- 1. 각 게임의 gameId를 #gameId hidden input의 value에 기입 -->
+        <input type="hidden" id="gameId" value="4001">
+        <input type="hidden" id="finalScore">
+        
+		<!-- 테스트용 버튼입니다 (본인 코드에서는 삭제) -->
+		<button id="testBtn">스코어기록테스트용버튼</button>	
+        
+        <script>
+        	// 2. 게임 끝났을 때 sendGameRecord(점수)로 파라미터에 score 담아서 콜
+        	// 아래 예시는 버튼 클릭했을 때 레코드 보내도록 작성했지만
+        	// 각자의 게임에서 스코어가 나오는 시점(게임오버, 클리어, ...)에 sendGameRecord(점수) 콜하시면 됩니다.
+			$("#testBtn").on("click", function(){
+				sendGameRecord(2000);
+			});
+        	
+        
+        	function sendGameRecord(currentScore){
+        		$("#finalScore").val(currentScore);
+        		
+        		$.ajax({
+        			type: "POST",
+        			url: "/add.record",
+        			data: {
+        				userId: "${nickname}",
+        				gameId: $("#gameId").val(),
+        				record: $("#finalScore").val()
+        			}
+        		});
+        	}
+        </script>
+        <!-- !!! 스코어 기록법 !!!-->
+        
     </body>
 
     </html>

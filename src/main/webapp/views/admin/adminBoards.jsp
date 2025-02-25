@@ -42,10 +42,10 @@
                   <li class="nav-item"><a class="nav-link" href="/dashboard.admin"> <i class="fa-solid fa-toolbox"></i>
                       <span class="ms-2">관리자 페이지</span>
                     </a></li>
-                  <li class="nav-item"><a class="nav-link" href="/views/adminCustomerList.jsp"> <i
-                        class="fa-solid fa-users"></i> <span class="ms-2">회원 리스트</span>
+                  <li class="nav-item"><a class="nav-link" href="/customerlist.admin"> <i class="fa-solid fa-users"></i>
+                      <span class="ms-2">회원 리스트</span>
                     </a></li>
-                  <li class="nav-item"><a class="nav-link active" href="/views/adminBoards.jsp"> <i
+                  <li class="nav-item"><a class="nav-link active" href="/boardlist.admin"> <i
                         class="fa-solid fa-file-lines"></i> <span class="ms-2">게시글
                         리스트</span>
                     </a></li>

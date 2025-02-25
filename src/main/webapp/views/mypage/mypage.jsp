@@ -86,32 +86,16 @@
 		<div class="gamebox2">&nbsp;&nbsp;고기굽기 게임</div>
 		<div class="score2">score : 10</div>
 		<div class="rank2">rank : 8</div>
-		<a href="/views/mypage/pwcheck.jsp">
-			<button class="modify">수정하기</button>
-		</a> <a href="/index.jsp">
-			<button class="main">메인화면</button>
-		</a>
-
-		<!-- <script>
-        $(".modify").on("click",()=>{
-        	 window.open("pwcheck.jsp", "_blank", "width=600,height=400,top=250,left=500");
-        })
-        </script>
- -->
+		<a href="/views/mypage/checkPw.jsp" class="modify">회원정보 수정</a>
+		<a href="/index.jsp" class="main"> 메인화면</a>
+			<!-- <button class="main"></button> -->
 	</div>
 
 	<!-- mypage.jsp -->
 	<div class="container2">
 		<div class="subtitle">내 커뮤니티 활동내역</div>
 
-	<!-- <a class="my-post" href="/mypost.mypage">
-        <button>내가 쓴 게시물</button>
-    </a>
-    <a class="my-reply" href="/myreply.mypage">
-        <button>내가 쓴 댓글</button>
-    </a> -->
-
-		<!-- 게시글 목록 -->
+<!-- 게시글 목록 -->
 <!-- JSP에서 데이터를 JavaScript 배열로 초기화 -->
 
 <!-- 테이블 및 페이지 버튼 영역 -->
@@ -136,6 +120,7 @@
 	const userBoardList = [
 	    <c:forEach var="post" items="${userBoardList}" varStatus="status">
 	        {
+	        	seq: "${fn:escapeXml(post.seq)}",
 	            title: "${fn:escapeXml(post.title)}",
 	            writeDate: "${post.writeDate.toString()}",
 	            viewCount: "${post.viewCount.toString()}"
@@ -158,22 +143,28 @@
             const post = currentPosts[i]; // 각 포스트 데이터 가져오기
             const row = document.createElement('tr');
 
-            // 개별 <td> 요소 생성
+         // 제목 셀 생성 - 링크 추가
             const titleTd = document.createElement('td');
+            const titleLink = document.createElement('a');
+            titleLink.href = "/detail.board?seq=" + post.seq; // 링크에 seq 추가
+            titleLink.textContent = post.title;
+            titleLink.style.cursor = "pointer"; // 선택적: 마우스 커서를 포인터로 변경
+            titleLink.target = "_blank"; // 새 창으로 열기 추가
+            titleTd.appendChild(titleLink);
+
+            // 나머지 셀 생성
             const dateTd = document.createElement('td');
-            const viewTd = document.createElement('td');
+            const viewTd = document.createElement('td');  
 
-            // 올바른 innerHTML 속성 사용
-            titleTd.innerHTML = post.title;
             dateTd.innerHTML = post.writeDate;
-            viewTd.innerHTML = post.viewCount;
+            viewTd.innerHTML = post.viewCount;  
 
-            // <tr>에 <td> 추가
+            // 행에 추가
             row.appendChild(titleTd);
             row.appendChild(dateTd);
-            row.appendChild(viewTd);
+            row.appendChild(viewTd);  
 
-            // 최종적으로 <tbody>에 추가
+            // 최종적으로 테이블에 추가
             postBody.appendChild(row);
         }
 
@@ -209,10 +200,6 @@
         displayPosts(currentPage);
     });
 </script>
-
-
-
-		
 
 	</div>
 	<div class="subtitle">내 게임 순위</div>
