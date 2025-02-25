@@ -42,8 +42,8 @@
                   <li class="nav-item"><a class="nav-link" href="/dashboard.admin"> <i class="fa-solid fa-toolbox"></i>
                       <span class="ms-2">관리자 페이지</span>
                     </a></li>
-                  <li class="nav-item"><a class="nav-link" href="/customerlist.admin"> <i
-                        class="fa-solid fa-users"></i> <span class="ms-2">회원 리스트</span>
+                  <li class="nav-item"><a class="nav-link" href="/customerlist.admin"> <i class="fa-solid fa-users"></i>
+                      <span class="ms-2">회원 리스트</span>
                     </a></li>
                   <li class="nav-item"><a class="nav-link active" href="/boardlist.admin"> <i
                         class="fa-solid fa-file-lines"></i> <span class="ms-2">게시글
@@ -60,25 +60,36 @@
                   <!-- 신규 게시글 섹션 -->
                   <div class="new-posts">
                     <div class="new-posts-title">이번주 신규 게시글</div>
-                    <div class="new-posts-grid">
-                      <c:forEach items="${newBoardList}" var="board">
-                        <div class="new-post-card">
-                          <div class="new-post-header">
-                            <div class="new-post-type ${board.isAdmin == 1 ? 'notice' : 'regular'}">
-                              ${board.isAdmin == 1 ? '공지' : '일반'}</div>
-                            <div class="new-post-views">
-                              <i class="fa-regular fa-eye"></i> ${board.viewCount}
-                            </div>
-                          </div>
-                          <div class="new-post-content">
-                            <h3 class="new-post-title">${board.title}</h3>
-                            <div class="new-post-author">
-                              <i class="fa-regular fa-user"></i> ${board.writer}
-                            </div>
+                    <c:choose>
+                      <c:when test="${empty newBoardList}">
+                        <div class="empty-new-posts">
+                          <div class="empty-new-posts-content">
+                            <i class="fa-regular fa-newspaper empty-icon"></i>
+                            <p class="empty-title">새로운 게시글이 없습니다</p>
+                            <p class="empty-description">이번 주에 작성된 새로운 게시글이 없습니다.</p>
                           </div>
                         </div>
-                      </c:forEach>
-                    </div>
+                      </c:when>
+                      <c:otherwise>
+                        <c:forEach items="${newBoardList}" var="board">
+                          <div class="new-post-card">
+                            <div class="new-post-header">
+                              <div class="new-post-type ${board.isAdmin == 1 ? 'notice' : 'regular'}">
+                                ${board.isAdmin == 1 ? '공지' : '일반'}</div>
+                              <div class="new-post-views">
+                                <i class="fa-regular fa-eye"></i> ${board.viewCount}
+                              </div>
+                            </div>
+                            <div class="new-post-content">
+                              <h3 class="new-post-title">${board.title}</h3>
+                              <div class="new-post-author">
+                                <i class="fa-regular fa-user"></i> ${board.writer}
+                              </div>
+                            </div>
+                          </div>
+                        </c:forEach>
+                      </c:otherwise>
+                    </c:choose>
                   </div>
                   <!-- 회원 닉네임 검색 영역 -->
                   <div class="search-container">
@@ -91,7 +102,21 @@
                   <div class="table-container">
                     <c:choose>
                       <c:when test="${empty boardList}">
-                        <div class="no-results">검색 결과가 없습니다.</div>
+                        <div class="no-results-container">
+                          <div class="no-results-content">
+                            <i class="fa-regular fa-folder-open no-results-icon"></i>
+                            <h3 class="no-results-title">게시글이 없습니다</h3>
+                            <p class="no-results-message">
+                              현재 표시할 게시글이 없습니다.<br>
+                              다른 검색어로 다시 시도해보세요.
+                            </p>
+                            <div class="no-results-actions">
+                              <a href="/boardlist.admin" class="btn btn-primary">
+                                <i class="fa-solid fa-rotate"></i> 전체 목록 보기
+                              </a>
+                            </div>
+                          </div>
+                        </div>
                       </c:when>
                       <c:otherwise>
                         <table id="member-table" class="table">
@@ -102,13 +127,10 @@
                               <th>제목</th>
                               <th>내용</th>
                               <th>작성일</th>
-                              <!-- 수정 250223::s -->
                               <th>조회수</th>
-                              <!-- 수정 250223::e -->
                               <th>삭제</th>
                             </tr>
                           </thead>
-                          <!-- 수정 250223::s -->
                           <tbody>
                             <c:forEach items="${boardList}" var="board">
                               <tr>
@@ -127,12 +149,10 @@
                               </tr>
                             </c:forEach>
                           </tbody>
-                          <!-- 수정 250223::e -->
                         </table>
                       </c:otherwise>
                     </c:choose>
                     <!-- 페이지네이션 -->
-                    <!-- 수정 250223::s -->
                     <div class="pagination">
                       <ul>
                         <c:if test="${needPrev}">
@@ -148,7 +168,6 @@
                         </c:if>
                       </ul>
                     </div>
-                    <!-- 수정 250223::e -->
                   </div>
                 </div>
               </div>
@@ -167,8 +186,9 @@
 
         <!-- Bootstrap Bundle with Popper -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        crossorigin="anonymous"></script>
-
+          integrity="sha384-cVKIPhGKtYv2/7R+FtM2ZLCVYQ7LNPV+Ze8FouO8nG5pq4nE1tvFq+0VYU73nMyg"
+          crossorigin="anonymous"></script>
+        <script>
           // 추가 스크립트가 필요하면 여기에 작성합니다.
 
           //게시글 삭제 
