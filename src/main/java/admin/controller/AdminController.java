@@ -1,8 +1,8 @@
 package admin.controller;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +15,8 @@ import com.google.gson.Gson;
 import admin.dao.AdminDAO;
 import auth.dao.UsersDAO;
 import auth.dto.UsersDTO;
+import ban.dao.BanDAO;
+import ban.dto.BanDTO;
 import board.dao.BoardDAO;
 import board.dto.BoardDTO;
 import utils.Statics;
@@ -30,6 +32,7 @@ public class AdminController extends HttpServlet {
 		AdminDAO dao = AdminDAO.getInstance();
 		UsersDAO udao = UsersDAO.getInstance();
 		BoardDAO bdao = BoardDAO.getInstance();
+		BanDAO bandao = BanDAO.getInstance();
 		Gson g = new Gson();
 
 		System.out.println("클라이언트 요청 : " + cmd);
@@ -104,7 +107,7 @@ public class AdminController extends HttpServlet {
 				request.setAttribute("needPrev", needPrev);
 				request.setAttribute("needNext", needNext);
 
-				List<UsersDTO> userList = dao.selectFromTotalUsersList(start, end);
+				Map<String, List> userList = dao.selectFromTotalUsersList(start, end);
 				List<UsersDTO> newUserList = dao.getNewUserList();
 				request.setAttribute("newUserList", newUserList);
 				request.setAttribute("userList", userList);
@@ -129,7 +132,7 @@ public class AdminController extends HttpServlet {
 //			System.out.println("start: " + start + ", end: " + end);
 
 			try {
-				List<UsersDTO> userList = dao.selectFromTotalUsersList(start, end);
+				Map<String, List> userList = dao.selectFromTotalUsersList(start, end);
 				response.getWriter().append(g.toJson(userList));
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -168,9 +171,25 @@ public class AdminController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
-			
-			
+		} else if (cmd.equals("/banuser.admin")) {
+			String id = request.getParameter("userid");
+			String isBan = request.getParameter("isban");
+			String isBanToChange;
+			String banResult;
+			if (isBan.equals("UNBAN")) {
+				isBanToChange = "BAN";
+				banResult = "차단되었습니다.";
+			} else {
+				isBanToChange = "UNBAN";
+				banResult = "차단해제되었습니다.";
+			}
+			try {
+				int result = bandao.modifyById(isBanToChange, id);
+				response.getWriter().append(g.toJson(banResult));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
 		} else if (cmd.equals("/getboardlist.admin")) {
 //			System.out.println("주문받음");
 			int cpage = Integer.parseInt(request.getParameter("cpage"));
@@ -200,29 +219,29 @@ public class AdminController extends HttpServlet {
 			}
 
 			try {
-				  int recordTotalCount;
-			      List<BoardDTO> boardList;
-				
-		        // 검색어가 있는 경우와 없는 경우를 구분하여 처리
-		        if (searchKeyword != null && !searchKeyword.trim().isEmpty()) {
-		            recordTotalCount = bdao.getSearchRecordCount(searchKeyword);
-		        } else {
-		            recordTotalCount = bdao.getRecordTotalBoardListCount();
-		        }
+				int recordTotalCount;
+				List<BoardDTO> boardList;
 
-		        // 페이지 계산
-		        int pageTotalCount = (recordTotalCount + Statics.recordCountPerPage - 1) / Statics.recordCountPerPage;
-		        
+				// 검색어가 있는 경우와 없는 경우를 구분하여 처리
+				if (searchKeyword != null && !searchKeyword.trim().isEmpty()) {
+					recordTotalCount = bdao.getSearchRecordCount(searchKeyword);
+				} else {
+					recordTotalCount = bdao.getRecordTotalBoardListCount();
+				}
+
+				// 페이지 계산
+				int pageTotalCount = (recordTotalCount + Statics.recordCountPerPage - 1) / Statics.recordCountPerPage;
+
 				if (recordTotalCount % Statics.recordCountPerPage > 0) {
 					pageTotalCount = recordTotalCount / Statics.recordCountPerPage + 1;
 				} else {
 					pageTotalCount = recordTotalCount / Statics.recordCountPerPage;
-				}        
-				
+				}
+
 				// 현재 페이지 범위 조정
-		        if (cpage > pageTotalCount) {
-		            cpage = pageTotalCount;
-		        }
+				if (cpage > pageTotalCount) {
+					cpage = pageTotalCount;
+				}
 
 				if (cpage < 1) {
 					cpage = 1;
@@ -235,18 +254,15 @@ public class AdminController extends HttpServlet {
 				int start = cpage * Statics.recordCountPerPage - (Statics.recordCountPerPage - 1);
 				// 네이게이션 끝번호
 				int end = cpage * Statics.recordCountPerPage;
-				
-				
-		        // 검색 또는 전체 목록 가져오기
-		        if (searchKeyword != null && !searchKeyword.trim().isEmpty()) {
-		            boardList = bdao.searchBoardListByWriter(start, end, searchKeyword);
-		        } else {
-		            boardList = bdao.selectFromTotalBoardList(start, end);
-		        }
 
+				// 검색 또는 전체 목록 가져오기
+				if (searchKeyword != null && !searchKeyword.trim().isEmpty()) {
+					boardList = bdao.searchBoardListByWriter(start, end, searchKeyword);
+				} else {
+					boardList = bdao.selectFromTotalBoardList(start, end);
+				}
 
 				List<BoardDTO> newBoardList = bdao.getNewBoardList();
-				System.out.println(newBoardList.get(1).getIsAdmin());
 				int startNavi = (cpage - 1) / Statics.naviCountPerPage * Statics.naviCountPerPage + 1;
 				int endNavi = startNavi + Statics.naviCountPerPage - 1;
 
@@ -278,24 +294,24 @@ public class AdminController extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+
 		} else if (cmd.equals("/deletepost.admin")) {
-			
-			 try {
-			        int seq = Integer.parseInt(request.getParameter("seq"));
-			        System.out.println(seq);
-			        int result = bdao.deleteBySeq(seq); // 게시글 삭제
 
-			        if (result > 0) {
-			            response.setStatus(HttpServletResponse.SC_OK); // 200 OK
-			        } else {
-			            response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400 오류
-			        }
+			try {
+				int seq = Integer.parseInt(request.getParameter("seq"));
+				System.out.println(seq);
+				int result = bdao.deleteBySeq(seq); // 게시글 삭제
 
-			    } catch (Exception e) {
-			        e.printStackTrace();
-			        response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); // 500 오류
-       }
+				if (result > 0) {
+					response.setStatus(HttpServletResponse.SC_OK); // 200 OK
+				} else {
+					response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400 오류
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); // 500 오류
+			}
 		} else if (cmd.equals("/getuserlist.admin")) {
 
 		}

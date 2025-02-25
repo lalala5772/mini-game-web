@@ -4,13 +4,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 import auth.dto.UsersDTO;
+import ban.dto.BanDTO;
 
 public class AdminDAO {
 	private AdminDAO() {
@@ -142,10 +145,11 @@ public class AdminDAO {
 		}
 	}
 
-	public List<UsersDTO> selectFromTotalUsersList(int start, int end) throws Exception {
-		String sql = "select * from (select users.*,row_number() over(order by users.joindate desc) AS rownumber from users) where rownumber between ? and ? order by joindate desc";
+	public Map<String,List> selectFromTotalUsersList(int start, int end) throws Exception {
+		String sql = "select * from (select u.*, ROW_NUMBER() OVER (ORDER BY u.JOINDATE DESC) AS rownumber, nvl(b.seq,0), nvl(b.isban,'UNBAN') as isban, nvl(b.bandate,sysdate), nvl(b.banuntill,sysdate), nvl(b.bancount,0) from users u left join ban b on u.id = b.id) where rownumber between ? and ? order by joindate desc";
+		Map<String,List> list = new HashMap<>();
 		List<UsersDTO> totalUserList = new ArrayList<>();
-
+		List<BanDTO> userBanList = new ArrayList<>();
 		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 			pstat.setInt(1, start);
 			pstat.setInt(2, end);
@@ -158,9 +162,12 @@ public class AdminDAO {
 							rs.getInt("withdraw"), rs.getInt("status"), rs.getInt("isAdmin"),
 							rs.getTimestamp("lastLogin"));
 					totalUserList.add(user);
-
+					BanDTO ban = new BanDTO(rs.getInt(15),rs.getString("id"),rs.getString(16),rs.getTimestamp(17),rs.getTimestamp(18),rs.getInt(19));
+					userBanList.add(ban);
 				}
-				return totalUserList;
+				list.put("totalUserList", totalUserList);
+				list.put("userBanList", userBanList);
+				return list;
 			}
 		}
 	}
