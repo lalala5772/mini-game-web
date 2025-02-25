@@ -125,9 +125,7 @@
                                                                 messageDiv.textContent = message;
                                                                 chatBox.appendChild(messageDiv);
 
-                                                                //chatBox.scrollTop = chatBox.scrollHeight;
-
-                                                                // 💡 채팅창이 완전히 아래로 가도록 보정
+                                                                // 채팅창이 완전히 아래로 가도록 보정
                                                                 setTimeout(() => {
                                                                     chatBox.scrollTop = chatBox.scrollHeight;
                                                                 }, 50); // 살짝 딜레이를 줘서 스크롤이 더 정확하게 적용되도록 함.
