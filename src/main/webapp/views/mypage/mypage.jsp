@@ -143,12 +143,13 @@
             const post = currentPosts[i]; // 각 포스트 데이터 가져오기
             const row = document.createElement('tr');
 
-            // 제목 셀 생성 - 링크 추가
+         // 제목 셀 생성 - 링크 추가
             const titleTd = document.createElement('td');
             const titleLink = document.createElement('a');
             titleLink.href = "/detail.board?seq=" + post.seq; // 링크에 seq 추가
             titleLink.textContent = post.title;
             titleLink.style.cursor = "pointer"; // 선택적: 마우스 커서를 포인터로 변경
+            titleLink.target = "_blank"; // 새 창으로 열기 추가
             titleTd.appendChild(titleLink);
 
             // 나머지 셀 생성
