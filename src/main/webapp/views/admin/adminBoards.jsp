@@ -71,23 +71,25 @@
                         </div>
                       </c:when>
                       <c:otherwise>
-                        <c:forEach items="${newBoardList}" var="board">
-                          <div class="new-post-card">
-                            <div class="new-post-header">
-                              <div class="new-post-type ${board.isAdmin == 1 ? 'notice' : 'regular'}">
-                                ${board.isAdmin == 1 ? '공지' : '일반'}</div>
-                              <div class="new-post-views">
-                                <i class="fa-regular fa-eye"></i> ${board.viewCount}
+                        <div class="new-posts-grid">
+                          <c:forEach items="${newBoardList}" var="board">
+                            <div class="new-post-card">
+                              <div class="new-post-header">
+                                <div class="new-post-type ${board.isAdmin == 1 ? 'notice' : 'regular'}">
+                                  ${board.isAdmin == 1 ? '공지' : '일반'}</div>
+                                <div class="new-post-views">
+                                  <i class="fa-regular fa-eye"></i> ${board.viewCount}
+                                </div>
+                              </div>
+                              <div class="new-post-content">
+                                <h3 class="new-post-title">${board.title}</h3>
+                                <div class="new-post-author">
+                                  <i class="fa-regular fa-user"></i> ${board.writer}
+                                </div>
                               </div>
                             </div>
-                            <div class="new-post-content">
-                              <h3 class="new-post-title">${board.title}</h3>
-                              <div class="new-post-author">
-                                <i class="fa-regular fa-user"></i> ${board.writer}
-                              </div>
-                            </div>
-                          </div>
-                        </c:forEach>
+                          </c:forEach>
+                        </div>
                       </c:otherwise>
                     </c:choose>
                   </div>
