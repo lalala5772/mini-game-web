@@ -260,6 +260,8 @@ padding-bottom: 8rem;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    background-position: center center;
+    background-size: cover;
 }
 
 .game-content::before {
