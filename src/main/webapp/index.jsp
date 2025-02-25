@@ -100,6 +100,8 @@
                                                             function sendMessage() {
                                                                 let messageInput = document.getElementById("message-input");
                                                                 let messageText = messageInput.value.trim();
+                                                                let chatBox = document.getElementById("chat-messages"); // 스크롤 대상 명확히 지정
+
 
                                                                 if (messageText !== "") {
                                                                     let fullMessage = nickname + ": " + messageText;
@@ -123,7 +125,12 @@
                                                                 messageDiv.textContent = message;
                                                                 chatBox.appendChild(messageDiv);
 
-                                                                chatBox.scrollTop = chatBox.scrollHeight;
+                                                                //chatBox.scrollTop = chatBox.scrollHeight;
+
+                                                                // 💡 채팅창이 완전히 아래로 가도록 보정
+                                                                setTimeout(() => {
+                                                                    chatBox.scrollTop = chatBox.scrollHeight;
+                                                                }, 50); // 살짝 딜레이를 줘서 스크롤이 더 정확하게 적용되도록 함.
                                                             }
 
 
@@ -145,9 +152,7 @@
                                                         <% } else { %>
                                                             <div class="chat-interface">
                                                                 <div class="chat-messages">
-                                                                    <div class="message">사용자 1: 어떻구 저쩌구?</div>
-                                                                    <div class="message">사용자 2: 어쩌구 저쩌구~</div>
-                                                                    <div class="message">사용자 2: 어쩌구 저쩌구~</div>
+                                                                    <div class="message">실시간 채팅을 이용해보세요!</div>
                                                                 </div>
                                                                 <div class="message-input">
                                                                     <input type="text" placeholder="Message">
