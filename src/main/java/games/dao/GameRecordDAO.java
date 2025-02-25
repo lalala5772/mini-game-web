@@ -157,30 +157,27 @@ public class GameRecordDAO {
         }
         
         // 오라클에서 사용자 순위 조회 (서브쿼리 활용)
-        String sql = """
-        	    WITH GameMaxScore AS (
-        	        SELECT gameid, MAX(record) AS max_score  
-        	        FROM gamerecord  
-        	        WHERE userid = ? 
-        	          AND gameid BETWEEN 4001 AND 4006  
-        	        GROUP BY gameid
-        	    ), UserRanking AS (
-        	        SELECT gameid, userid, 
-        	               RANK() OVER (PARTITION BY gameid ORDER BY max_score DESC) AS user_rank
-        	        FROM (
-        	            SELECT gameid, userid, MAX(record) AS max_score  
-        	            FROM gamerecord  
-        	            WHERE gameid BETWEEN 4001 AND 4006  
-        	            GROUP BY gameid, userid
-        	        ) r2
-        	    )
-        	    SELECT g.gameid, 
-        	           NVL(r.user_rank, 1) AS user_rank  
-        	    FROM GameMaxScore g
-        	    LEFT JOIN UserRanking r 
-        	        ON g.gameid = r.gameid AND r.userid = ?
-        	""";
-
+        String sql = 
+        	    "WITH GameMaxScore AS ( " +
+        	    "    SELECT gameid, MAX(record) AS max_score " +
+        	    "    FROM gamerecord " +
+        	    "    WHERE userid = ? " +
+        	    "      AND gameid BETWEEN 4001 AND 4006 " +
+        	    "    GROUP BY gameid " +
+        	    "), UserRanking AS ( " +
+        	    "    SELECT gameid, userid, " +
+        	    "           RANK() OVER (PARTITION BY gameid ORDER BY max_score DESC) AS user_rank " +
+        	    "    FROM ( " +
+        	    "        SELECT gameid, userid, MAX(record) AS max_score " +
+        	    "        FROM gamerecord " +
+        	    "        WHERE gameid BETWEEN 4001 AND 4006 " +
+        	    "        GROUP BY gameid, userid " +
+        	    "    ) r2 " +
+        	    ") " +
+        	    "SELECT g.gameid, COALESCE(r.user_rank, 1) AS user_rank " +
+        	    "FROM GameMaxScore g " +
+        	    "LEFT JOIN UserRanking r " +
+        	    "    ON g.gameid = r.gameid AND r.userid = ?";
 
         
         try (Connection con = this.getConnection();
