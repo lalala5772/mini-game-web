@@ -437,7 +437,10 @@ public class BoardController extends HttpServlet {
 			} else if (cmd.equals("/detail.board")) {
 				// 게시글 받아오기
 				int seq = Integer.parseInt(request.getParameter("seq"));
-				dao.incrementViewCount(seq);
+				
+				// 조회수 증가 (중복 조회 방지)
+		        dao.increaseViewCount(request.getSession(), seq);
+				
 				BoardDTO post = dao.selectBySeq(seq);
 				request.setAttribute("post", post);
 				
