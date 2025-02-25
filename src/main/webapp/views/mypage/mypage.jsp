@@ -30,6 +30,9 @@
     
     Map<String, Integer> highestScores = (Map<String, Integer>) request.getAttribute("highestScores");
     pageContext.setAttribute("highestScores", highestScores);
+    
+    Map<String, Integer> userRankings = (Map<String, Integer>) request.getAttribute("userRankings");
+    pageContext.setAttribute("userRankings", userRankings);
 
 %>
 
@@ -238,7 +241,7 @@
 					<c:otherwise>
 						<div class="rank">
 							<i class="fa-solid fa-ranking-star" style="color: #ffffff;"></i>
-							${highestScores[gameId]}등
+							${userRankings[gameId]}등
 						</div>
 						<div class="myscore">
 							<i class="fa-solid fa-star" style="color: #ffffff;"></i>

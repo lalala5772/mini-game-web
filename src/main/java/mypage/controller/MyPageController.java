@@ -41,15 +41,16 @@ public class MyPageController  extends HttpServlet {
             System.out.println("로그인유저 아이디 : " + loginUser.getId());
             try {
                 // 게임 최고 기록 가져오기
-                Map<String, Integer> highestScores = gameRecordDao.getHighestScoresByGame(loginUser.getId());
+                Map<String, Integer> highestScores = gameRecordDao.getHighestScoresByGame(loginUser.getNickname());
                 
                 // 게임 랭킹 가져오기 
-                
+                Map<String, Integer> userRankings = gameRecordDao.getUserRankingsByGames(loginUser.getNickname());
 
                 // 사용자의 전체 게시글 목록
                 List<BoardDTO> userBoardList = userBoardDao.userBoardList(loginUser.getNickname());
                 request.setAttribute("loginUser", loginUser);
                 request.setAttribute("highestScores", highestScores);
+                request.setAttribute("userRankings", userRankings);
                 request.setAttribute("userBoardList", userBoardList);
 
                 // 마이페이지 JSP로 이동
