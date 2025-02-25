@@ -14,6 +14,7 @@ import com.google.gson.Gson;
 
 import games.dao.GameRecordDAO;
 import games.dto.GameRankingDTO;
+import games.dto.GameRecordDTO;
 
 @WebServlet("*.record")
 public class GameRecordController extends HttpServlet{
@@ -34,8 +35,13 @@ public class GameRecordController extends HttpServlet{
 		
 		try {
 
-			//요청은 필요에 따라 추가/삭제 
+			// 게임 record 등록
 			if (cmd.equals("/add.record")) {
+				String userId = request.getParameter("userId"); // userId 값으로 닉네임 받아야 함.
+				int gameId = Integer.parseInt(request.getParameter("gameId"));
+				int record = Integer.parseInt(request.getParameter("record"));
+				
+				gameRecordDao.insert(new GameRecordDTO(0, userId, gameId, record, null, null));
 				
 			} else if (cmd.equals("/list.record")) {
 				

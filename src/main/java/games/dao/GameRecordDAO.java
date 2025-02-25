@@ -19,7 +19,7 @@ import games.dto.GameRecordDTO;
 
 public class GameRecordDAO {
 	// 1. 싱글톤 패턴
-	public static GameRecordDAO instance;
+	private static GameRecordDAO instance;
 
 	// 2. 싱글톤 패턴
 	public synchronized static GameRecordDAO getInstance() {
@@ -268,5 +268,47 @@ public class GameRecordDAO {
             throw e;
         }        
     }
+    
+    
+    // 게임 score 기록
+    public int insert(GameRecordDTO dto) throws Exception{
+    	// GAMERECORD USERID - USERS NICKNAME (FK설정)
+    	
+    	// GAME
+    	// SEQ GAMENAME PLAYTIME CATEGORY
+    	
+    	// GAMERECORD
+    	// SEQ USERID GAMEID RECORD PLAYTIME DURATION
+    	String sql = "INSERT INTO GAMERECORD VALUES (SEQ_GAMERECORD.NEXTVAL, ?, ?, ?, SYSDATE, SYSDATE)";
+    	
+    	try(Connection con = this.getConnection();
+    			PreparedStatement pstat = con.prepareStatement(sql);){
+    		pstat.setString(1, dto.getUserId());
+    		pstat.setInt(2, dto.getGameId());
+    		pstat.setInt(3, dto.getRecord());
+    		
+    		return pstat.executeUpdate();
+    	}
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 	
 }

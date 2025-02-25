@@ -34,6 +34,7 @@
 
 
         <link rel="stylesheet" href="/assets/css/game.css">
+        <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     </head>
 
     <body>
@@ -85,6 +86,31 @@
 
         <!-- 공통 Footer -->
         <%@ include file="../../includes/footer.jsp" %>
+        
+        
+        <!-- !!! 테스트용 코드  !!!-->
+        <form id = "gameRecordForm">
+        	<input type="hidden" id="gameId" value="4001">
+        	<input type="hidden" id="record" value="20000">
+        	<button type="button" onclick="sendGameRecord()">게임스코어등록</button>
+        </form>
+        <script>
+        	function sendGameRecord(){
+        		console.log("${nickname}");
+        		
+        		$.ajax({
+        			type: "POST",
+        			url: "/add.record",
+        			data: {
+        				userId: "${nickname}",
+        				gameId: $("#gameId").val(),
+        				record: $("#record").val()
+        			}
+        		});
+        	}
+        </script>
+        <!-- !!! 테스트용 코드  !!!-->
+        
     </body>
 
     </html>
