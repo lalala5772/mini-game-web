@@ -221,6 +221,10 @@
 	    $("#toBoardBtn").on("click", function(){
 	    	let last_cpage = sessionStorage.getItem("last_cpage");
 	    	
+	    	if(last_cpage == null){
+	    		last_cpage = 1;
+	    	}
+	    	
 	    	if ("${post.boardCategory}" == "notice"){
 	    		location.href="/noticeList.board?cpage=" + last_cpage;
 	    	}else if ("${post.boardCategory}" == "general"){
