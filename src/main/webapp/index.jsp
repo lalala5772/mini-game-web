@@ -219,7 +219,7 @@
                                         $("#gameList").empty(); // 기존 내용을 비우고 시작
 
                                         // 게임 목록을 순서대로 나열
-                                        for (let i = 0; i < data.length; i++) {
+                                        for (let i = 0; i < 3; i++) {
                                             let game = data[i];
                                             let topGame = getGameInfo(game.gameName); // 함수를 사용하여 게임 카드 생성
                                             console.log(game);
