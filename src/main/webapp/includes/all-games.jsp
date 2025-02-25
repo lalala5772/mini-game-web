@@ -10,7 +10,7 @@
 
 		<div class="games-grid">
 			<div class="game-card">
-				<div class="game-image" style="background-image: url('https://picsum.photos/800/400')"></div>
+				<div class="game-image" style="background-image: url('/assets/img/rhythm.png')"></div>
 				<div class="game-info">
 					<h3 class="game-title">Rhythm Game</h3>
 					<div class="game-genre">리듬 게임</div>
@@ -18,7 +18,7 @@
 			</div>
 
 			<div class="game-card">
-				<div class="game-image" style="background-image: url('https://picsum.photos/800/400')"></div>
+				<div class="game-image" style="background-image: url('/assets/img/cross_road_thm.jpg')"></div>
 				<div class="game-info">
 					<h3 class="game-title">Cross Road</h3>
 					<div class="game-genre">길건너기 게임</div>
@@ -26,7 +26,7 @@
 			</div>
 
 			<div class="game-card">
-				<div class="game-image" style="background-image: url('https://picsum.photos/800/400')"></div>
+				<div class="game-image" style="background-image: url('/assets/img/Barbecue_Game_thm.jpg')"></div>
 				<div class="game-info">
 					<h3 class="game-title">Barbecue Game</h3>
 					<div class="game-genre">고기굽기 게임</div>
@@ -34,7 +34,7 @@
 			</div>
 
 			<div class="game-card">
-				<div class="game-image" style="background-image: url('https://picsum.photos/800/400')"></div>
+				<div class="game-image" style="background-image: url('/assets/img/chamchamcham.jpeg')"></div>
 				<div class="game-info">
 					<h3 class="game-title">참참참!</h3>
 					<div class="game-genre">참참참 게임</div>
@@ -42,7 +42,7 @@
 			</div>
 
 			<div class="game-card">
-				<div class="game-image" style="background-image: url('https://picsum.photos/800/400')"></div>
+				<div class="game-image" style="background-image: url('/assets/img/zombie_thm.png')"></div>
 				<div class="game-info">
 					<h3 class="game-title">Zombie Crusher</h3>
 					<div class="game-genre">좀비 디펜스 게임</div>
@@ -50,7 +50,7 @@
 			</div>
 
 			<div class="game-card">
-				<div class="game-image" style="background-image: url('https://picsum.photos/800/400')"></div>
+				<div class="game-image" style="background-image: url('/assets/img/sanke_thm.png')"></div>
 				<div class="game-info">
 					<h3 class="game-title">Snake Game</h3>
 					<div class="game-genre">스네이크 게임</div>
