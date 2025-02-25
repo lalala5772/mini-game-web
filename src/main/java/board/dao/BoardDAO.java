@@ -56,7 +56,7 @@ public class BoardDAO {
 					String boardCategory = rs.getString("boardcategory");
 					int boardReplyCount = rs.getInt("boardreplycount");
 					
-					BoardDTO bdto = new BoardDTO(seq, writer, title, contents, writeDate, viewCount, isAdmin, boardCategory, boardReplyCount);
+					BoardDTO bdto = new BoardDTO(seq, writer, title, contents, writeDate, viewCount, isAdmin, boardCategory, boardReplyCount,0);
 					totalList.add(bdto);
 				}
 				return totalList;
@@ -213,9 +213,9 @@ public class BoardDAO {
 		}
 	}
 
-	// 공지게시판 목록 출력
+	// 공지게시판 목록 출력(게시글, 댓글 수, 파일첨부 여부)
 	public List<BoardDTO> selectFromToNotice(int start, int end) throws Exception {
-		String sql = "SELECT * FROM (SELECT board.*,(SELECT COUNT(*) FROM reply WHERE parentboardseq = board.seq) AS boardreplycount, ROW_NUMBER() OVER (ORDER BY board.seq DESC) AS rnum FROM board WHERE boardcategory ='notice') sub WHERE rnum BETWEEN ? AND ?";
+		String sql = "SELECT * FROM (SELECT board.*,(SELECT COUNT(*) FROM reply WHERE parentboardseq = board.seq) AS boardreplycount,(SELECT COUNT(*) FROM files WHERE parentseq = board.seq) AS boardfilescount, ROW_NUMBER() OVER (ORDER BY board.seq DESC) AS rnum FROM board WHERE boardcategory ='notice') sub WHERE rnum BETWEEN ? AND ?";
 		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 			pstat.setInt(1, start);
 			pstat.setInt(2, end);
@@ -232,8 +232,9 @@ public class BoardDAO {
 					int isAdmin = rs.getInt("isadmin");
 					String boardCategory = rs.getString("boardcategory");
 					int boardReplyCount = rs.getInt("boardreplycount");
+					int boardFilesCount = rs.getInt("boardfilescount");
 					
-					BoardDTO bdto = new BoardDTO(seq, writer, title, contents, writeDate, viewCount, isAdmin, boardCategory, boardReplyCount);
+					BoardDTO bdto = new BoardDTO(seq, writer, title, contents, writeDate, viewCount, isAdmin, boardCategory, boardReplyCount,boardFilesCount);
 					noticeList.add(bdto);
 				}
 				return noticeList;
@@ -241,10 +242,9 @@ public class BoardDAO {
 		}
 	}
 
-	// 자유게시판 목록 출력
+	// 자유게시판 목록 출력(게시글, 댓글 수, 파일첨부 여부)
 	public List<BoardDTO> selectFromToGeneral(int start, int end) throws Exception {
-		String sql = "SELECT * FROM (SELECT board.*,(SELECT COUNT(*) FROM reply WHERE parentboardseq = board.seq) AS boardreplycount, ROW_NUMBER() OVER (ORDER BY board.seq DESC) AS rnum FROM board WHERE boardcategory ='general') sub WHERE rnum BETWEEN ? AND ?";
-		
+		String sql = "SELECT * FROM (SELECT board.*,(SELECT COUNT(*) FROM reply WHERE parentboardseq = board.seq) AS boardreplycount,(SELECT COUNT(*) FROM files WHERE parentseq = board.seq) AS boardfilescount, ROW_NUMBER() OVER (ORDER BY board.seq DESC) AS rnum FROM board WHERE boardcategory ='general') sub WHERE rnum BETWEEN ? AND ?";
 		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 			pstat.setInt(1, start);
 			pstat.setInt(2, end);
@@ -260,8 +260,8 @@ public class BoardDAO {
 					int isAdmin = rs.getInt("isadmin");
 					String boardCategory = rs.getString("boardcategory");
 					int boardReplyCount = rs.getInt("boardreplycount");
-					
-					BoardDTO bdto = new BoardDTO(seq, writer, title, contents, writeDate, viewCount, isAdmin, boardCategory,boardReplyCount);
+					int boardFilesCount = rs.getInt("boardfilescount");
+					BoardDTO bdto = new BoardDTO(seq, writer, title, contents, writeDate, viewCount, isAdmin, boardCategory,boardReplyCount,boardFilesCount);
 					generalList.add(bdto);
 				}
 				return generalList;
@@ -269,9 +269,9 @@ public class BoardDAO {
 		}
 	}
 
-	// 공지게시판 검색 목록 출력
+	// 공지게시판 검색 목록 출력(검색한 내용 출력 및 댓글 수 파일첨부 여부확인)
 	public List<BoardDTO> searchFromToNotice(int start, int end, String searchNoticeKeyword,String searchNoticeCategory) throws Exception {
-		String sql = "SELECT * FROM (SELECT board.*,(SELECT COUNT(*) FROM reply WHERE parentboardseq = board.seq) AS boardreplycount, ROW_NUMBER() OVER (ORDER BY board.seq DESC) AS rnum FROM board WHERE boardcategory ='notice' and "+searchNoticeCategory+" like '%"+searchNoticeKeyword+"%') sub WHERE rnum BETWEEN ? AND ?";
+		String sql = "SELECT * FROM (SELECT board.*,(SELECT COUNT(*) FROM reply WHERE parentboardseq = board.seq) AS boardreplycount,(SELECT COUNT(*) FROM files WHERE parentseq = board.seq) AS boardfilescount, ROW_NUMBER() OVER (ORDER BY board.seq DESC) AS rnum FROM board WHERE boardcategory ='notice' and "+searchNoticeCategory+" like '%"+searchNoticeKeyword+"%') sub WHERE rnum BETWEEN ? AND ?";
 		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 			pstat.setInt(1, start);
 			pstat.setInt(2, end);
@@ -287,8 +287,9 @@ public class BoardDAO {
 					int isAdmin = rs.getInt("isadmin");
 					String boardCategory = rs.getString("boardcategory");
 					int boardReplyCount = rs.getInt("boardreplycount");
+					int boardFilesCount = rs.getInt("boardfilescount");
 					
-					BoardDTO bdto = new BoardDTO(seq, writer, title, contents, writeDate, viewCount, isAdmin, boardCategory,boardReplyCount);
+					BoardDTO bdto = new BoardDTO(seq, writer, title, contents, writeDate, viewCount, isAdmin, boardCategory,boardReplyCount,boardFilesCount);
 					noticeSearchList.add(bdto);
 				}
 				return noticeSearchList;
@@ -296,9 +297,9 @@ public class BoardDAO {
 		}
 	}
 
-	// 자유게시판 검색 목록 출력
+	// 자유게시판 검색 목록 출력(검색한 내용 출력 및 댓글 수 파일첨부 여부확인)
 	public List<BoardDTO> searchFromToGeneral(int start, int end, String searchGeneralKeyword, String searchGeneralCategory) throws Exception {
-		String sql = "SELECT * FROM (SELECT board.*,(SELECT COUNT(*) FROM reply WHERE parentboardseq = board.seq) AS boardreplycount, ROW_NUMBER() OVER (ORDER BY board.seq DESC) AS rnum FROM board WHERE boardcategory ='general' and "+searchGeneralCategory+" like '%"+searchGeneralKeyword+"%') sub WHERE rnum BETWEEN ? AND ?";
+		String sql = "SELECT * FROM (SELECT board.*,(SELECT COUNT(*) FROM reply WHERE parentboardseq = board.seq) AS boardreplycount,(SELECT COUNT(*) FROM files WHERE parentseq = board.seq) AS boardfilescount, ROW_NUMBER() OVER (ORDER BY board.seq DESC) AS rnum FROM board WHERE boardcategory ='general' and "+searchGeneralCategory+" like '%"+searchGeneralKeyword+"%') sub WHERE rnum BETWEEN ? AND ?";
 		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 			pstat.setInt(1, start);
 			pstat.setInt(2, end);
@@ -314,8 +315,9 @@ public class BoardDAO {
 					int isAdmin = rs.getInt("isadmin");
 					String boardCategory = rs.getString("boardcategory");
 					int boardReplyCount = rs.getInt("boardreplycount");
+					int boardFilesCount = rs.getInt("boardfilescount");
 					
-					BoardDTO bdto = new BoardDTO(seq, writer, title, contents, writeDate, viewCount, isAdmin, boardCategory,boardReplyCount);
+					BoardDTO bdto = new BoardDTO(seq, writer, title, contents, writeDate, viewCount, isAdmin, boardCategory,boardReplyCount,boardFilesCount);
 					
 					generalSearchList.add(bdto);
 				}

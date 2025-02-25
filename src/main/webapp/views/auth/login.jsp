@@ -38,11 +38,6 @@
 			<img src="/assets/img/auth.jpg" alt="" class="sign"> <img src="/assets/img/logoW.png" alt="" class="logo2">
 		</div>
 		
-		<!-- <div class="join_membership"><button type="button" class="signIn" onclick="goToPage('views/auth/signup.jsp')">회원가입</button></div>
-		<div class="findId"><button type="button" class="signIn" onclick="goToPage('views/auth/findmyid.jsp')">아이디 찾기</button></div>
-		<div class="findPw"><button type="button" class="signIn" onclick="goToPage('views/auth/findmypw.jsp')">비밀번호 찾기</button></div>  -->
-		
-		
 		<div class="with">Or sign in with</div>
 			<button class="google">
 				<i class="fa-brands fa-google fa-lg" style="color: #ffa200;"></i>

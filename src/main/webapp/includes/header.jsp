@@ -21,8 +21,8 @@
         <nav class="nav-section">
             <ul class="nav-list">
                 <li><a href="/games" class="nav-link">게임하기</a></li>
-                <li><a href="views/board/generalList.jsp" class="nav-link">게시판</a></li>
-                <li><a href="views/auth/faq.jsp" class="nav-link">고객센터</a></li> <!-- 임시 경로 -->
+                <li><a href="/generalList.board?cpage=1" class="nav-link">게시판</a></li>
+                <li><a href="/faq.board" class="nav-link">고객센터</a></li> <!-- 임시 경로 -->
                 <li><a href="/dashboard.admin" class="nav-link">관리자 페이지</a></li> 
             </ul>
         </nav>

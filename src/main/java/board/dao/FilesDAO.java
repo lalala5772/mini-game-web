@@ -50,22 +50,22 @@ public class FilesDAO {
 		}
 	}
 
-	// 파일 목록 받기
-	public List<FilesDTO> getFilesBySeq(int seq) throws Exception {
+	// 파일 목록 받기 수정
+	public List<FilesDTO> getFilesBySeq(int boardSeq) throws Exception {
 		String sql = "SELECT * FROM FILES WHERE PARENTSEQ = ? ORDER BY 1 DESC";
 
 		try (Connection con = this.getConnection(); PreparedStatement stat = con.prepareStatement(sql);) {
-			stat.setInt(1, seq);
+			stat.setInt(1, boardSeq);
 			try (ResultSet rs = stat.executeQuery();) {
 				List<FilesDTO> fileList = new ArrayList<>();
 				while (rs.next()) {
-					int parentSeq = rs.getInt("PARENTSEQ");
+					int seq = rs.getInt("seq");
 					String id = rs.getString("ID");
 					String originName = rs.getString("ORIGINNAME");
 					String fileName = rs.getString("FILENAME");
 					Timestamp uploadDate = rs.getTimestamp("UPLOADDATE");
 
-					fileList.add(new FilesDTO(seq, parentSeq, id, originName, fileName, uploadDate));
+					fileList.add(new FilesDTO(seq, boardSeq, id, originName, fileName, uploadDate));
 				}
 				return fileList;
 			}
@@ -105,5 +105,7 @@ public class FilesDAO {
 			}
 		}
 	}
+	
+
 
 }

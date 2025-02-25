@@ -27,13 +27,6 @@ public class BoardController extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// !!! 테스트용 코드 !!!
-//		request.getSession().setAttribute("nickname", "테스트용닉네임");
-//		request.getSession().setAttribute("id", "idfortest");
-		
-		request.getSession().setAttribute("nickname", "엽복치");
-		request.getSession().setAttribute("id", "booo7575");
-		// !!! 테스트용 코드 !!!
 		
 		
 		request.setCharacterEncoding("UTF-8");
@@ -48,8 +41,8 @@ public class BoardController extends HttpServlet {
 
 		
 		try {
-			if (cmd.equals("/add.board")) {
-
+			if (cmd.equals("/faq.board")) {
+				response.sendRedirect("/views/auth/faq.jsp");
 			}
 			//공지사항게시판 목록 출력
 			else if (cmd.equals("/noticeList.board")) {
@@ -150,6 +143,7 @@ public class BoardController extends HttpServlet {
 
 				// 자유게시판 목록 출력
 				List<BoardDTO> generalList = dao.selectFromToGeneral(start, end);
+				
 				
 				int startNavi = (cpage - 1) / Statics.naviCountPerPage * Statics.naviCountPerPage + 1;
 				int endNavi = startNavi + Statics.naviCountPerPage - 1;

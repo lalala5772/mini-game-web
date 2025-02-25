@@ -16,6 +16,9 @@ public class BoardDTO {
 	private String dateWrite;
 	//게시글 당 댓글 수 저장변수
 	private int boardReplyCount;
+	//게시글 당 파일첨부 갯수 확인
+	private int boardFilesCount;
+	
 	
 	public BoardDTO() {
 		
@@ -34,7 +37,7 @@ public class BoardDTO {
 	}
 	
 	public BoardDTO(int seq, String writer, String title, String contents, Timestamp writeDate, int viewCount,
-			int isAdmin, String boardCategory, int boardReplyCount) {
+			int isAdmin, String boardCategory, int boardReplyCount, int boardFilesCount) {
 		super();
 		this.seq = seq;
 		this.writer = writer;
@@ -45,8 +48,12 @@ public class BoardDTO {
 		this.isAdmin = isAdmin;
 		this.boardCategory = boardCategory;
 		this.boardReplyCount = boardReplyCount;
+		this.boardFilesCount = boardFilesCount;
 	}
 	
+	
+	
+
 	/* 데이터베이스에서 가지고 온 게시글 저장시간 커스텀 후 출력 */
 	public String getDateWrite() {
         long conData = this.writeDate.getTime(); // 데이터베이스에서 가지고온 시간
@@ -65,6 +72,11 @@ public class BoardDTO {
             return dateWrite;
         }
     }
+	
+	public int getBoardFilesCount() {
+		return boardFilesCount;
+	}
+
 
 	public int getSeq() {
 		return seq;

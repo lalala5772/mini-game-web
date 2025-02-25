@@ -53,6 +53,8 @@ public class UsersController extends HttpServlet {
 				if (dto != null) {
 					HttpSession session = request.getSession();
 					session.setAttribute("loginUser", dto);
+					session.setAttribute("nickname", dto.getNickname());
+					session.setAttribute("id", dto.getId());
 					
 					//디버깅용 
 					System.out.println("로그인 성공 - 세션 저장 완료: " + dto.getNickname());
@@ -163,14 +165,14 @@ public class UsersController extends HttpServlet {
 					response.getWriter().write("비밀번호 변경 실패");
 				}
 			} 
-			else if (cmd.equals("/modify.users")) { // 개인정보수정
-				String id = (String) request.getSession().getAttribute("loginID");
-				
-				UsersDTO dto = dao.modifyPage(id);
-				request.setAttribute("dto", dto);
-				request.getRequestDispatcher("/views/auth/modify_information.jsp").forward(request, response);
-				
-			}
+//			else if (cmd.equals("/modify.users")) { // 개인정보수정
+//				UsersDTO loginUser = (UsersDTO) request.getSession().getAttribute("loginUser");
+//				
+//				boolean result = dao.updateUserDB(loginUser.getId(), loginUser.getName(), loginUser.getEmail(), loginUser.getNickname(), loginUser.getPhone(), loginUser.getRnum());
+////				request.setAttribute("dto", dto);
+//				request.getRequestDispatcher("/views/auth/modify_information.jsp").forward(request, response);
+//				
+//			}
 			else if (cmd.equals("/checkPassword.users")){
 				HttpSession session = request.getSession();
 		        String pw = request.getParameter("pw");
@@ -187,55 +189,6 @@ public class UsersController extends HttpServlet {
 		            response.getWriter().write("fail");
 		        }
 			}
-//			else if (cmd.equals("/chat.users")){
-//				HttpSession session = request.getSession();
-//		        UsersDTO loginUser = (UsersDTO) session.getAttribute("id"); 
-//
-//		        request.setAttribute("loginUser", loginUser);
-//				request.getRequestDispatcher("/views/chat/chat.jsp").forward(request, response);
-//			}
-			// 
-//			else if (cmd.equals("/checkDuplicate.users")) {
-//				response.setContentType("text/plain;charset=UTF-8");
-//				String field = request.getParameter("field");
-//				String value = request.getParameter("value");
-//				try (PrintWriter out = response.getWriter()) {
-//					out.write(dao.isDuplicate(field, value) ? "duplicate" : "available");
-//				}
-//			}
-//			
-//
-//			
-//
-//			else if (cmd.equals("/withdraw.users")) { //회원탈퇴
-//				String id = (String) request.getSession().getAttribute("id");
-//				int result = dao.withdraw(id);
-//
-//				if (result > 0) {
-//					System.out.println("탈퇴 성공");
-//					request.getSession().invalidate();// 세션에서 정보 삭제
-//					response.sendRedirect("/index.jsp");
-//				} 
-//
-//			}  
-//			
-//
-//
-//						   else if (cmd.equals("/withdraw.users")) { //회원탈퇴
-//							String id = (String) request.getSession().getAttribute("loginID");
-//							int result = dao.withdraw(id);
-//							
-//							if (result > 0) {
-//								System.out.println("탈퇴 성공");
-//								request.getSession().invalidate();// 세션에서 정보 삭제
-//								response.sendRedirect("/index.jsp");
-//							} 
-//							
-//						} else if (cmd.equals("/findID.users")) { //아이디 찾기
-//							String id = request.getParameter("id");
-//							String email = request.getParameter("email");
-//						}
-
 				
 		} catch (Exception e) {
 			e.printStackTrace();
