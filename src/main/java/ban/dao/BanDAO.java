@@ -29,13 +29,23 @@ public class BanDAO {
 
 	}
 
-	public int modifyById(String isban, String id) throws Exception {
-		String sql = "update ban set isban = ? where id = ?";
+	public int insertById(int isban, String id) throws Exception {
+		String sql = "insert into ban values(seq_ban.nextval,?,'BAN',sysdate,sysdate,?)";
 
 		try (Connection con = this.getconnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
-			pstat.setString(1, isban);
-			pstat.setString(2, id);
+			pstat.setString(1, id);
+			pstat.setInt(2, isban);
 
+			return pstat.executeUpdate();
+		}
+	}
+
+	public int modifyByID(int isban, String id) throws Exception {
+		String sql = "update users set warningcount=? where id=?";
+
+		try (Connection con = this.getconnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+			pstat.setInt(1, isban);
+			pstat.setString(2, id);
 			return pstat.executeUpdate();
 		}
 	}

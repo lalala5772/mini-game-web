@@ -107,7 +107,7 @@ public class AdminController extends HttpServlet {
 				request.setAttribute("needPrev", needPrev);
 				request.setAttribute("needNext", needNext);
 
-				Map<String, List> userList = dao.selectFromTotalUsersList(start, end);
+				List<UsersDTO> userList = dao.selectFromTotalUsersList(start, end);
 				List<UsersDTO> newUserList = dao.getNewUserList();
 				request.setAttribute("newUserList", newUserList);
 				request.setAttribute("userList", userList);
@@ -132,7 +132,7 @@ public class AdminController extends HttpServlet {
 //			System.out.println("start: " + start + ", end: " + end);
 
 			try {
-				Map<String, List> userList = dao.selectFromTotalUsersList(start, end);
+				List<UsersDTO> userList = dao.selectFromTotalUsersList(start, end);
 				response.getWriter().append(g.toJson(userList));
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -173,18 +173,23 @@ public class AdminController extends HttpServlet {
 			}
 		} else if (cmd.equals("/banuser.admin")) {
 			String id = request.getParameter("userid");
+			System.out.println(id);
 			String isBan = request.getParameter("isban");
+			int ban;
 			String isBanToChange;
 			String banResult;
 			if (isBan.equals("UNBAN")) {
+				ban=1;
 				isBanToChange = "BAN";
 				banResult = "차단되었습니다.";
 			} else {
+				ban=0;
 				isBanToChange = "UNBAN";
 				banResult = "차단해제되었습니다.";
 			}
 			try {
-				int result = bandao.modifyById(isBanToChange, id);
+				int result = bandao.insertById(ban, id);
+				int rs = bandao.modifyByID(ban, id);
 				response.getWriter().append(g.toJson(banResult));
 			} catch (Exception e) {
 				e.printStackTrace();
