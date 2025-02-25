@@ -75,12 +75,21 @@
 	
 	// 댓글 수정 버튼 클릭 이벤트
 	$(document).on("click", ".update-reply-btn", function(){
-		//
-		// !!! 한 번에 하나의 댓글 수정 폼만 열려있도록 개선 필요
-		//
+		// 한번에 하나의 댓글 수정폼만 열리도록 함.
+		$(".update-reply-inbox").closest(".reply").each(function(){
+ 			// 각 댓글에 대해 검사 -> $(this).data("originalReply")가 존재하면 수정 폼 열려있다는 의미 -> 기존 댓글로 복원 (수정 폼 닫기)
+ 			// $(this).data("originalReply") -> 수정 버튼 누를 시 기존 댓글 담아놓음
+	        let originalReply = $(this).data("originalReply");
+	        if (originalReply) {
+	            $(this).html(originalReply);
+	        }
+		});
 		
 		let originalReply = $(this).closest(".reply").html();
 	    let currentContents = $(this).closest(".reply").find(".reply-contents").html();
+	    
+	    // 기존 댓글 내용 저장하여 복원 가능
+	    $(this).closest(".reply").data("originalReply", originalReply);
 		
 	    // 댓글 수정 클릭 시 나올 inbox 생성
 		let replyInbox = $("<div>").addClass("reply-inbox update-reply-inbox");
