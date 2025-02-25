@@ -158,7 +158,11 @@
 		});
 	    	
 	    
-	    
+	    // 로그인 안했을 경우 댓글 작성 불가
+	    if("${nickname}" == ""){
+	    	$("#replyInboxText").attr({"disabled": true, "placeholder": "댓글을 남기시려면 로그인 해주세요."});
+	    	$("#replyResisterBtn").attr("disabled", true).css("background-color", "gray");
+	    }
                         
 	    // 공지 게시판일 경우 댓글 섹션 삭제
 	    if ("${post.boardCategory}" == "notice") {
@@ -302,7 +306,7 @@
                 <form action="/add.reply" method="post">
                 <div class="reply-inbox">
                     <p class="reply-inbox-name">${nickname}</p>
-                    <textarea class="reply-inbox-text" name="contents" placeholder="댓글을 작성해주세요."></textarea>
+                    <textarea class="reply-inbox-text" name="contents" id="replyInboxText" placeholder="댓글을 작성해주세요."></textarea>
                     <div class="reply-btns">
                     	<button class="reply-resister-btn" id="replyResisterBtn">등록</button>
                     </div>
