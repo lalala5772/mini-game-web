@@ -47,20 +47,6 @@
 	integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="/assets/css/mypage.css">
-<style>
-/*  .btn {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            margin: 0 10px;
-        }
-        .btn:hover {
-            background-color: #45a049;
-        } */
-</style>
 
 </head>
 <body>
@@ -134,6 +120,7 @@
 	const userBoardList = [
 	    <c:forEach var="post" items="${userBoardList}" varStatus="status">
 	        {
+	        	seq: "${fn:escapeXml(post.seq)}",
 	            title: "${fn:escapeXml(post.title)}",
 	            writeDate: "${post.writeDate.toString()}",
 	            viewCount: "${post.viewCount.toString()}"
@@ -156,22 +143,27 @@
             const post = currentPosts[i]; // 각 포스트 데이터 가져오기
             const row = document.createElement('tr');
 
-            // 개별 <td> 요소 생성
+            // 제목 셀 생성 - 링크 추가
             const titleTd = document.createElement('td');
+            const titleLink = document.createElement('a');
+            titleLink.href = "/detail.board?seq=" + post.seq; // 링크에 seq 추가
+            titleLink.textContent = post.title;
+            titleLink.style.cursor = "pointer"; // 선택적: 마우스 커서를 포인터로 변경
+            titleTd.appendChild(titleLink);
+
+            // 나머지 셀 생성
             const dateTd = document.createElement('td');
-            const viewTd = document.createElement('td');
+            const viewTd = document.createElement('td');  
 
-            // 올바른 innerHTML 속성 사용
-            titleTd.innerHTML = post.title;
             dateTd.innerHTML = post.writeDate;
-            viewTd.innerHTML = post.viewCount;
+            viewTd.innerHTML = post.viewCount;  
 
-            // <tr>에 <td> 추가
+            // 행에 추가
             row.appendChild(titleTd);
             row.appendChild(dateTd);
-            row.appendChild(viewTd);
+            row.appendChild(viewTd);  
 
-            // 최종적으로 <tbody>에 추가
+            // 최종적으로 테이블에 추가
             postBody.appendChild(row);
         }
 
@@ -207,10 +199,6 @@
         displayPosts(currentPage);
     });
 </script>
-
-
-
-		
 
 	</div>
 	<div class="subtitle">내 게임 순위</div>
