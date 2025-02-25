@@ -88,15 +88,25 @@
         <%@ include file="../../includes/footer.jsp" %>
         
         
-        <!-- !!! 테스트용 코드  !!!-->
-        <form id = "gameRecordForm">
-        	<input type="hidden" id="gameId" value="4001">
-        	<input type="hidden" id="record" value="20000">
-        	<button type="button" onclick="sendGameRecord()">게임스코어등록</button>
-        </form>
+        <!-- !!! 스코어 기록법 !!!-->
+		<!-- 1. 각 게임의 gameId를 #gameId hidden input의 value에 기입 -->
+        <input type="hidden" id="gameId" value="4001">
+        <input type="hidden" id="finalScore">
+        
+		<!-- 테스트용 버튼입니다 (본인 코드에서는 삭제) -->
+		<button id="testBtn">스코어기록테스트용버튼</button>	
+        
         <script>
-        	function sendGameRecord(){
-        		console.log("${nickname}");
+        	// 2. 게임 끝났을 때 sendGameRecord(점수)로 파라미터에 score 담아서 콜
+        	// 아래 예시는 버튼 클릭했을 때 레코드 보내도록 작성했지만
+        	// 각자의 게임에서 스코어가 나오는 시점(게임오버, 클리어, ...)에 sendGameRecord(점수) 콜하시면 됩니다.
+			$("#testBtn").on("click", function(){
+				sendGameRecord(2000);
+			});
+        	
+        
+        	function sendGameRecord(currentScore){
+        		$("#finalScore").val(currentScore);
         		
         		$.ajax({
         			type: "POST",
@@ -104,12 +114,12 @@
         			data: {
         				userId: "${nickname}",
         				gameId: $("#gameId").val(),
-        				record: $("#record").val()
+        				record: $("#finalScore").val()
         			}
         		});
         	}
         </script>
-        <!-- !!! 테스트용 코드  !!!-->
+        <!-- !!! 스코어 기록법 !!!-->
         
     </body>
 
