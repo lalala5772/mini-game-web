@@ -149,10 +149,27 @@
 			location.href = "/customerlist.admin?cpage=" + pageNum;
 			console.log(pageNum);
 		});
+		//
+		$(document).on("click","#banbtn",function(){
+			let id = $(this).data("seq");
+			let ban = $(this).data("ban");
+			if(confirm("정말 차단하시겠습니까?")){
+				$.ajax({
+					url : "/banuser.admin",
+					data : {userid:id,isban:ban},
+					success : function(resp){
+						alert(resp);
+						getCustomerList();
+						getNewCustomerList();
+					},error : function() {
+						alert("삭제 중 오류 발생");
+					}
+				});
+			}
+		});
 // 삭제버튼 작동 펑션
 		$(document).on("click", ".delete", function() {
 			let userseq = $(this).data("seq"); // data-seq 속성에서 ID 가져오기
-			console.log(userseq);
 			if (confirm("삭제시 되돌릴 수 없습니다.")) {
 				$.ajax({
 					url : "/deleteuser.admin",
@@ -245,23 +262,23 @@
 									tr.append(td);
 									$("#getuserlist").append(tr);
 								} else {
-									for (let i = 0; i < resp.length; i++) {
+									for (let i = 0; i < resp.totalUserList.length; i++) {
 										let tr = $("<tr>");
 										let nickname = $("<td>").html(
-												resp[i].nickname);
+												resp.totalUserList[i].nickname);
 										let joinDate = $("<td>").html(
-												resp[i].joinDate);
+												resp.totalUserList[i].joinDate);
 										let lastLogin = $("<td>").html(
-												resp[i].lastLogin);
+												resp.totalUserList[i].lastLogin);
 										let warningCount = $("<td>").html(
-												resp[i].warningCount);
+												resp.totalUserList[i].warningCount);
 										let status = $("<td>").html(
-												resp[i].status);
+												resp.totalUserList[i].status);
 										let banbtn = $(
-												"<button class='unban' id = 'banbtn'>")
-												.html("unban");
+												"<button class='unban' id = 'banbtn'>").attr("data-seq",resp.totalUserList[i].id).attr("data-ban",resp.userBanList[i].isBan)
+												.html(resp.userBanList[i].isBan);
 										let delbtn = $(
-												"<button class='delete' data-seq='"+ resp[i].id+"'>")
+												"<button class='delete' data-seq='"+ resp.totalUserList[i].id+"'>")
 												.html("delete");
 										let bantd = $("<td>");
 										bantd.append(banbtn);

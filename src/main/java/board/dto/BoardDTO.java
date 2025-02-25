@@ -1,5 +1,4 @@
 package board.dto;
-
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
