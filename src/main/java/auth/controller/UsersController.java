@@ -53,6 +53,8 @@ public class UsersController extends HttpServlet {
 				if (dto != null) {
 					HttpSession session = request.getSession();
 					session.setAttribute("loginUser", dto);
+					session.setAttribute("nickname", dto.getNickname());
+					session.setAttribute("id", dto.getId());
 					
 					//디버깅용 
 					System.out.println("로그인 성공 - 세션 저장 완료: " + dto.getNickname());
@@ -163,14 +165,14 @@ public class UsersController extends HttpServlet {
 					response.getWriter().write("비밀번호 변경 실패");
 				}
 			} 
-			else if (cmd.equals("/modify.users")) { // 개인정보수정
-				String id = (String) request.getSession().getAttribute("loginID");
-				
-				UsersDTO dto = dao.modifyPage(id);
-				request.setAttribute("dto", dto);
-				request.getRequestDispatcher("/views/auth/modify_information.jsp").forward(request, response);
-				
-			}
+//			else if (cmd.equals("/modify.users")) { // 개인정보수정
+//				UsersDTO loginUser = (UsersDTO) request.getSession().getAttribute("loginUser");
+//				
+//				boolean result = dao.updateUserDB(loginUser.getId(), loginUser.getName(), loginUser.getEmail(), loginUser.getNickname(), loginUser.getPhone(), loginUser.getRnum());
+////				request.setAttribute("dto", dto);
+//				request.getRequestDispatcher("/views/auth/modify_information.jsp").forward(request, response);
+//				
+//			}
 			else if (cmd.equals("/checkPassword.users")){
 				HttpSession session = request.getSession();
 		        String pw = request.getParameter("pw");

@@ -34,7 +34,7 @@ public class UsersDAO {
     
     //로그인 기능 구현 : 사용자의 아이디와 패스워드를 받아 사용자 인스턴스를 반환 
     public UsersDTO login(String id, String pw) throws Exception {
-        String sql = "SELECT id, name, nickname, phone, email FROM users WHERE id = ? AND pw = ?";
+        String sql = "SELECT id, name, nickname, phone, email, rnum FROM users WHERE id = ? AND pw = ?";
 
         try (Connection con = this.getConnection();
              PreparedStatement pstat = con.prepareStatement(sql)) {
@@ -51,7 +51,8 @@ public class UsersDAO {
                         rs.getString("name"),
                         rs.getString("phone"),
                         rs.getString("email"),
-                        null, null, 0, 0, 0, 0, null
+                        rs.getString("rnum"), 
+                        null, 0, 0, 0, 0, null
                     );
                 }
             }
@@ -163,41 +164,32 @@ public class UsersDAO {
         }
         return dto;
     }
-    
- // 개인정보 수정페이지 -> 다시 작성하기 
- 	public UsersDTO modifyPage(String id) throws Exception {
- 		String sql = "select id, name, pw, nickname, phone, email, rnum, joindate from users where id='user1'";
+   
+ // 개인정보 수정페이지
+ 	public boolean updateUserDB(UsersDTO updateUser) throws Exception {
+ 		String sql = "UPDATE users SET name=?, email=?, nickname=?, phone=?, rnum=? WHERE id=?";
 
- 		UsersDTO dto = null;
+ 		boolean success = false;
  		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 
-// 			pstat.setString(1, id);
+ 			pstat.setString(1, 	updateUser.getName());
+ 			pstat.setString(2,  updateUser.getEmail());
+ 			pstat.setString(3,  updateUser.getNickname());
+ 			pstat.setString(4,  updateUser.getPhone());
+ 			pstat.setString(5,  updateUser.getRnum());
+ 			pstat.setString(6,  updateUser.getId());
 
- 			try (ResultSet rs = pstat.executeQuery();) {
- 				if (rs.next()) {
- 					id = rs.getString("id");
- 					String name = rs.getString("name");
- 					String pw = rs.getString("pw");
- 					String nickname = rs.getString("nickname");
- 					String phone = rs.getString("phone");
- 					String email = rs.getString("email");
- 					String rnum = rs.getString("rnum");
- 					Timestamp joindate = rs.getTimestamp("joindate");
+ 			int result = pstat.executeUpdate();
+            
+            // 1개 이상의 행이 업데이트되었으면 성공
+            if (result > 0) {
+                success = true;
 
- 					dto = new UsersDTO(
-                            rs.getString("id"),
-                            null, // 비밀번호는 반환하지 않음
-                            rs.getString("name"),
-                            rs.getString("nickname"),
-                            rs.getString("phone"),
-                            rs.getString("email"),
-                            null, null, 0, 0, 0, 0, null
-                    );
- 				}
- 				return dto;
  			}
  		}
+ 		return success;
  	}
+ 	
  	
  	public int withdraw(String id) throws Exception { // 탈퇴
 		String sql = "delete from users where id = ?";
@@ -249,5 +241,21 @@ public class UsersDAO {
 	        return result > 0;
 	    }
 	}
-
+	
+	public String getPassword(String id) throws Exception{
+		
+		String sql = "select pw from users where id = ?";
+		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
+	        pstat.setString(1, id);
+	        
+	        try (ResultSet rs = pstat.executeQuery();) {
+	        	if (rs.next()) {
+                    return rs.getString("pw");
+                }
+	        }
+	    }
+		return null;
+	}
+	
 }
+

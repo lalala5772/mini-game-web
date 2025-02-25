@@ -803,11 +803,6 @@ th:nth-child(4), td:nth-child(4) {
 	margin-right: 10px; /* 두 요소 간의 간격 */
 }
 
-/* .myrank,.rank,.myscore{
-    background-color: rgba(255, 255, 255, 0.146);
-    color: white;
-    
-} */
 .container2 {
 	display: none;
 }
