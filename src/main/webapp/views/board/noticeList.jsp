@@ -42,6 +42,7 @@
                 <div class="board-header">
                     <span class="seq">번호</span>
                     <span class="title">제목</span>
+                    <span class="files">첨부</span>
                     <span class="writer">작성자</span>
                     <span class="writeDate">작성일</span>
                     <span class="viewCount">조회수</span>
@@ -54,6 +55,11 @@
                     <span class="title"><a href="detail.board?seq=${i.seq}" name="seq">${i.title }</a>
                     <c:if test="${i.boardReplyCount > 0 }">
                     <span style="color:red;">[${i.boardReplyCount }]</span>
+                    </c:if>
+                    </span>
+                    <span class="files">
+                    <c:if test="${i.boardFilesCount > 0 }">
+                    <span id=file-icon><i class="fa-solid fa-paperclip"></i></span>
                     </c:if>
                     </span>
                     <span class="writer">${i.writer }</span>
@@ -132,7 +138,7 @@ document.getElementById("search-btn").addEventListener("click", function(event) 
               "&searchKeyword=" + encodeURIComponent(searchInput) +
               "&searchCategory=" + encodeURIComponent(searchCategory);
     location.href = url;
-});
+	});
 
 
 
@@ -140,11 +146,22 @@ document.getElementById("search-btn").addEventListener("click", function(event) 
 			let pageNum = $(this).attr("page");
 			sessionStorage.setItem("last_cpage",pageNum);
 			location.href="/noticeList.board?cpage="+pageNum;
-		})
+		});
 		
 		$(".write-notice-btn").on("click",function(){
 			location.href = "/toWrite.board";
-		})
+		});
+		
+		$(".notice").on("click",function(){
+			let pageNum = 1;
+			sessionStorage.setItem("last_cpage",pageNum);
+			location.href="/noticeList.board?cpage="+pageNum;
+		});
+		$(".general").on("click",function(){
+			let pageNum = 1;
+			sessionStorage.setItem("last_cpage",pageNum);
+			location.href="/generalList.board?cpage="+pageNum;
+		});
 	
 	</script>
 </html>
