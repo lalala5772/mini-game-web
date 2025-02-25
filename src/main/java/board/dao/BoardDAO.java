@@ -3,12 +3,16 @@ package board.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
+import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 import board.dto.BoardDTO;
@@ -412,4 +416,24 @@ public class BoardDAO {
 			return pstat.executeUpdate();
 		}
 	}
+	
+	public void increaseViewCount(HttpSession session, int seq) throws Exception{
+	    // 세션에서 "viewedPosts" 속성 가져오기
+	    Set<Integer> viewedPosts = (Set<Integer>) session.getAttribute("viewedPosts");
+
+	    // 세션에 "viewedPosts"가 없으면 새로 생성
+	    if (viewedPosts == null) {
+	        viewedPosts = new HashSet<>();
+	    }
+
+	    // 만약 해당 게시글을 처음 본 거라면 조회수 증가
+	    if (!viewedPosts.contains(seq)) {
+	        viewedPosts.add(seq);  // "viewedPosts"에 게시글 ID 추가
+	        session.setAttribute("viewedPosts", viewedPosts);  // 세션에 업데이트
+
+	        // DB에서 조회수 증가
+	        incrementViewCount(seq);
+	    }
+	}
+
 }
