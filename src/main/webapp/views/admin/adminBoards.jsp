@@ -155,37 +155,18 @@
                       </c:otherwise>
                     </c:choose>
                     <!-- 페이지네이션 -->
-                    <div class="pagination" style="display: none;">
-                      <ul>
-                        <c:if test="${needPrev}">
-                          <li><a href="/boardlist.admin?cpage=${startNavi-1}">이전</a></li>
-                        </c:if>
-
-                        <c:forEach var="i" begin="${startNavi}" end="${endNavi}">
-                          <li class="${i == cpage ? 'active' : ''}"><a href="/boardlist.admin?cpage=${i}">${i}</a></li>
-                        </c:forEach>
-
-                        <c:if test="${needNext}">
-                          <li><a href="/boardlist.admin?cpage=${endNavi+1}">다음</a></li>
-                        </c:if>
-                      </ul>
-                    </div>
-                    <!-- 수정 ::s -->
-                    <!-- 페이지네이션 -->
                     <div class="pagination">
                       <ul>
                         <c:if test="${needPrev}">
-                          <li><a href="/boardlist.admin?cpage=${startNavi-1}<c:if test="${not empty searchKeyword}">&searchKeyword=${searchKeyword}</c:if>">이전</a></li>
+                          <li><a href="boardlist.admin?cpage=${startNavi-1}&searchKeyword=${searchKeyword}">이전</a></li>
                         </c:if>
-
+                        
                         <c:forEach var="i" begin="${startNavi}" end="${endNavi}">
-                          <li class="${i == cpage ? 'active' : ''}">
-                            <a href="/boardlist.admin?cpage=${i}<c:if test="${not empty searchKeyword}">&searchKeyword=${searchKeyword}</c:if>">${i}</a>
-                          </li>
+                          <li><a href="boardlist.admin?cpage=${i}&searchKeyword=${searchKeyword}">${i}</a></li>
                         </c:forEach>
-
-                        <c:if test="${needNext}">
-                          <li><a href="/boardlist.admin?cpage=${endNavi+1}<c:if test="${not empty searchKeyword}">&searchKeyword=${searchKeyword}</c:if>">다음</a></li>
+                        
+                        <c:if test="${needNext && pageTotalCount >= 5}">
+                          <ii><a href="boardlist.admin?cpage=${endNavi+1}&searchKeyword=${searchKeyword}">다음</a></ii>
                         </c:if>
                       </ul>
                     </div>
@@ -213,8 +194,6 @@
           integrity="sha384-cVKIPhGKtYv2/7R+FtM2ZLCVYQ7LNPV+Ze8FouO8nG5pq4nE1tvFq+0VYU73nMyg"
           crossorigin="anonymous"></script>
         <script>
-          // 추가 스크립트가 필요하면 여기에 작성합니다.
-
           //게시글 삭제 
           $(document).ready(function () {
             $(".delete-btn").click(function () {
