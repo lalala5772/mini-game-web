@@ -134,7 +134,7 @@
                 <%@ include file="/includes/footer.jsp" %>
 
                     <!-- 스코어 기록법 ::s-->
-                    <input type="hidden" id="gameId" value="4001">
+                    <input type="hidden" id="gameId" value="4005">
                     <input type="hidden" id="finalScore">
 
                     <script>
