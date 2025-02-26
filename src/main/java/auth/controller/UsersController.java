@@ -181,6 +181,33 @@ public class UsersController extends HttpServlet {
 		            response.getWriter().write("fail");
 		        }
 			}
+			else if (cmd.equals("/checkDuplicate.users")) {
+			    // 요청에서 파라미터 가져오기
+			    String field = request.getParameter("field");
+			    String value = request.getParameter("value");
+			    System.out.println(field + ", " + value);
+			    
+			    // field와 value가 유효한지 확인
+			    if (field != null && value != null) {
+			        boolean isDuplicate = dao.isDuplicate(field, value);
+			        
+			        // 클라이언트에게 응답 보내기
+			        response.setContentType("text/plain");
+			        response.setCharacterEncoding("UTF-8");
+			        PrintWriter out = response.getWriter();
+			        
+			        if (isDuplicate) {
+			            out.write("duplicate");
+			        } else {
+			            out.write("available");
+			        }
+			        out.flush();
+			    } else {
+			        response.sendError(HttpServletResponse.SC_BAD_REQUEST, "필수 파라미터가 누락되었습니다");
+			    }
+			    
+			    return; // 추가 처리 방지를 위해 중요
+			}
 				
 		} catch (Exception e) {
 			e.printStackTrace();
