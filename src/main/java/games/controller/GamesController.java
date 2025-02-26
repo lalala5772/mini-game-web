@@ -44,7 +44,7 @@ public class GamesController extends HttpServlet{
 			} else if (cmd.equals("/chamchamcham.games")) {
 
 				try {
-					response.sendRedirect("/views/games/chamchamcham/chamchamcham.html");
+					response.sendRedirect("/views/games/chamchamcham/start-cham.jsp");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -52,6 +52,12 @@ public class GamesController extends HttpServlet{
 			}else if (cmd.equals("/crossRoad.games")) {
 				try {
 					response.sendRedirect("/views/games/crossRoad/cross-road.jsp");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			} else if (cmd.equals("/zombieCrusher.games")) {
+				try {
+					response.sendRedirect("/views/games/zombie_Crusher/main.jsp");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
