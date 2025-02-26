@@ -36,18 +36,24 @@ public class ReplyController extends HttpServlet {
 				int parentBoardSeq = Integer.parseInt(request.getParameter("parentBoardSeq"));
 				String writer = request.getParameter("writer");
 				String contents = request.getParameter("contents");
+				int parentReplySeq = Integer.parseInt(request.getParameter("parentReplySeq"));
 				
 				// SEQ	PARENTBOARDSEQ  WRITER  CONTENTS  WRITEDATE  PARENTREPLYSEQ
-				rdao.insert(new ReplyDTO(0, parentBoardSeq, writer, contents, null, 0));
+				rdao.insert(new ReplyDTO(0, parentBoardSeq, writer, contents, null, parentReplySeq));
 				
 				response.sendRedirect("/detail.board?seq=" + parentBoardSeq);
 				
 			} else if (cmd.equals("/list.reply")) {
-				
 				int seq = Integer.parseInt(request.getParameter("seq"));
 				List<ReplyDTO> replyList = rdao.selectByParentBoardSeq(seq);
 				
 				response.getWriter().append(g.toJson(replyList));
+				
+			} else if (cmd.equals("/subList.reply")) {
+				int parentReplySeq = Integer.parseInt(request.getParameter("parentReplySeq"));
+				List<ReplyDTO> subReplyList = rdao.selectByParentReplySeq(parentReplySeq);
+				
+				response.getWriter().append(g.toJson(subReplyList));
 				
 			} else if (cmd.equals("/update.reply")) {
 				int seq = Integer.parseInt(request.getParameter("seq"));

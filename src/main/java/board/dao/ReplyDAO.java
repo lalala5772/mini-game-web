@@ -35,7 +35,7 @@ private static ReplyDAO instance;
 	
 	// 댓글 목록 불러오기
 	public List<ReplyDTO> selectByParentBoardSeq(int parentBoardSeq) throws Exception{
-		String sql = "SELECT * FROM REPLY WHERE PARENTBOARDSEQ = ? ORDER BY SEQ";
+		String sql = "SELECT * FROM REPLY WHERE PARENTBOARDSEQ = ? AND PARENTREPLYSEQ = 0 ORDER BY SEQ";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
 			pstat.setInt(1, parentBoardSeq);
@@ -55,15 +55,37 @@ private static ReplyDAO instance;
 		}
 	}
 	
+	public List<ReplyDTO> selectByParentReplySeq(int parentReplySeq) throws Exception{
+		String sql = "SELECT * FROM REPLY WHERE PARENTREPLYSEQ = ? ORDER BY SEQ";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setInt(1, parentReplySeq);
+			try(ResultSet rs = pstat.executeQuery();){
+				List<ReplyDTO> replyList = new ArrayList();
+				while(rs.next()) {
+					int seq = rs.getInt("SEQ");
+					int parentBoardSeq = rs.getInt("PARENTBOARDSEQ");
+					String writer = rs.getString("WRITER");
+					String contents = rs.getString("CONTENTS");
+					Timestamp writeDate = rs.getTimestamp("WRITEDATE");
+					
+					replyList.add(new ReplyDTO(seq, parentBoardSeq, writer, contents, writeDate, parentReplySeq));
+				}
+				return replyList;
+			}
+		}
+	}
+	
 	// 댓글 등록
 	public int insert(ReplyDTO dto) throws Exception{
 		// SEQ	PARENTBOARDSEQ  WRITER  CONTENTS  WRITEDATE  PARENTREPLYSEQ
-		String sql = "INSERT INTO REPLY VALUES(SEQ_REPLY.NEXTVAL, ?, ?, ?, SYSDATE, NULL)";
+		String sql = "INSERT INTO REPLY VALUES(SEQ_REPLY.NEXTVAL, ?, ?, ?, SYSDATE, ?)";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
 			pstat.setInt(1, dto.getParentBoardSeq());
 			pstat.setString(2, dto.getWriter());
 			pstat.setString(3, dto.getContents());
+			pstat.setInt(4, dto.getParentReplySeq());
 			
 			return pstat.executeUpdate();
 		}
