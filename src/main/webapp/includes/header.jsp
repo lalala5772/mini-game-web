@@ -10,6 +10,7 @@
 	}
 	
 %>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
 
 <header class="header">
     <div class="header-inner">
