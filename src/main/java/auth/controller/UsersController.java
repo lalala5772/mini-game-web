@@ -59,6 +59,7 @@ public class UsersController extends HttpServlet {
 						session.setAttribute("loginUser", dto);
 						session.setAttribute("nickname", dto.getNickname());
 						session.setAttribute("id", dto.getId());
+						session.setAttribute("isAdmin", dto.getIsAdmin());
 						
 						// 디버깅용
 						System.out.println("로그인 성공 - 세션 저장 완료: " + dto.getNickname());
@@ -96,7 +97,7 @@ public class UsersController extends HttpServlet {
 				String phone = request.getParameter("phone");
 
 				if (dao.isDuplicate("id", id)) { // db id칼럼의 값이 id변수 값과 같을 경우
-					request.setAttribute("errorMsg", "이미 사용 중인 아이디입니다.");
+					request.setAttribute("errorMsg", "이미 사용 중인 아이디입니다."); 
 				} else if (dao.isDuplicate("NICKNAME", nickname)) { // db nickname칼럼의 값이 nickname변수 값과 같을 경우
 					request.setAttribute("errorMsg", "이미 사용 중인 닉네임입니다.");
 				} else {
