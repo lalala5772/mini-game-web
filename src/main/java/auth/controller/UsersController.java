@@ -150,7 +150,7 @@ public class UsersController extends HttpServlet {
 				}
 			}
 			// 비밀번호 찾기 기능
-			else if (cmd.equals("/findPw.users")) {
+			else if (cmd.equals("/findpw.users")) {
 				String id = request.getParameter("id");
 				String email = request.getParameter("email");
 
