@@ -2,6 +2,11 @@
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <%@ page import="javax.servlet.http.HttpSession" %>
             <!DOCTYPE html>
+            <%
+    // 서버 세션에서 값 가져오기
+    String nickname = (String) session.getAttribute("nickname");
+    // 주의: 객체일 경우 JSON 직렬화 필요
+%>
             <html>
 
             <head>
@@ -14,6 +19,12 @@
                 <meta property="og:description" content="다양한 온라인 게임을 무료로 즐겨보세요">
                 <meta property="og:type" content="website">
                 <title>TechX Games - 최고의 온라인 게임 포털</title>
+                <script type="text/javascript">
+   					 // 서버에서 넘겨받은 값을 자바스크립트 변수에 할당
+   					 var nickname = "<%= nickname %>";
+    				// 클라이언트 sessionStorage에 저장
+   					 sessionStorage.setItem('nickname', nickname);
+  					</script>
                 <!-- font-awesome -->
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
                 <!-- 브라우저마다 기본적으로 적용되는 스타일이 다르기 때문에, 이를 제거해서 일관된 스타일을 유지하기 위해 추가하는 CSS 파일 -->
