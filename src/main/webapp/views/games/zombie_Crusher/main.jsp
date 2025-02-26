@@ -1,0 +1,65 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zombie_Crusher</title>
+    <!-- phaserCDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.87.0/phaser.min.js"></script>
+    <script src="Scene01.js"></script>
+    <script src="GameOver.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+
+ <style>
+        #gamebox {
+            border: 1px solid black;
+            width: 960px;
+            height: 550px;
+        }
+    </style>
+</head>
+<body>
+<div id="gamebox"></div>
+
+        <script>
+            let config = {
+                type: Phaser.AUTO,
+                parent: "gamebox",
+                width: 960,
+                height: 550,
+                physics: {
+                    default: 'arcade',
+                    arcade: {
+
+                    }
+                },
+                fps: {
+                    target: 60
+                },
+                scene: [Scene01,GameOver]
+            };
+            let game = new Phaser.Game(config);
+        </script>
+    
+    <input type="hidden" id="gameId" value="4004">
+    <input type="hidden" id="finalScore">
+
+    <script>
+        function sendGameRecord(currentScore) {
+            $("#finalScore").val(currentScore);
+
+            $.ajax({
+                type: "POST",
+                url: "/add.record",
+                data: {
+                    userId: "${nickname}",
+                    gameId: $("#gameId").val(),
+                    record: $("#finalScore").val()
+                }
+            });
+        }
+</script>
+</body>
+</html>
