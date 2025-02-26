@@ -81,7 +81,7 @@ private static ReplyDAO instance;
 	
 	// 댓글 수정
 	public int updateBySeq(ReplyDTO dto) throws Exception{
-		String sql = "UPDATE REPLY SET CONTENTS = ? WHERE SEQ = ?";
+		String sql = "UPDATE REPLY SET CONTENTS = ?, WRITEDATE=SYSDATE WHERE SEQ = ?";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
 			
