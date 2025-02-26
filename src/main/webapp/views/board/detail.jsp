@@ -47,10 +47,13 @@
             	replyInfo.append(subReplyBtn);
             	///
             	
-            	if("${nickname}" == replyData.writer){
-            		let updateReplyBtn = $("<button>").addClass("update-reply-btn").html("수정");
+            	if(("${nickname}" == replyData.writer) || ("${isAdmin}" == "1")){
+            		if("${nickname}" == replyData.writer){
+	            		let updateReplyBtn = $("<button>").addClass("update-reply-btn").html("수정");
+	            		replyInfo.append(updateReplyBtn);
+            		}
             		let deleteReplyBtn = $("<button>").addClass("delete-reply-btn").html("삭제");
-            		replyInfo.append(updateReplyBtn, deleteReplyBtn);
+            		replyInfo.append(deleteReplyBtn);
             	}
             	
             	reply.append(replyWriter, replyContents, replyInfo);
@@ -71,10 +74,13 @@
                 		let subReplyWriteDate = $("<p>").addClass("reply-write-date sub-reply-write-date").html(subReplyData.writeDate);
                 		subReplyInfo.append(subReplyWriteDate)
                 		
-                    	if("${nickname}" == subReplyData.writer){
-                    		let updateReplyBtn = $("<button>").addClass("update-reply-btn").html("수정");
+                    	if(("${nickname}" == subReplyData.writer) || ("${isAdmin}" == "1")){
+                    		if("${nickname}" == subReplyData.writer){
+	                    		let updateReplyBtn = $("<button>").addClass("update-reply-btn").html("수정");
+	                    		subReplyInfo.append(updateReplyBtn);
+                    		}
                     		let deleteReplyBtn = $("<button>").addClass("delete-reply-btn").html("삭제");
-                    		subReplyInfo.append(updateReplyBtn, deleteReplyBtn);
+                    		subReplyInfo.append(deleteReplyBtn);
                     	}
                     	
                 		subReply.append(subReplyWriter, subReplyContents, subReplyInfo);
@@ -227,14 +233,17 @@
 	$(function(){
 		
 		// 로그인한 유저가 작성한 게시글일 경우 드롭다운 메뉴 생성
-		if("${nickname}" == "${post.writer}"){
+		if(("${nickname}" == "${post.writer}") || ("${isAdmin}" == "1")){
 			let postMenu = $("<div>").addClass("post-menu");
 			let menuBtn = $("<button>").addClass("menu-btn").html('<i class="fa-solid fa-ellipsis-vertical fa-2xs"></i>');
 			let menuDropdown = $("<div>").addClass("menu-dropdown").attr("id", "menuDropdown");
-			let updatePostBtn = $("<button>").addClass("menu-item").attr("id", "updatePostBtn").html("수정하기");
+			if(("${nickname}" == "${post.writer}")){
+				let updatePostBtn = $("<button>").addClass("menu-item").attr("id", "updatePostBtn").html("수정하기");
+				menuDropdown.append(updatePostBtn);
+			}
+			
 			let deletePostBtn = $("<button>").addClass("menu-item").attr("id", "deletePostBtn").html("삭제하기");
-		
-			menuDropdown.append(updatePostBtn, deletePostBtn);
+			menuDropdown.append(deletePostBtn);
 			postMenu.append(menuBtn, menuDropdown);
 		
 			$("#postInfoRight").append(postMenu);
