@@ -28,6 +28,9 @@
 	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
 	crossorigin="anonymous">
 <link href="/assets/css/adminCustomerList.css" rel="stylesheet">
+<!-- 폰트추가 위한 구글 폰트 -->
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
 <style>
 </style>
 <script>

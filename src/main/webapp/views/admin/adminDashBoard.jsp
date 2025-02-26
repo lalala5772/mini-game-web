@@ -22,6 +22,9 @@
 	crossorigin="anonymous">
 <!-- 사용자 정의 CSS -->
 <link href="/assets/css/adminDashBoard.css" rel="stylesheet">
+<!-- 폰트추가 위한 구글 폰트 -->
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
 
 </head>
 <body>

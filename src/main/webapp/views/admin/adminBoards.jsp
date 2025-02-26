@@ -23,6 +23,8 @@
 
         <!-- jQuery 추가 (AJAX 사용) -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<!-- 폰트추가 위한 구글 폰트 -->
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
 
         <style>
         </style>
