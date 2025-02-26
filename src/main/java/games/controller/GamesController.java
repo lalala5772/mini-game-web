@@ -44,7 +44,7 @@ public class GamesController extends HttpServlet{
 			} else if (cmd.equals("/chamchamcham.games")) {
 
 				try {
-					response.sendRedirect("/views/games/chamchamcham/chamchamcham.jsp");
+					response.sendRedirect("/views/games/chamchamcham/chamchamcham.html");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
