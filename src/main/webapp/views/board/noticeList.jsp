@@ -105,7 +105,7 @@
         <div class="write-notice">
         <!--admin인 경우만 공지사할 작성버튼 생성 -->
            <c:choose>
-        		<c:when test="${nickname == 'admin'}">
+        		<c:when test="${isAdmin == '1'}">
                    
                    <button class="write-notice-btn">공지사항 작성하기</button>
                 </c:when>
