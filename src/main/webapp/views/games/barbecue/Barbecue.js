@@ -112,9 +112,9 @@ class Barbecue extends Phaser.Scene {
 
             if (distanceToPlate < 50) {
                 if (this.cookLevel === 1) {
-                    this.score += 10;
+                    this.score += 100;
                 } else {
-                    this.score -= 5;
+                    this.score -= 50;
                 }
                 this.scoreText.setText(`점수: ${this.score}`);
 
