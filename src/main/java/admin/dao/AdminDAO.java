@@ -154,8 +154,8 @@ public class AdminDAO {
 			try (ResultSet rs = pstat.executeQuery();) {
 
 				while (rs.next()) {
-					UsersDTO user = new UsersDTO(rs.getString("id"), rs.getString("pw"), rs.getString("name"),
-							rs.getString("nickname"), rs.getString("phone"), rs.getString("email"),
+					UsersDTO user = new UsersDTO(rs.getString("id"), rs.getString("pw"), rs.getString("nickname"),
+							rs.getString("name"), rs.getString("phone"), rs.getString("email"),
 							rs.getString("rnum"), rs.getTimestamp("joinDate"), rs.getInt("warningCount"),
 							rs.getInt("withdraw"), rs.getInt("status"), rs.getInt("isAdmin"),
 							rs.getTimestamp("lastLogin"));
