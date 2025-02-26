@@ -35,7 +35,7 @@
             <div class="col-md-3 col-lg-2 p-0">
               <div class="sidebar">
                 <div class="logo">
-                  <a href="/dashboard.admin"> <img src="/assets/img/logoW.png" alt="Logo">
+                  <a href="/"> <img src="/assets/img/logoW.png" alt="Logo">
                   </a>
                 </div>
                 <ul class="sidebar-menu nav flex-column">
@@ -155,7 +155,7 @@
                       </c:otherwise>
                     </c:choose>
                     <!-- 페이지네이션 -->
-                    <div class="pagination">
+                    <div class="pagination" style="display: none;">
                       <ul>
                         <c:if test="${needPrev}">
                           <li><a href="/boardlist.admin?cpage=${startNavi-1}">이전</a></li>
@@ -170,6 +170,28 @@
                         </c:if>
                       </ul>
                     </div>
+                    <!-- 수정 ::s -->
+                    <!-- 페이지네이션 -->
+                    <div class="pagination">
+                      <ul>
+                        <c:if test="${needPrev}">
+                          <li><a href="/boardlist.admin?cpage=${startNavi-1}<c:if test="${not empty searchKeyword}">&searchKeyword=${searchKeyword}</c:if>">이전</a></li>
+                        </c:if>
+
+                        <c:forEach var="i" begin="${startNavi}" end="${endNavi}">
+                          <li class="${i == cpage ? 'active' : ''}">
+                            <a href="/boardlist.admin?cpage=${i}<c:if test="${not empty searchKeyword}">&searchKeyword=${searchKeyword}</c:if>">${i}</a>
+                          </li>
+                        </c:forEach>
+
+                        <c:if test="${needNext}">
+                          <li><a href="/boardlist.admin?cpage=${endNavi+1}<c:if test="${not empty searchKeyword}">&searchKeyword=${searchKeyword}</c:if>">다음</a></li>
+                        </c:if>
+                      </ul>
+                    </div>
+
+
+
                   </div>
                 </div>
               </div>
