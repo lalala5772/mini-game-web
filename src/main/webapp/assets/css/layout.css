@@ -8,6 +8,7 @@
 }
 
 body {
+	font-family: "Noto Sans KR", serif;
 	color: var(--color-white);
 	background-color: var(--color-black);
 }
