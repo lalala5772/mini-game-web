@@ -5,6 +5,7 @@ class Scene01 extends Phaser.Scene {
         this.score = 0; // 스코어
         this.playtime = 0; // 플레이 타임
         this.maxenemies = 200; // 최대 적 수 제한
+        this.spawnTime = 2000;
     };
 
     preload() {
@@ -17,6 +18,11 @@ class Scene01 extends Phaser.Scene {
     };
 
     create() {
+            this.spawnTimer = 0;  // 적 스폰 타이머
+        this.score = 0; // 스코어
+        this.playtime = 0; // 플레이 타임
+                this.spawnTime = 2000;
+        
         // 배경 생성
         this.bg = this.add.tileSprite(0, 0, 1024, 1024, "bg");
         this.bg.setOrigin(0, 0);
@@ -231,6 +237,7 @@ class Scene01 extends Phaser.Scene {
         }
         // 적 생성
         let enemy = this.enemy.create(x, y, "enemy");
+        if (!enemy) return; // 그룹의 최대 개수를 초과하면 생성하지 않음
         this.textures.get("enemy").setFilter(Phaser.Textures.FilterMode.LINEAR);
         enemy.setScale(0.3);
         enemy.speed = Phaser.Math.Between(50, 100);
