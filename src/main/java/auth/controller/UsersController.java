@@ -63,7 +63,7 @@ public class UsersController extends HttpServlet {
 						
 						// 디버깅용
 						System.out.println("로그인 성공 - 세션 저장 완료: " + dto.getNickname());
-
+						System.out.println("isadmin: "+ dto.getIsAdmin());
 						request.getRequestDispatcher("/index.jsp").forward(request, response);
 
 					} else {
@@ -85,7 +85,16 @@ public class UsersController extends HttpServlet {
 				session.invalidate(); // 세션 초기화
 
 				response.sendRedirect(request.getContextPath() + "/index.jsp"); // 로그아웃 후 메인 페이지로 이동
+			}else if (cmd.trim().equals("/withdraw.users")) {
+				String withdrawId = request.getParameter("withdrawId");
+				
+				dao.withdraw(withdrawId);
+				HttpSession session = request.getSession();
+				session.invalidate(); // 세션 초기화
+				response.sendRedirect("/index.jsp");
 			}
+			
+			
 			// 회원가입 요청
 			else if (cmd.trim().equals("/signup.users")) {
 				String id = request.getParameter("id");
