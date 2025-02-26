@@ -333,9 +333,18 @@
 	    });
 	    
 	    
+	    // 링크 공유 버튼 이벤트
+	    $("#shareBtn").on("click", async function() {
+	        try {
+	            await navigator.clipboard.writeText(window.location.href);
+	            alert("URL이 복사되었습니다. 원하는 곳에 붙여넣으세요.");
+	        } catch (err) {
+	            console.error("복사 실패: ", err);
+	            alert("복사에 실패했습니다. 수동으로 복사해 주세요.");
+	        }
+	    });
+	    
 	});
-	
-	
 	
 </script>
 
@@ -366,7 +375,7 @@
                     <div class="post-info-right" id="postInfoRight">
                         <p class="view-count">조회수 ${post.viewCount }</p>
                         <p id="replyCountSm">댓글</p>
-                        <button class="share-btn">
+                        <button class="share-btn" id="shareBtn">
                             <i class="fa-regular fa-share-from-square"></i>
                         </button>
                     </div>
