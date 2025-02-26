@@ -41,7 +41,7 @@
 			<div class="col-md-3 col-lg-2 p-0">
 				<div class="sidebar" id="sidebar">
 					<div class="logo">
-						<a href="/dashboard.admin"> <img src="/assets/img/logoW.png"
+						<a href="/index.jsp"> <img src="/assets/img/logoW.png"
 							alt="Logo">
 						</a>
 					</div>
