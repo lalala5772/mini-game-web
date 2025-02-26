@@ -179,11 +179,11 @@ public class AdminController extends HttpServlet {
 			String isBanToChange;
 			String banResult;
 			if (isBan.equals("UNBAN")) {
-				ban=1;
+				ban = 1;
 				isBanToChange = "BAN";
 				banResult = "차단되었습니다.";
 			} else {
-				ban=0;
+				ban = 0;
 				isBanToChange = "UNBAN";
 				banResult = "차단해제되었습니다.";
 			}
@@ -209,21 +209,22 @@ public class AdminController extends HttpServlet {
 				e.printStackTrace();
 			}
 		} else if (cmd.equals("/boardlist.admin")) {
-			// 현재페이지
-			String searchKeyword = request.getParameter("searchKeyword");
-			String scpage = (String) (request.getParameter("cpage"));
-
-			// 현재 페이지 유효성 검사.
-			if (scpage == null) {
-				scpage = "1";
-			}
-
-			int cpage = Integer.parseInt(scpage);
-			if (cpage < 1) {
-				cpage = 1;
-			}
 
 			try {
+				// 현재페이지
+				String searchKeyword = request.getParameter("searchKeyword");
+				String scpage = (String) (request.getParameter("cpage"));
+
+				// 현재 페이지 유효성 검사.
+				if (scpage == null) {
+					scpage = "1";
+				}
+
+				int cpage = Integer.parseInt(scpage);
+				if (cpage < 1) {
+					cpage = 1;
+				}
+
 				int recordTotalCount;
 				List<BoardDTO> boardList;
 
@@ -235,25 +236,19 @@ public class AdminController extends HttpServlet {
 				}
 
 				// 페이지 계산
-				int pageTotalCount = (recordTotalCount + Statics.recordCountPerPage - 1) / Statics.recordCountPerPage;
+				int pageTotalCount = 0;
 
 				if (recordTotalCount % Statics.recordCountPerPage > 0) {
 					pageTotalCount = recordTotalCount / Statics.recordCountPerPage + 1;
 				} else {
 					pageTotalCount = recordTotalCount / Statics.recordCountPerPage;
 				}
-
-				// 현재 페이지 범위 조정
-				if (cpage > pageTotalCount) {
-					cpage = pageTotalCount;
-				}
-
 				if (cpage < 1) {
 					cpage = 1;
 				} else if (cpage > pageTotalCount) {
 					cpage = pageTotalCount;
 				}
-				request.getSession().setAttribute("last_cpage", cpage);
+				request.getSession().setAttribute("last_board_cpage", cpage);
 
 				// 네이게이션 시작번호
 				int start = cpage * Statics.recordCountPerPage - (Statics.recordCountPerPage - 1);
@@ -282,7 +277,8 @@ public class AdminController extends HttpServlet {
 
 				if (startNavi == 1) {
 					needPrev = false;
-				} else if (endNavi == pageTotalCount) {
+				} 
+				if (endNavi == pageTotalCount || pageTotalCount < 5) {
 					needNext = false;
 				}
 				request.setAttribute("boardList", boardList);
@@ -292,6 +288,8 @@ public class AdminController extends HttpServlet {
 				request.setAttribute("endNavi", endNavi);
 				request.setAttribute("needPrev", needPrev);
 				request.setAttribute("needNext", needNext);
+				request.setAttribute("pageTotalCount", pageTotalCount);
+				request.setAttribute("searchKeyword", searchKeyword);
 
 				request.getRequestDispatcher("/views/admin/adminBoards.jsp").forward(request, response);
 

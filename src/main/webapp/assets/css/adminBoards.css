@@ -192,11 +192,7 @@ button.delete {
 }
 
 .pagination li {
-	background-color: #fff;
-	padding: 8px 12px;
-	border-radius: 6px;
-	cursor: pointer;
-	transition: background-color 0.2s ease-in-out;
+
 }
 
 .pagination li:hover {
@@ -209,6 +205,11 @@ button.delete {
 }
 
 .pagination li a {
+	padding: 8px 12px;
+	background-color: #fff;
+	border-radius: 6px;
+	cursor: pointer;
+	transition: background-color 0.2s ease-in-out;
 	color: #000 !important;
 	text-decoration: none !important;
 }
