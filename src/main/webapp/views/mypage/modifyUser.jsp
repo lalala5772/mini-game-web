@@ -122,6 +122,9 @@ button:hover {
 	margin-left: 10px;
 	margin-top: 0;
 }
+.withdraw-btn {
+	background-color : red;
+}
 </style>
 </head>
 <body>
@@ -164,11 +167,15 @@ button:hover {
 			</div>
 			<button type="submit">수정하기</button>
 		</form>
+		<form id="withdraw-frm" action="/withdraw.users">
+		<input type="hidden" name="withdrawId" id="hiddenWithdrawId" /> 
+		<button type="button" id=withdraw-btn>탈퇴하기</button>
+		</form>
 
 		<p class="error" id="errorMsg"></p>
 		<p class="success" id="successMsg"></p>
 	</div>
-
+	
 	<script>
 	$(document).ready(function () {
 	    // 정규식 설정
@@ -348,6 +355,15 @@ button:hover {
 	        });
 	    });
 	});
+	
+	// 탈퇴하기 버튼 이벤트
+    $("#withdraw-btn").on("click",function(){
+    	if(confirm("정말 탈퇴하시겠습니까?")) {
+    		$("#hiddenWithdrawId").val($("#userId").val());
+        	$("#withdraw-frm").submit();
+    	}
+    	
+    })
 </script>
 
 </body>

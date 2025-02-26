@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+	/* login 완료 후 login.users 에서 받아온 user 세션 정보 */
+    Integer isAdminFlag = (Integer) session.getAttribute("isAdmin");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +15,6 @@
 <link rel="stylesheet" href="/assets/css/layout.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
-
 </head>
 <style>
 .list-menu>.notice> a{
@@ -104,15 +107,11 @@
         </form>
         <div class="write-notice">
         <!--admin인 경우만 공지사할 작성버튼 생성 -->
-           <c:choose>
-        		<c:when test="${isAdmin == '1'}">
-                   
-                   <button class="write-notice-btn">공지사항 작성하기</button>
-                </c:when>
-        		<c:otherwise>    
-                    
-                </c:otherwise> 
-                </c:choose> 
+        <% if (isAdminFlag != null && isAdminFlag == 1) { %>
+              <button class="write-notice-btn">공지사항 작성하기</button>
+                <% } else { %>
+        		<% } %>
+                
         </div>
 	
     </section>
