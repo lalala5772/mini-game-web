@@ -6,6 +6,7 @@
 }
 
 .section-category {
+    scroll-margin-top: 150px; /* 150px 여백 추가 */
     color: var(--color-primary);
     font-size: 0.9rem;
     margin-bottom: 0.5rem;

@@ -5,7 +5,7 @@
 	<!-- 전체게임 ::s -->
 	<section class="all-games-section">
 
-		<div class="section-category">전체 게임</div>
+		<div class="section-category" id="all-games-category">전체 게임</div>
 		<h2 class="section-title">TECH X의 모든 게임을 소개합니다</h2>
 
 		<div class="games-grid">
