@@ -28,9 +28,8 @@
             ]
         });
 		
-        console.log("${id}");
-        console.log("${id}" == "admin");
-        if("${id}" == "admin"){
+        console.log("${isAdmin}");
+        if("${isAdmin}" == "1"){
         	let boardCategorySelect = $("<select>").attr({"id": "boardCategorySelect", "name": "boardCategory"});
         	let optionNotice = $("<option>").attr("value", "notice").html("공지사항");
         	let optionGeneral = $("<option>").attr("value", "general").html("자유 게시판");
