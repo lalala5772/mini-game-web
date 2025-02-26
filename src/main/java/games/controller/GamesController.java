@@ -49,7 +49,13 @@ public class GamesController extends HttpServlet{
 					e.printStackTrace();
 				}
 				
-			} 
+			}else if (cmd.equals("/crossRoad.games")) {
+				try {
+					response.sendRedirect("/views/games/crossRoad/cross-road.jsp");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
