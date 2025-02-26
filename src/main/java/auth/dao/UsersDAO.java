@@ -34,7 +34,7 @@ public class UsersDAO {
     
     //로그인 기능 구현 : 사용자의 아이디와 패스워드를 받아 사용자 인스턴스를 반환 
     public UsersDTO login(String id, String pw) throws Exception {
-        String sql = "SELECT id, name, nickname, phone, email, rnum FROM users WHERE id = ? AND pw = ?";
+        String sql = "SELECT id, name, nickname, phone, email, warningcount, rnum FROM users WHERE id = ? AND pw = ?";
 
         try (Connection con = this.getConnection();
              PreparedStatement pstat = con.prepareStatement(sql)) {
@@ -52,7 +52,7 @@ public class UsersDAO {
                         rs.getString("phone"),
                         rs.getString("email"),
                         rs.getString("rnum"), 
-                        null, 0, 0, 0, 0, null
+                        null, rs.getInt("warningcount"), 0, 0, 0, null
                     );
                 }
             }

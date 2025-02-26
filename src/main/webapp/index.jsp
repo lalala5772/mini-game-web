@@ -21,7 +21,7 @@
                 <title>TechX Games - 최고의 온라인 게임 포털</title>
                 <script type="text/javascript">
    					 // 서버에서 넘겨받은 값을 자바스크립트 변수에 할당
-   					 var nickname = "<%= nickname %>";
+   					 let nickname = "<%= nickname %>";
     				// 클라이언트 sessionStorage에 저장
    					 sessionStorage.setItem('nickname', nickname);
   					</script>
@@ -86,7 +86,7 @@
 
                                                         <script>
                                                             let ws;
-                                                            let nickname = "<%= loginUser.getNickname() %>";  // 서버에서 JSP로 전달된 닉네임
+                                                            let chatNickName = "<%= loginUser.getNickname() %>";  // 서버에서 JSP로 전달된 닉네임
 
                                                             function connectWebSocket() {
                                                                 ws = new WebSocket("ws://" + window.location.host + "/chat");
@@ -115,7 +115,7 @@
 
 
                                                                 if (messageText !== "") {
-                                                                    let fullMessage = nickname + ": " + messageText;
+                                                                    let fullMessage = chatNickName + ": " + messageText;
                                                                     ws.send(fullMessage);
                                                                     messageInput.value = "";  // 입력 필드 초기화
                                                                 }
