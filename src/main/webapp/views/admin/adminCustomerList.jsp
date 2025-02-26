@@ -90,11 +90,11 @@
 							<table id="member-table" class="table">
 								<thead>
 									<tr>
+										<th>이름</th>
 										<th>닉네임</th>
 										<th>가입일</th>
-										<th>마지막 접속일</th>
-										<th>총 플레이 횟수</th>
-										<th>회원 상태</th>
+										<th>마지막 로그인 날짜</th>
+										<th>회원 구분</th>
 										<th>차단</th>
 										<th>삭제</th>
 									</tr>
@@ -221,32 +221,46 @@
 								} else {
 
 									let tr = $("<tr>");
-									let nickname = $("<td>")
-											.html(resp.nickname);
-									let joinDate = $("<td>")
-											.html(resp.joinDate);
+									let name = $("<td>").html(resp.name);
+									console.log(name);
+									let nickname = $("<td>").html(
+											resp.nickname);
+									let joinDate = $("<td>").html(
+											formatDate(resp.joinDate));
 									let lastLogin = $("<td>").html(
-											resp.lastLogin);
-									let warningCount = $("<td>").html(
-											resp.warningCount);
-									let status = $("<td>").html(resp.status);
+											formatDate(resp.lastLogin));
+
+									let admin = (resp.isAdmin > 0) ? "Admin" : "User";
+									let isAdmin = $("<td>").html(admin);
+									let isBan = (resp.warningCount > 0) ? "BAN"
+											: "UNBAN";
+									let banClass =(resp.warningCount > 0) ? "ban" : "unban";
 									let banbtn = $(
-											"<button class='unban' id = 'banbtn'>")
-											.html("unban");
+											"<button class='"+ banClass +"' id = 'banbtn'>")
+											.attr("data-seq", resp.id)
+											.html(isBan);
 									let delbtn = $(
-											"<button class='delete' data-id='"+ resp.id+"'>")
+											"<button class='delete' data-seq='"+ resp.id+"'>")
 											.html("delete");
 									let bantd = $("<td>");
 									bantd.append(banbtn);
 									let deltd = $("<td>");
 									deltd.append(delbtn);
-									tr.append(nickname, joinDate, lastLogin,
-											warningCount, status, bantd, deltd);
+									tr
+											.append(name, nickname,
+													joinDate, lastLogin,
+													isAdmin, bantd, deltd);
 									$("#getuserlist").append(tr);
 
 								}
 							})
 		}
+		//날짜 변환 펑셔
+		function formatDate(timestamp) {
+		    return new Date(timestamp).toLocaleString("ko-KR");
+		}
+
+		
 		// 유저리스트 불러오는 펑션
 		function getCustomerList() {
 			$
@@ -270,16 +284,16 @@
 								} else {
 									for (let i = 0; i < resp.length; i++) {
 										let tr = $("<tr>");
+										let name = $("<td>").html(resp[i].name);
 										let nickname = $("<td>").html(
 												resp[i].nickname);
-										let name = $("<td>").html(resp[i].name);
 										let joinDate = $("<td>").html(
-												resp[i].joinDate);
+												formatDate(resp[i].joinDate));
 										let lastLogin = $("<td>").html(
-												resp[i].lastLogin);
+												formatDate(resp[i].lastLogin));
 
-										let status = $("<td>").html(
-												resp[i].status);
+										let admin = (resp[i].isAdmin > 0) ? "Admin" : "User";
+										let isAdmin = $("<td>").html(admin);
 										let isBan = (resp[i].warningCount > 0) ? "BAN"
 												: "UNBAN";
 										let banClass =(resp[i].warningCount > 0) ? "ban" : "unban";
@@ -295,9 +309,9 @@
 										let deltd = $("<td>");
 										deltd.append(delbtn);
 										tr
-												.append(nickname, name,
+												.append(name, nickname,
 														joinDate, lastLogin,
-														status, bantd, deltd);
+														isAdmin, bantd, deltd);
 										$("#getuserlist").append(tr);
 									}
 								}
