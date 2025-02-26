@@ -357,12 +357,7 @@ public class BoardController extends HttpServlet {
 					}
 				}
 				
-				if(boardCategory.equals("general")) {
-					response.sendRedirect("/generalList.board?cpage=1");
-				}else if(boardCategory.equals("notice")) {
-					response.sendRedirect("/noticeList.board?cpage=1");
-				}
-				
+				response.sendRedirect("/detail.board?seq="+seq);
 			}
 			//수정하기 페이지로 이동 컨트롤러
 			else if (cmd.equals("/updateList.board")) {
