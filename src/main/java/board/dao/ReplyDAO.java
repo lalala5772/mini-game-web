@@ -35,7 +35,7 @@ private static ReplyDAO instance;
 	
 	// 댓글 목록 불러오기
 	public List<ReplyDTO> selectByParentBoardSeq(int parentBoardSeq) throws Exception{
-		String sql = "SELECT * FROM REPLY WHERE PARENTBOARDSEQ = ? AND PARENTREPLYSEQ = 0 ORDER BY SEQ";
+		String sql = "SELECT * FROM REPLY WHERE PARENTBOARDSEQ = ? AND PARENTREPLYSEQ IS NULL ORDER BY SEQ";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
 			pstat.setInt(1, parentBoardSeq);
@@ -85,7 +85,14 @@ private static ReplyDAO instance;
 			pstat.setInt(1, dto.getParentBoardSeq());
 			pstat.setString(2, dto.getWriter());
 			pstat.setString(3, dto.getContents());
-			pstat.setInt(4, dto.getParentReplySeq());
+			
+	        if (dto.getParentReplySeq() == 0) {
+	        	pstat.setNull(4, java.sql.Types.INTEGER);
+	        } else {
+	            pstat.setInt(4, dto.getParentReplySeq());
+	        }
+			
+			
 			
 			return pstat.executeUpdate();
 		}
