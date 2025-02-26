@@ -81,6 +81,11 @@
 	            localStorage.setItem("savedId", $(".id").val());
 	        }
 	    });
+	    
+	    let errorMessage = "<c:out value='${errorMessage}'/>";
+	    if(errorMessage != ""){
+	    	alert(errorMessage);
+	    }
 	});
 
 </script>
