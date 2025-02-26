@@ -11,6 +11,9 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 <link rel="stylesheet" href="/assets/css/signup.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+
+
 
 <script>
 $(document).ready(function () {
@@ -105,14 +108,32 @@ $(document).ready(function () {
 
         if (!isValid) {
             alert("입력값을 다시 확인해주세요.");
-        }
+        }        
 
         return isValid;
     }
 
-    $("form").on("submit", function () {
-        return validateForm();
+    //비밀번호 암호화 
+    $("form").on("submit", function (e) {
+        e.preventDefault(); // 기본 제출 방지
+
+        let pw = $("#pw").val().trim();
+        let pwConfirm = $("#pwConfirm").val().trim();
+
+        if (!validateForm()) return;
+
+        // 비밀번호를 SHA-256으로 해싱
+        let hashedPw = CryptoJS.SHA256(pw).toString();
+        let hashedPwConfirm = CryptoJS.SHA256(pwConfirm).toString();
+
+        // 해싱된 비밀번호를 실제 전송 필드로 설정
+        $("#pw").val(hashedPw);
+        $("#pwConfirm").val(hashedPwConfirm);
+
+        // 폼을 실제로 제출
+        this.submit();
     });
+
 });
 
 </script>

@@ -9,6 +9,8 @@
 <meta charset="UTF-8">
 <title>login Page</title>
 <link rel="stylesheet" href="/assets/css/login-page.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+
 
 </head>
 <body>
@@ -87,6 +89,36 @@
 	    	alert(errorMessage);
 	    }
 	});
+	
+	
+	$(document).ready(function() {
+	    $(".signIn").on("click", function(e) {
+	        e.preventDefault(); // 기본 제출 방지
+
+	        let pwField = $(".pw");
+	        let pw = pwField.val().trim();
+
+	        if (pw === "") {
+	            alert("비밀번호를 입력해주세요.");
+	            return;
+	        }
+
+	        // 비밀번호 SHA-256 해싱
+	        let hashedPw = CryptoJS.SHA256(pw).toString();
+
+	        // 해싱된 비밀번호를 실제 전송 필드로 설정
+	        pwField.val(hashedPw);
+
+	        // 폼 제출
+	        $("form").submit();
+	    });
+
+	    let errorMessage = "<c:out value='${errorMessage}'/>";
+	    if (errorMessage !== "") {
+	        alert(errorMessage);
+	    }
+	});
+
 
 </script>
 
