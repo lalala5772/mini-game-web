@@ -31,11 +31,20 @@ body {
 	font-size: 24px;
 	font-weight: bold;
 }
-
+.cancel-btn{
+	background-color: white;
+	color: #7D3CCC;
+	border: 1px solid #7D3CCC;
+	padding: 8px 20px;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 14px;
+	margin-right:5px;
+}
 .submit-btn {
 	background-color: #7D3CCC;
 	color: white;
-	border: none;
+	border: 1px solid #7D3CCC;
 	padding: 8px 20px;
 	border-radius: 4px;
 	cursor: pointer;
