@@ -351,8 +351,9 @@ padding-bottom: 8rem;
 }
 /* 인기게임 ::e */
 
-
-
+.game-link{
+	text-decoration: none;
+}
 
 
 /* 미디어 쿼리: 화면 크기 768px 이하 */
