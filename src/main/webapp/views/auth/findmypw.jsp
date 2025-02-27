@@ -131,7 +131,7 @@
 	background-color: #868789b9;
 }
 
-.join_membership {
+.to-login{
 	position: absolute;
 	top: 555px;
 	left: 144px;
@@ -143,7 +143,7 @@
 	color: white;
 }
 
-.findId {
+.join_membership {
 	position: absolute;
 	top: 555px;
 	left: 221px;
@@ -155,10 +155,10 @@
 	color: white;
 }
 
-.findPw {
+.findId {
 	position: absolute;
 	top: 555px;
-	left: 221px;
+	left: 308px;
 	width: 91px;
 	height: 24px;
 	font-size: 14px;
@@ -262,7 +262,9 @@ input::placeholder {
 
 	<div class="container1">
 		<div class="title">
-			<img src="/assets/img/logoW.png" alt="">
+			<a href="/">
+				<img src="/assets/img/logoW.png" alt="">
+			</a>
 		</div>
 		<div class="subtitle">FIND MY PW</div>
 		
@@ -276,11 +278,14 @@ input::placeholder {
 			<img src="/assets/img/logoW.png" alt="" class="logo">
 		</div>
 		
-		<a href="/views/auth/signup.jsp">
+		<a href="/views/auth/login.jsp">
+        	<div class="to-login">로그인</div>
+       	</a>
+		<a href="/views/auth/agreement.jsp">
 			<div class="join_membership">회원가입</div>
 		</a> 
 		<a href="/views/auth/findmyid.jsp">
-			<div class="findPw">아이디 찾기</div>
+			<div class="findId">아이디 찾기</div>
 		</a>
 
 		<script>
