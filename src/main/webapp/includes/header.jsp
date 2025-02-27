@@ -38,8 +38,8 @@
 				<% } %>
 				<a href="/logout.users" class="nav-link logout-button">로그아웃</a>
 			<% } else { %>
-			<a href="views/auth/login.jsp" class="nav-link">로그인</a> 
-			<a href="views/auth/agreement.jsp" class="nav-link signup-button">회원가입</a>
+			<a href="/views/auth/login.jsp" class="nav-link">로그인</a> 
+			<a href="/views/auth/agreement.jsp" class="nav-link signup-button">회원가입</a>
 			<% } %>
 		</div>
         <button class="mobile-menu-button">
