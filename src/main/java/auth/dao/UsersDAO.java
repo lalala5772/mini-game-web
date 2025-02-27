@@ -33,28 +33,28 @@ public class UsersDAO {
 	}
 
 	// 로그인 기능 구현 : 사용자의 아이디와 패스워드를 받아 사용자 인스턴스를 반환
-	public UsersDTO login(String id, String pw) throws Exception {
-		String sql = "SELECT id, name, nickname, phone, email, warningcount, isadmin, rnum FROM users WHERE id = ? AND pw = ?";
+		public UsersDTO login(String id, String pw) throws Exception {
+			String sql = "SELECT id, name, nickname, phone, email, warningcount, isadmin, rnum FROM users WHERE id = ? AND pw = ?";
 
-		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
+			try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
 
-			pstat.setString(1, id);
-			pstat.setString(2, pw);
+				pstat.setString(1, id);
+				pstat.setString(2, pw);
 
-			try (ResultSet rs = pstat.executeQuery()) {
-				if (rs.next()) {
-					return new UsersDTO(rs.getString("id"), null, // pw는 반환하지 않음
-							rs.getString("nickname"), rs.getString("name"), rs.getString("phone"),
-							rs.getString("email"), rs.getString("rnum"), rs.getTimestamp("joinDate"), rs.getInt("warningcount"),
-							rs.getInt("withdraw"), rs.getInt("status"),
-							rs.getInt("isadmin"), rs.getTimestamp("lastLogin")
+				try (ResultSet rs = pstat.executeQuery()) {
+					if (rs.next()) {
+						return new UsersDTO(rs.getString("id"), null, // pw는 반환하지 않음
+								rs.getString("nickname"), rs.getString("name"), rs.getString("phone"),
+								rs.getString("email"), rs.getString("rnum"), null, rs.getInt("warningcount"), 0, 0,
+								rs.getInt("isadmin"), null
 
-					);
+						);
+					}
 				}
 			}
+			return null;
 		}
-		return null;
-	}
+
 
 	// 중복 검사 메서드
 	// field - db 칼럼 , value - db 칼럼 값
