@@ -25,7 +25,7 @@
                 <li><a href="/#all-games-category" class="nav-link">게임하기</a></li>
                 <li><a href="/generalList.board?cpage=1" class="nav-link">게시판</a></li>
                 <li><a href="/faq.board" class="nav-link">고객센터</a></li> <!-- 임시 경로 -->
-                <li><a href="/dashboard.admin" class="nav-link">관리자 페이지</a></li> 
+                <li><a href="/list.record" class="nav-link">랭킹 보기</a></li> 
             </ul>
         </nav>
         <div class="auth-section">
