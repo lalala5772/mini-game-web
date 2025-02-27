@@ -1,0 +1,161 @@
+ body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #222;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            /* height: 100vh; */
+            font-family: 'Arial', sans-serif;
+        }
+        #webcam {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 200px;
+            height: 150px;
+            border: 2px solid white;
+            transform: scaleX(-1);
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(255,255,255,0.3);
+        }
+        button {
+            position: absolute;
+            top: 20px;
+            padding: 12px 24px;
+            font-size: 20px;
+            background-color: #ff9800;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 50px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            background-color: #f57c00;
+            transform: scale(1.05);
+        }
+        button:active {
+            transform: scale(0.95);
+        }
+        button:disabled {
+            background-color: #999;
+            cursor: not-allowed;
+        }
+        #countdown, #chamText, #resultText, #userDirectionText {
+            position: absolute;
+            font-weight: bold;
+            color: white;
+            opacity: 1;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        #countdown { 
+            top: 20px; 
+            right: 20px; 
+            font-size: 60px;
+            color: #ffeb3b;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        #chamText { 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%);
+            font-size: 80px;
+            color: #ff5722;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        #userDirectionText { 
+            left: 10px; 
+            bottom: 50px; 
+            font-size: 20px;
+            background-color: rgba(0,0,0,0.6);
+            padding: 8px 16px;
+            border-radius: 20px;
+        }
+        #resultText {
+            top: 50%; 
+            right: 20px;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 15px 25px;
+            border-radius: 15px;
+            font-size: 50px;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        #score {
+            position: absolute;
+            top: 20px;
+            left: 230px;
+            color: white;
+            font-size: 18px;
+            background-color: rgba(0,0,0,0.6);
+            padding: 10px 15px;
+            border-radius: 10px;
+        }
+        #loadingMessage {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 24px;
+            background-color: rgba(0,0,0,0.7);
+            padding: 20px 30px;
+            border-radius: 10px;
+            z-index: 10;
+        }
+        .direction-marker {
+            position: absolute;
+            width: 200px;
+            height: 30px;
+            top: 220px;
+            left: 10px;
+            display: flex;
+            justify-content: space-between;
+            padding: 5px;
+            background-color: rgba(0,0,0,0.5);
+            border-radius: 8px;
+        }
+        .marker {
+            width: 50px;
+            height: 20px;
+            border-radius: 4px;
+            background-color: #555;
+            text-align: center;
+            line-height: 20px;
+            font-size: 14px;
+            color: white;
+        }
+        .marker.active {
+            background-color: #2196F3;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background-color: #333;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .progress {
+            height: 100%;
+            background-color: #4CAF50;
+            border-radius: 5px;
+            width: 0%;
+            transition: width 0.3s;
+        }
+        #debugInfo {
+            position: absolute;
+            top: 260px;
+            left: 10px;
+            width: 200px;
+            background-color: rgba(0,0,0,0.6);
+            color: white;
+            font-size: 14px;
+            padding: 5px;
+            border-radius: 5px;
+        }

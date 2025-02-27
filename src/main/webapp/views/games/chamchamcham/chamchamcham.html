@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>미르의 참참참</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/facemesh"></script>
+    <!-- jQuery CDN 추가 (최신 버전) -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #222;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            /* height: 100vh; */
+            font-family: 'Arial', sans-serif;
+        }
+        #webcam {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 200px;
+            height: 150px;
+            border: 2px solid white;
+            transform: scaleX(-1);
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(255,255,255,0.3);
+        }
+        button {
+            position: absolute;
+            top: 20px;
+            padding: 12px 24px;
+            font-size: 20px;
+            background-color: #ff9800;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 50px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            background-color: #f57c00;
+            transform: scale(1.05);
+        }
+        button:active {
+            transform: scale(0.95);
+        }
+        button:disabled {
+            background-color: #999;
+            cursor: not-allowed;
+        }
+        #countdown, #chamText, #resultText, #userDirectionText {
+            position: absolute;
+            font-weight: bold;
+            color: white;
+            opacity: 1;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        #countdown { 
+            top: 20px; 
+            right: 20px; 
+            font-size: 60px;
+            color: #ffeb3b;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        #chamText { 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%);
+            font-size: 80px;
+            color: #ff5722;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        #userDirectionText { 
+            left: 10px; 
+            bottom: 50px; 
+            font-size: 20px;
+            background-color: rgba(0,0,0,0.6);
+            padding: 8px 16px;
+            border-radius: 20px;
+        }
+        #resultText {
+            top: 50%; 
+            right: 20px;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 15px 25px;
+            border-radius: 15px;
+            font-size: 50px;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        #score {
+            position: absolute;
+            top: 20px;
+            left: 230px;
+            color: white;
+            font-size: 18px;
+            background-color: rgba(0,0,0,0.6);
+            padding: 10px 15px;
+            border-radius: 10px;
+        }
+        #loadingMessage {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 24px;
+            background-color: rgba(0,0,0,0.7);
+            padding: 20px 30px;
+            border-radius: 10px;
+            z-index: 10;
+        }
+        .direction-marker {
+            position: absolute;
+            width: 200px;
+            height: 30px;
+            top: 220px;
+            left: 10px;
+            display: flex;
+            justify-content: space-between;
+            padding: 5px;
+            background-color: rgba(0,0,0,0.5);
+            border-radius: 8px;
+        }
+        .marker {
+            width: 50px;
+            height: 20px;
+            border-radius: 4px;
+            background-color: #555;
+            text-align: center;
+            line-height: 20px;
+            font-size: 14px;
+            color: white;
+        }
+        .marker.active {
+            background-color: #2196F3;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background-color: #333;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .progress {
+            height: 100%;
+            background-color: #4CAF50;
+            border-radius: 5px;
+            width: 0%;
+            transition: width 0.3s;
+        }
+        #debugInfo {
+            position: absolute;
+            top: 260px;
+            left: 10px;
+            width: 200px;
+            background-color: rgba(0,0,0,0.6);
+            color: white;
+            font-size: 14px;
+            padding: 5px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<video id="webcam" autoplay playsinline></video>
+<div id="resultText"></div>
+<div id="userDirectionText">얼굴 인식 중...</div>
+<div class="direction-marker">
+    <div class="marker" id="leftMarker">왼쪽</div>
+    <div class="marker" id="centerMarker">중앙</div>
+    <div class="marker" id="rightMarker">오른쪽</div>
+</div>
+<div id="debugInfo">
+    얼굴 너비: 0px<br>
+    임계값: 0px<br>
+    방향 차이: 0px
+</div>
+<button id="startBtn">시작하기</button>
+<div id="countdown"></div>
+<div id="chamText"></div>
+<div id="score">사용자: 0</div>
+<div id="loadingMessage">
+    모델 로딩 중...
+    <div class="progress-bar">
+        <div class="progress" id="loadingProgress"></div>
+    </div>
+</div>
+
+<input type="hidden" id="gameId" value="4006">
+
+<script>
+    // 기본 변수 설정
+    let faceModel;
+    let video = document.getElementById("webcam");
+    let userDirection = "center"; // 기본값 설정
+    let lastUserDirection = ""; // 최종 포지션 저장용
+    let scene, camera, renderer, handModel;
+    let handDirection = "center";
+    let userScore = 0; //db에서 가져오기
+    // let computerScore = 0;
+    let isGameRunning = false;
+    let isModelLoaded = false;
+    let isCameraReady = false;
+    
+    // 디버그 정보 요소
+    const debugInfoElement = document.getElementById("debugInfo");
+    
+    // UI 요소
+    const startBtn = document.getElementById("startBtn");
+    const loadingMessage = document.getElementById("loadingMessage");
+    const loadingProgress = document.getElementById("loadingProgress");
+    const directionText = document.getElementById("userDirectionText");
+    const leftMarker = document.getElementById("leftMarker");
+    const centerMarker = document.getElementById("centerMarker");
+    const rightMarker = document.getElementById("rightMarker");
+    
+    // 키보드 이벤트 (디버깅용)
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowLeft") setDirection("left");
+        else if (e.key === "ArrowDown") setDirection("center");
+        else if (e.key === "ArrowRight") setDirection("right");
+    });
+    
+    // 초기화 함수
+    async function init() {
+        startBtn.disabled = true;
+        
+        try {
+            // 로딩 진행률 업데이트
+            updateLoadingProgress("카메라 초기화 중...", 10);
+            
+            // 카메라 초기화
+            await setupCamera();
+            isCameraReady = true;
+            updateLoadingProgress("FaceMesh 모델 로딩 중...", 30);
+            
+            // AI 모델 로드
+            await loadFaceMesh();
+            isModelLoaded = true;
+            updateLoadingProgress("3D 환경 준비 중...", 70);
+            
+            // 3D 씬 초기화
+            initThreeJS();
+            updateLoadingProgress("준비 완료!", 100);
+            
+            // 로딩 메시지 숨기기
+            setTimeout(() => {
+                loadingMessage.style.display = "none";
+            }, 1000);
+            
+            // 시작 버튼 활성화
+            startBtn.disabled = false;
+            
+        } catch (error) {
+            console.error("초기화 오류:", error);
+            loadingMessage.innerHTML = "모델 로드 중 오류가 발생했습니다.<br>다시 시도해주세요.";
+            loadingProgress.style.width = "0%";
+            // window.location.href = "/errorPage.jsp"; // 오류 발생 시 이동할 페이지
+        }
+    }
+    
+    // 로딩 진행률 업데이트
+    function updateLoadingProgress(message, percent) {
+        loadingMessage.innerHTML = message + 
+            `<div class="progress-bar">
+                <div class="progress" id="loadingProgress" style="width: ${percent}%"></div>
+            </div>`;
+    }
+
+    
+    // 카메라 설정
+    async function setupCamera() {
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({
+                video: { 
+                    width: 640, 
+                    height: 480,
+                    facingMode: "user"
+                }
+            });
+            
+            video.srcObject = stream;
+            
+            return new Promise((resolve) => {
+                video.onloadedmetadata = () => {
+                    resolve();
+                };
+            });
+        } catch (error) {
+            console.error("카메라 접근 실패:", error);
+            throw new Error("카메라를 시작할 수 없습니다.");
+        }
+    }
+    
+    // FaceMesh 모델 로드 (원본 코드에서 사용했던 방식 그대로 사용)
+    async function loadFaceMesh() {
+        try {
+            faceModel = await facemesh.load();
+            
+            // 얼굴 감지 시작
+            detectFace();
+            
+            return faceModel;
+        } catch (error) {
+            console.error("모델 로드 실패:", error);
+            throw new Error("AI 모델을 로드할 수 없습니다.");
+        }
+    }
+    
+    // 얼굴 감지 (동적 임계값 적용)
+    async function detectFace() {
+        if (!faceModel) return;
+        
+        try {
+            const predictions = await faceModel.estimateFaces(video);
+            
+            if (predictions.length > 0) {
+                const keypoints = predictions[0].scaledMesh;
+                const nose = keypoints[1];  // 코의 위치
+                
+                // 얼굴 양쪽 끝 포인트 (귀 부근 또는 눈 바깥쪽 모서리 사용)
+                const leftEye = keypoints[33];   // 왼쪽 눈 주변 랜드마크
+                const rightEye = keypoints[263]; // 오른쪽 눈 주변 랜드마크
+                
+                // 얼굴 너비 계산 (눈 사이 거리)
+                const faceWidth = Math.abs(rightEye[0] - leftEye[0]);
+                
+                // 동적 임계값 계산 (얼굴 너비의 15%)
+                const dynamicThreshold = faceWidth * 0.15;
+                
+                // 얼굴 중앙값 계산
+                const faceCenter = (keypoints[234][0] + keypoints[454][0]) / 2;
+                
+                // 디버그 정보 업데이트
+                debugInfoElement.innerHTML = `얼굴 너비: ${Math.round(faceWidth)}px<br>
+                임계값: ${Math.round(dynamicThreshold)}px<br>
+                방향 차이: ${Math.round(Math.abs(nose[0] - faceCenter))}px`;
+                
+                // 얼굴 방향 판별 (동적 임계값 사용)
+                if (Math.abs(nose[0] - faceCenter) < dynamicThreshold) {
+                    setDirection("center");
+                } else {
+                    setDirection(nose[0] < faceCenter ? "right" : "left");
+                }
+            }
+        } catch (error) {
+            console.error("얼굴 감지 오류:", error);
+        }
+        
+        requestAnimationFrame(detectFace);
+    }
+    
+    // 방향 설정 함수
+    function setDirection(direction) {
+        userDirection = direction;
+        updateDirectionUI();
+    }
+    
+    // 방향 UI 업데이트
+    function updateDirectionUI() {
+        // 모든 마커 비활성화
+        leftMarker.classList.remove("active");
+        centerMarker.classList.remove("active");
+        rightMarker.classList.remove("active");
+        
+        // 방향 텍스트 및 마커 업데이트
+        if (userDirection === "left") {
+            directionText.innerText = "방향: 왼쪽";
+            leftMarker.classList.add("active");
+        } else if (userDirection === "center") {
+            directionText.innerText = "방향: 중앙";
+            centerMarker.classList.add("active");
+        } else if (userDirection === "right") {
+            directionText.innerText = "방향: 오른쪽";
+            rightMarker.classList.add("active");
+        } else {
+            directionText.innerText = "방향을 감지할 수 없습니다";
+        }
+    }
+
+    function initThreeJS() {
+        // Three.js 초기화
+        scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x222222);
+        
+        camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(0, 0.04, 0.5);
+        
+        renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+        
+        const light = new THREE.DirectionalLight(0xffffff, 1);
+        light.position.set(2, 2, 2).normalize();
+        scene.add(light);
+        
+        const loader = new THREE.GLTFLoader();
+        loader.load("assets/hand.glb", function (gltf) {
+            handModel = gltf.scene;
+            handModel.scale.set(1, 1, 1);
+            scene.add(handModel);
+            handModel.rotation.x = -Math.PI / 2;
+            handModel.rotation.y = -Math.PI / 2;
+            animate();
+        });
+        
+        window.addEventListener("resize", onWindowResize);
+    }
+    
+    function onWindowResize() {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    }
+
+    function animate() {
+        requestAnimationFrame(animate);
+        renderer.render(scene, camera);
+    }
+
+    function startGame() {
+        if (isGameRunning) return;
+        isGameRunning = true;
+        
+        // 게임 상태 초기화
+        lastUserDirection = "";
+        
+        // 버튼 비활성화
+        startBtn.disabled = true;
+        
+        // 모델 초기 위치 설정
+        handModel.rotation.x = -Math.PI / 2;
+        handModel.rotation.y = -Math.PI / 2;
+        handModel.rotation.z = 0;
+        
+        chamSequence();
+    }
+    
+    
+    function chamSequence() {
+        let chamText = document.getElementById("chamText");
+        
+        // 첫 번째 "참"
+        chamText.innerText = "참";
+        chamText.style.opacity = 1;
+        gsap.from(chamText, {scale: 0, duration: 0.3});
+        
+        // 손 흔들기 애니메이션
+        gsap.to(handModel.position, {
+            y: "+=0.15",
+            duration: 0.5,
+            repeat: 3,
+            yoyo: true,
+        });
+        
+        // 1초 후 두 번째 "참"
+        setTimeout(() => {
+            chamText.innerText = "참";
+            gsap.from(chamText, {scale: 0.5, duration: 0.3});
+            
+            // 1초 후 세 번째 "참"
+            setTimeout(() => {
+                chamText.innerText = "참!";
+                gsap.from(chamText, {scale: 0.5, duration: 0.3});
+                
+                // 세 번째 "참!" 텍스트가 출력된 후 1초 후에 페이드 아웃 시작
+                setTimeout(() => {
+                    // 텍스트 페이드 아웃 시작
+                    chamText.style.opacity = 0;
+                    
+                    // 텍스트가 완전히 사라질 때 방향 캡처 (약 0.8초 후)
+                    setTimeout(() => {
+                        // 방향 캡처
+                        lastUserDirection = userDirection;
+                        console.log("방향 캡처됨:", lastUserDirection);
+                        
+                        // 손 방향 결정 및 애니메이션 시작
+                        determineHandDirection();
+                    }, 800);
+                }, 1000);
+            }, 1000);
+        }, 1000);
+    }
+
+    function determineHandDirection() {
+        // 랜덤으로 좌/우 결정
+        let direction = Math.random() < 0.5 ? -1 : 1;
+        
+        // 방향 설정
+        handDirection = direction === -1 ? "left" : "right";
+        
+        // 사용자가 중앙이면 항상 패배하도록 설정
+        if (lastUserDirection === "center") {
+            // 랜덤 방향 유지 (중앙은 항상 패배)
+        } else {
+            // 랜덤성 추가 (50% 확률로 같은 방향 = 패배)
+            if (Math.random() < 0.5) {
+                // 같은 방향으로 설정 (패배)
+                direction = lastUserDirection === "left" ? -1 : 1;
+                handDirection = lastUserDirection;
+                userScore -= 30;
+            } else {
+                // 다른 방향으로 설정 (승리)
+                direction = lastUserDirection === "left" ? 1 : -1;
+                handDirection = lastUserDirection === "left" ? "right" : "left";
+                userScore += 20;
+                //스코어 db업로드하는 함수 
+            }
+        }
+        
+        // 손 회전 적용 (원본 코드의 회전 방식 사용)
+        if (direction === -1) {
+            // 왼쪽
+            gsap.to(handModel.rotation, {
+                x: 0,
+                y: -Math.PI,
+                z: Math.PI / 2,
+                duration: 0.4,
+                ease: "power2.out",
+                onComplete: () => {
+                    setTimeout(checkResult, 500);
+                }
+            });
+        } else {
+            // 오른쪽
+            gsap.to(handModel.rotation, {
+                x: 0,
+                y: 0,
+                z: Math.PI / 2,
+                duration: 0.4,
+                ease: "power2.out",
+                onComplete: () => {
+                    setTimeout(checkResult, 500);
+                }
+            });
+        }
+    }
+    
+    function checkResult() {
+        let scoreDisplay = document.getElementById("score");    
+    let resultText = document.getElementById("resultText");
+
+    if (lastUserDirection === "center") {
+        // 중앙은 항상 패배
+        resultText.innerText = "중앙은 패배! 😭";
+        resultText.style.color = "red";
+        sendGameRecord(-30);
+    } else if (lastUserDirection === handDirection) {
+        // 같은 방향이면 패배
+        resultText.innerText = "패배! 😭";
+        resultText.style.color = "red";
+        sendGameRecord(-30);
+    } else {
+        // 다른 방향이면 승리
+        resultText.innerText = "승리! 🎉";
+        resultText.style.color = "green";
+        sendGameRecord(20);
+    }
+
+    // 점수 업데이트
+    scoreDisplay.innerText = `사용자: ${userScore}`;
+
+    // 결과 텍스트 애니메이션
+    resultText.style.opacity = 0;
+    gsap.to(resultText, {
+        opacity: 1, 
+        scale: 1.2, 
+        duration: 0.3,
+        onComplete: () => {
+            gsap.to(resultText, {
+                scale: 1, 
+                duration: 0.2
+            });
+            
+            setTimeout(() => {
+                gsap.to(resultText, {
+                    opacity: 0,
+                    duration: 0.5,
+                    onComplete: () => {
+                        // 손을 초기 위치로 리셋
+                        resetHandPosition();
+                    }
+                });
+            }, 1500);
+        }
+    });
+}
+
+    
+    function resetHandPosition() {
+        // 손을 초기 위치로 부드럽게 돌려놓기
+        gsap.to(handModel.rotation, {
+            x: -Math.PI / 2,
+            y: -Math.PI / 2,
+            z: 0,
+            duration: 0.8,
+            ease: "power2.inOut",
+            onComplete: () => {
+                isGameRunning = false;
+                startBtn.disabled = false;
+            }
+        });
+    }
+
+    // 시작 버튼 이벤트 리스너
+    startBtn.addEventListener("click", startGame);
+   
+    // 초기화 시작
+    init();
+</script>
+
+<script>
+// 페이지 로드 시 부모 창에서 데이터 가져오기
+let userId;
+
+// URL 파라미터에서 userId 가져오기 시도
+function getUrlParameter(name) {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(name);
+}
+
+// 페이지 로드 시 실행
+window.onload = function() {
+  // 방법 1: URL 파라미터에서 확인
+  userId = getUrlParameter('userId');
+  
+  // 방법 2: 부모 창에서 직접 전달받은 데이터 확인
+  if (!userId && window.opener && window.opener.parentData) {
+    userId = window.opener.parentData;
+  }
+  
+  console.log("전달받은 userId:", userId);
+  
+  // userId가 있는지 확인
+  if (!userId) {
+    console.error("사용자 ID를 받지 못했습니다.");
+  }
+};
+
+function sendGameRecord(currentScore) {
+  // userId 확인
+  if (!userId) {
+    console.error("사용자 ID가 없어 기록을 저장할 수 없습니다.");
+    return;
+  }
+
+  console.log("기록 전송 중:", userId, $("#gameId").val(), currentScore);
+
+  // AJAX를 통해 게임 기록 저장
+  $.ajax({
+    type: "POST",
+    url: "/add.record",
+    data: {
+      userId: userId,
+      gameId: $("#gameId").val(),
+      record: currentScore
+    },
+    success: function(response) {
+      console.log("기록 저장 성공:", response);
+    },
+    error: function(error) {
+      console.error("기록 저장 실패:", error);
+    }
+  });
+}
+</script>
+
+</body>
+</html>
