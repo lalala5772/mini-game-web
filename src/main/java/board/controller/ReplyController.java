@@ -20,9 +20,6 @@ import board.dto.ReplyDTO;
 public class ReplyController extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		UsersDTO loginUser = (UsersDTO) session.getAttribute("loginUser");
-		
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		
