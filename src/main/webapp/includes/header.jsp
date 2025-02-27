@@ -8,9 +8,10 @@
 	if(loginUser == null){
 		
 	}
-	
+	Object isAdmin = session.getAttribute("isAdmin");
 %>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
 
 <header class="header">
     <div class="header-inner">
@@ -29,8 +30,12 @@
         </nav>
         <div class="auth-section">
 			<% if (loginUser != null) { %>
-			<span class="welcome-msg">안녕하세요, <%= loginUser.getNickname() %>님!
-			</span> <a href="/info.mypage" class="nav-link mypage-button" >마이페이지</a> 
+				<span class="welcome-msg">안녕하세요, <%= loginUser.getNickname() %>님!</span>
+				<% if (isAdmin.equals(1)) { %>
+					<a href="/dashboard.admin" class="nav-link dashboard-button" >관리자 페이지</a> 
+				<% } else { %>
+					<a href="/info.mypage" class="nav-link mypage-button" >마이페이지</a>
+				<% } %>
 				<a href="/logout.users" class="nav-link logout-button">로그아웃</a>
 			<% } else { %>
 			<a href="views/auth/login.jsp" class="nav-link">로그인</a> 
@@ -77,4 +82,5 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
+
 </script>
