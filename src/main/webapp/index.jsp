@@ -75,9 +75,9 @@
                                                     <div class="login-options">
                                                         <span>OR</span>
                                                         <div class="login-links">
-                                                            <a href="views/auth/findmyid.jsp">아이디 찾기</a>
-                                                            <a href="views/auth/findmypw.jsp">비밀번호 찾기</a>
-                                                            <a href="views/auth/signup.jsp">회원가입</a>
+                                                            <a href="/views/auth/findmyid.jsp">아이디 찾기</a>
+                                                            <a href="/views/auth/findmypw.jsp">비밀번호 찾기</a>
+                                                            <a href="/views/auth/agreement.jsp">회원가입</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -224,6 +224,18 @@
                         <script src="/assets/js/main.js"></script>
                         <script>
                             $(function () {
+                            	
+                            	$(document).on("click", ".game-link", function(event) {
+                                	<% if (loginUser == null) { %>
+                                		event.preventDefault(); // 기본 이동 차단
+                                		let result = confirm("로그인 후 게임을 시작할 수 있어요! 지금 로그인하시겠어요?");
+                            		<% } %>
+                            		if(result){
+                            			window.location.href = "/views/auth/login.jsp";
+                            		}
+                                });
+                            	
+                            	
                                 //인기 게임 목록
                                 $.ajax({
                                     url: "/popular.record", // 인기 게임 목록을 가져오는 URL
@@ -281,7 +293,7 @@
                                         descriptionList.append(item);
                                     });
 
-                                    let playButton = $("<a>").addClass("play-button").text("게임하기").attr("href", "#"); // 게임 URL 수정 필요
+                                    let playButton = $("<a>").addClass("play-button game-link").text("게임하기").attr("href", "/rhythmGame.games"); // 게임 URL 수정 필요
                                     gameDescription.append(descriptionText, descriptionList, playButton); // gameDescription에 요소 추가
                                 } else if (gameName === "크로스 로드") {
                                     gameType.html("길건너기 게임");
@@ -303,7 +315,7 @@
                                         descriptionList.append(item);
                                     });
 
-                                    let playButton = $("<a>").addClass("play-button").text("게임하기").attr("href", "#"); // 게임 URL 수정 필요
+                                    let playButton = $("<a>").addClass("play-button game-link").text("게임하기").attr("href", "/crossRoad.games"); // 게임 URL 수정 필요
                                     gameDescription.append(descriptionText, descriptionList, playButton); // gameDescription에 요소 추가
                                 } else if (gameName === "Barbecue_Game") {
                                     gameType.html("고기굽기 게임");
@@ -325,7 +337,7 @@
                                         descriptionList.append(item);
                                     });
 
-                                    let playButton = $("<a>").addClass("play-button").text("게임하기").attr("href", "#"); // 게임 URL 수정 필요
+                                    let playButton = $("<a>").addClass("play-button game-link").text("게임하기").attr("href", "/barbecue.games"); // 게임 URL 수정 필요
                                     gameDescription.append(descriptionText, descriptionList, playButton); // gameDescription에 요소 추가
                                 } else if (gameName === "참참참!") {
                                     gameType.html("참참참 게임");
@@ -348,7 +360,7 @@
                                         descriptionList.append(item);
                                     });
 
-                                    let playButton = $("<a>").addClass("play-button").text("게임하기").attr("href", "#"); // 게임 URL 수정 필요
+                                    let playButton = $("<a>").addClass("play-button game-link").text("게임하기").attr("href", "/chamchamcham.games"); // 게임 URL 수정 필요
                                     gameDescription.append(descriptionText, descriptionList, playButton); // gameDescription에 요소 추가
 
                                 } else if (gameName === "Zombie_Crusher") {
@@ -371,7 +383,7 @@
                                         descriptionList.append(item);
                                     });
 
-                                    let playButton = $("<a>").addClass("play-button").text("게임하기").attr("href", "#"); // 게임 URL 수정 필요
+                                    let playButton = $("<a>").addClass("play-button game-link").text("게임하기").attr("href", "/zombieCrusher.games"); // 게임 URL 수정 필요
                                     gameDescription.append(descriptionText, descriptionList, playButton); // gameDescription에 요소 추가
 
                                 } else if (gameName === "스네이크 게임") {
@@ -394,7 +406,7 @@
                                         descriptionList.append(item);
                                     });
 
-                                    let playButton = $("<a>").addClass("play-button").text("게임하기").attr("href", "#"); // 게임 URL 수정 필요
+                                    let playButton = $("<a>").addClass("play-button game-link").text("게임하기").attr("href", "/snakeGame.games"); // 게임 URL 수정 필요
                                     gameDescription.append(descriptionText, descriptionList, playButton); // gameDescription에 요소 추가
 
                                 }
