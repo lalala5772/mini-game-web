@@ -8,32 +8,30 @@
 <%@ page import="java.util.List, java.util.Map, board.dto.BoardDTO"%>
 
 <%
-    
-    UsersDTO loginUser = (UsersDTO) session.getAttribute("loginUser");
-    if (loginUser == null) {
-        response.sendRedirect("views/auth/login.jsp"); // 로그인 안 되어 있으면 로그인 페이지로 리디렉션
-        return;
-    }
-    
-    GameRecordDTO gameRecord = (GameRecordDTO) request.getAttribute("gameRecord");
-    if (gameRecord == null) {
-        // 게임이 없을 때, 어떻게 처리할 지 의논하기 
-        //return;
-    }
-    
-    List<BoardDTO> userBoardList = (List<BoardDTO>) request.getAttribute("userBoardList");
-    System.out.println(userBoardList);
-    if (userBoardList == null) {
-        // 게시물이 없을 때, 어떻게 처리할 지 의논하기 
-        //return;
-    }
-    
-    Map<String, Integer> highestScores = (Map<String, Integer>) request.getAttribute("highestScores");
-    pageContext.setAttribute("highestScores", highestScores);
-    
-    Map<String, Integer> userRankings = (Map<String, Integer>) request.getAttribute("userRankings");
-    pageContext.setAttribute("userRankings", userRankings);
+UsersDTO loginUser = (UsersDTO) session.getAttribute("loginUser");
+if (loginUser == null) {
+	response.sendRedirect("views/auth/login.jsp"); // 로그인 안 되어 있으면 로그인 페이지로 리디렉션
+	return;
+}
 
+GameRecordDTO gameRecord = (GameRecordDTO) request.getAttribute("gameRecord");
+if (gameRecord == null) {
+	// 게임이 없을 때, 어떻게 처리할 지 의논하기 
+	//return;
+}
+
+List<BoardDTO> userBoardList = (List<BoardDTO>) request.getAttribute("userBoardList");
+System.out.println(userBoardList);
+if (userBoardList == null) {
+	// 게시물이 없을 때, 어떻게 처리할 지 의논하기 
+	//return;
+}
+
+Map<String, Integer> highestScores = (Map<String, Integer>) request.getAttribute("highestScores");
+pageContext.setAttribute("highestScores", highestScores);
+
+Map<String, Integer> userRankings = (Map<String, Integer>) request.getAttribute("userRankings");
+pageContext.setAttribute("userRankings", userRankings);
 %>
 
 
@@ -59,21 +57,28 @@
 		<!-- 좌측 사이드 바 아이콘 버튼 -->
 		<div class="menu">
 			<i class="fa-solid fa-gamepad" id="gameicon" style="color: #ffffff;"></i>
-			<i class="fa-solid fa-clipboard-list" id="boardicon" style="color: #ffffff;"></i>
+			<i class="fa-solid fa-clipboard-list" id="boardicon"
+				style="color: #ffffff;"></i>
 		</div>
-		<div class="nickname" name="nickname"><%= loginUser.getNickname() %></div>
-		<div class="id" name="id"><%= loginUser.getId() %></div>
+		<div class="nickname" name="nickname"><%=loginUser.getNickname()%></div>
+		<div class="id" name="id"><%=loginUser.getId()%></div>
 		<div class="line1"></div>
 		<div class="email" name="email">
-			<i class="fa-solid fa-at"></i><%= loginUser.getEmail() %></div>
+			<i class="fa-solid fa-at"></i>
+			<%=loginUser.getEmail()%></div>
 		<div class="phonenum" name="phonenum">
-			<i class="fa-solid fa-phone"></i><%= loginUser.getPhone() %></div>
+			<i class="fa-solid fa-phone"></i>
+			<%=loginUser.getPhone()%></div>
+		<div class="birth" name="birth">
+			<i class="fa-solid fa-calendar-days" style="color: #ffffff;"></i>
+			<%=loginUser.getRnum()%>
+		</div>
 		<div class="line2"></div>
 		<c:if test="${not empty gameRecord}">
 			<div class="gamepoint1">게임포인트</div>
-			<div class="gamepoint2"><%= gameRecord.getRecord() %></div>
+			<div class="gamepoint2"><%=gameRecord.getRecord()%></div>
 			<div class="playtime1">총 플레이 시간</div>
-			<div class="playtime2"><%= gameRecord.getPlayTime() %></div>
+			<div class="playtime2"><%=gameRecord.getPlayTime()%></div>
 		</c:if>
 		<c:if test="${empty gameRecord}">
 			<div class="gamepoint1">게임포인트</div>
@@ -89,37 +94,46 @@
 		<div class="gamebox2">&nbsp;&nbsp;고기굽기 게임</div>
 		<div class="score2">score : 10</div>
 		<div class="rank2">rank : 8</div>
-		<a href="/views/mypage/checkPw.jsp" class="modify">회원정보 수정</a>
-		<a href="/index.jsp" class="main"> 메인화면</a>
-			<!-- <button class="main"></button> -->
+		<button class="modify">회원정보 수정</button>
+		<button class="main">메인화면</button>
+		<!-- <button class="main"></button> -->
 	</div>
 
 	<!-- mypage.jsp -->
 	<div class="container2">
 		<div class="subtitle">내 커뮤니티 활동내역</div>
 
-<!-- 게시글 목록 -->
-<!-- JSP에서 데이터를 JavaScript 배열로 초기화 -->
+		<!-- 게시글 목록 -->
+		<!-- JSP에서 데이터를 JavaScript 배열로 초기화 -->
 
-<!-- 테이블 및 페이지 버튼 영역 -->
-<div class="scroll-container">
-    <table>
-        <thead>
-            <tr>
-                <th>제목</th>
-                <th>작성일</th>
-                <th>조회수</th>
-            </tr>
-        </thead>
-        <tbody id="postBody">
-            <!-- JavaScript로 데이터 출력 -->
-        </tbody>
-    </table>
-</div>
+		<!-- 테이블 및 페이지 버튼 영역 -->
+		<div class="scroll-container">
+			<table>
+				<thead>
+					<tr>
+						<th>제목</th>
+						<th>작성일</th>
+						<th>조회수</th>
+					</tr>
+				</thead>
+				<tbody id="postBody">
+					<!-- JavaScript로 데이터 출력 -->
+				</tbody>
+			</table>
+		</div>
 
-<div id="pagination"></div>
+		<div id="pagination"></div>
 
-<script>
+		<script>
+
+$(".modify").on("click",()=>{
+	window.open("/views/mypage/checkPw.jsp","_blank", "width=500, height=310,top=250,left=500");
+})
+
+$(".main").on("click",()=>{
+	window.location.href = "/index.jsp";
+})
+
 	const userBoardList = [
 	    <c:forEach var="post" items="${userBoardList}" varStatus="status">
 	        {
@@ -205,6 +219,7 @@
 </script>
 
 	</div>
+	<div class="container3">
 	<div class="subtitle">내 게임 순위</div>
 	<%-- 게임 ID 및 이미지명 리스트 설정 --%>
 	<c:set var="gameIds" value="4001,4002,4003,4004,4005,4006" />
@@ -213,7 +228,7 @@
 	<c:set var="gameNames"
 		value="Barbecue Game,Rhythm Game,Zombibe Crush,스네이크 게임,크로스 로드,참참참!" />
 
-	<div class="container3">
+	
 		<%-- 게임 정보 반복 출력 --%>
 		<c:forEach var="index" begin="0" end="5">
 			<c:set var="gameId" value="${fn:split(gameIds, ',')[index]}" />
@@ -255,6 +270,9 @@
 	</div>
 
 	<script> 
+	
+	
+	
 				$("#gameicon").on("click", () => {
 				    $(".container2").css("display", "none");
 				    $(".container3").css("display", "block");
