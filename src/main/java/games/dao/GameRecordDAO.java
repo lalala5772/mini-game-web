@@ -214,7 +214,7 @@ public class GameRecordDAO {
 						record = rs.getInt("record");
 						ranking = rs.getInt("ranking");
 					}
-					GameRecordRankingDTO dto = new GameRecordRankingDTO(id,record,ranking);
+					GameRecordRankingDTO dto = new GameRecordRankingDTO(id, record, ranking);
 					rankingList.add(dto);
 				}
 				return rankingList;
