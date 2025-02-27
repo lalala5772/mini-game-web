@@ -34,33 +34,22 @@ public class GamesController extends HttpServlet{
 			} else if (cmd.equals("/delete.games")) {
 				
 			} else if (cmd.equals("/barbecue.games")) {
+				response.sendRedirect("/views/games/barbecue/barbecue-game.jsp");
 
-				try {
-					response.sendRedirect("/views/games/barbecue/barbecue-game.jsp");
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				
 			} else if (cmd.equals("/chamchamcham.games")) {
+				response.sendRedirect("/views/games/chamchamcham/start-cham.jsp");
 
-				try {
-					response.sendRedirect("/views/games/chamchamcham/start-cham.jsp");
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				
 			}else if (cmd.equals("/crossRoad.games")) {
-				try {
-					response.sendRedirect("/views/games/crossRoad/cross-road.jsp");
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			} else if (cmd.equals("/zombieCrusher.games")) {
-				try {
-					response.sendRedirect("/views/games/zombie_Crusher/main.jsp");
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+				response.sendRedirect("/views/games/crossRoad/cross-road.jsp");
+	
+			}else if (cmd.equals("/zombieCrusher.games")) {
+				response.sendRedirect("/views/games/zombie_Crusher/main.jsp");
+
+			}else if (cmd.equals("/rhythmGame.games")) {
+				response.sendRedirect("/views/games/rhythmGame/rhythm.jsp");
+				
+			}else if (cmd.equals("/snakeGame.games")) {
+				// response.sendRedirect("/views/games/??");
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
