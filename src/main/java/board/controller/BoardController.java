@@ -25,9 +25,7 @@ import utils.Statics;
 @WebServlet("*.board")
 public class BoardController extends HttpServlet {
 	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
@@ -50,11 +48,15 @@ public class BoardController extends HttpServlet {
 				String scpage = (String) (request.getParameter("cpage"));
 
 				// 현재 페이지 유효성 검사.
-				if (scpage == null) {
-					scpage = "1";
+				int cpage = 1;
+				
+				if (scpage != null) {
+				    try {
+				        cpage = Integer.parseInt(scpage);
+				    } catch(NumberFormatException e) {
+				        cpage = 1;  // 숫자가 아닌 값이 들어오면 1페이지로 간주
+				    }
 				}
-
-				int cpage = Integer.parseInt(scpage);
 
 				int recordTotalCount = dao.getRecordTotalCountNotice();
 
@@ -95,7 +97,8 @@ public class BoardController extends HttpServlet {
 
 				if (startNavi == 1) {
 					needPrev = false;
-				} else if (endNavi == pageTotalCount) {
+				}
+				if (endNavi == pageTotalCount) {
 					needNext = false;
 				}
 
@@ -114,11 +117,18 @@ public class BoardController extends HttpServlet {
 				String scpage = (String) (request.getParameter("cpage"));
 
 				// 현재 페이지 유효성 검사.
-				if (scpage == null) {
-					scpage = "1";
+				
+				int cpage = 1;
+				
+				if (scpage != null) {
+				    try {
+				        cpage = Integer.parseInt(scpage);
+				    } catch(NumberFormatException e) {
+				        cpage = 1;  // 숫자가 아닌 값이 들어오면 1페이지로 간주
+				    }
 				}
-				int cpage = Integer.parseInt(scpage);
-
+				
+				
 				int recordTotalCount = dao.getRecordTotalCountGeneral();
 
 				int pageTotalCount = 0;
@@ -160,7 +170,8 @@ public class BoardController extends HttpServlet {
 
 				if (startNavi == 1) {
 					needPrev = false;
-				} else if (endNavi == pageTotalCount) {
+				}
+				if (endNavi == pageTotalCount) {
 					needNext = false;
 				}
 				
@@ -185,11 +196,15 @@ public class BoardController extends HttpServlet {
 				String scpage = (String) (request.getParameter("cpage"));
 
 				// 현재 페이지 유효성 검사.
-				if (scpage == null) {
-					scpage = "1";
+				int cpage = 1;
+				
+				if (scpage != null) {
+				    try {
+				        cpage = Integer.parseInt(scpage);
+				    } catch(NumberFormatException e) {
+				        cpage = 1;  // 숫자가 아닌 값이 들어오면 1페이지로 간주
+				    }
 				}
-
-				int cpage = Integer.parseInt(scpage);
 
 				int recordTotalCount = dao.getRecordTotalCountNoticeSearch(searchNoticeKeyword,searchNoticeCategory);
 
@@ -230,7 +245,8 @@ public class BoardController extends HttpServlet {
 
 				if (startNavi == 1) {
 					needPrev = false;
-				} else if (endNavi == pageTotalCount) {
+				}
+				if (endNavi == pageTotalCount) {
 					needNext = false;
 				}
 
@@ -255,11 +271,15 @@ public class BoardController extends HttpServlet {
 				String scpage = (String) (request.getParameter("cpage"));
 
 				// 현재 페이지 유효성 검사.
-				if (scpage == null) {
-					scpage = "1";
+				int cpage = 1;
+				
+				if (scpage != null) {
+				    try {
+				        cpage = Integer.parseInt(scpage);
+				    } catch(NumberFormatException e) {
+				        cpage = 1;  // 숫자가 아닌 값이 들어오면 1페이지로 간주
+				    }
 				}
-
-				int cpage = Integer.parseInt(scpage);
 
 				int recordTotalCount = dao.getRecordTotalCountGeneralSearch(searchGeneralKeyword,searchGeneralCategory);
 
@@ -300,7 +320,8 @@ public class BoardController extends HttpServlet {
 
 				if (startNavi == 1) {
 					needPrev = false;
-				} else if (endNavi == pageTotalCount) {
+				}
+				if (endNavi == pageTotalCount) {
 					needNext = false;
 				}
 
@@ -423,11 +444,7 @@ public class BoardController extends HttpServlet {
 				
 				dao.deleteBySeq(seq);
 				
-//				int seq = Integer.parseInt(request.getParameter("seq"));
-//				String boardCategory = request.getParameter("boardCategory");
-//				
-//				dao.deleteBySeq(seq);
-//				response.sendRedirect("/"+boardCategory+"List.board?cpage=1");
+				response.sendRedirect("/"+boardCategory+"List.board?cpage=1");
 
 			} else if (cmd.equals("/detail.board")) {
 				// 게시글 받아오기
@@ -446,6 +463,10 @@ public class BoardController extends HttpServlet {
 				request.getRequestDispatcher("/views/board/detail.jsp").forward(request, response);
 			}
 		} catch(Exception e) {
+			if (!"POST".equalsIgnoreCase(request.getMethod())) {
+                response.sendRedirect("/403.error");
+                return;
+            }
 			e.printStackTrace();
 		}
 
