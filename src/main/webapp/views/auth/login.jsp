@@ -17,7 +17,9 @@
 	<!-- 로그인 폼 -->
 	<div class="container1">
 		<div class="title">
-			 <img src="/assets/img/logoW.png" alt="" class="logo1">
+			 <a href="/">
+			 	<img src="/assets/img/logoW.png" alt="" class="logo1">
+			 </a>
 		</div>
 		<div class="subtitle">SING IN</div>
 		<form action="/login.users" method="post">
@@ -25,6 +27,16 @@
 			<input type="password" class="pw" name="pw" placeholder="비밀번호 입력">
 			<button type="submit" class="signIn">Sign In</button>
 		</form>
+		
+		<a href="/views/auth/agreement.jsp">
+        	<div class="join_membership">회원가입</div>
+       	</a>
+		<a href="/views/auth/findmyid.jsp">
+			<div class="findId">아이디 찾기</div>
+		</a>
+        <a href="/views/auth/findmypw.jsp">
+            <div class="findPw">비밀번호 찾기</div>
+        </a>
 		
 		<div class="rememberId">
 				<input type="checkbox" class="rememberId">

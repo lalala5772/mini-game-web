@@ -176,7 +176,7 @@ button:last-of-type:hover {
 
 			<div class="button-group">
 				<button id="nextBtn">다음단계</button>
-				<button>가입취소</button>
+				<button onclick="history.back();">가입취소</button>
 			</div>
 
 		</div>

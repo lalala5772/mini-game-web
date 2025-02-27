@@ -55,11 +55,20 @@
         </button>
     </div>
     <ul class="mobile-nav-list">
-        <li><a href="/games">게임하기</a></li>
-        <li><a href="/board">게시판</a></li>
-        <li><a href="/support">고객센터</a></li>
-        <li><a href="/login">로그인</a></li>
-        <li><a href="/register">회원가입</a></li>
+        <li><a href="/#all-games-category">게임하기</a></li>
+        <li><a href="/generalList.board?cpage=1">게시판</a></li>
+        <li><a href="/faq.board">고객센터</a></li>
+        <% if (loginUser != null) { %>
+        	<% if (isAdmin.equals(1)) { %>
+        		<li><a href="/dashboard.admin">관리자 페이지</a></li>
+        	<% } else { %>
+        		<li><a href="/info.mypage">마이페이지</a></li>
+        	<% } %>
+        	<li><a href="/logout.users">로그아웃</a></li>
+        <% } else { %>
+        	<li><a href="/views/auth/login.jsp">로그인</a></li>
+        	<li><a href="/views/auth/agreement.jsp">회원가입</a></li>
+        <% } %>
     </ul>
 </div>
 

@@ -15,7 +15,9 @@
 <body>
     <div class="container1">
         <div class="title">
-            <img src="/assets/img/logoW.png" alt="">
+        	<a href="/">
+            	<img src="/assets/img/logoW.png" alt="">
+            </a>
         </div>
 
         <div class="subtitle">FIND MY ID</div>
@@ -60,11 +62,15 @@
         <div class="container2">
             <img src="/assets/img/auth.jpg" alt="" class="sing"> <img src="/assets/img/logoW.png" alt="" class="logo">
         </div>
-		<a href="/views/auth/signup.jsp">
+        
+        <a href="/views/auth/login.jsp">
+        	<div class="to-login">로그인</div>
+       	</a>
+		<a href="/views/auth/agreement.jsp">
         	<div class="join_membership">회원가입</div>
        	</a>
         <a href="/views/auth/findmypw.jsp">
-            <div class="findId">비밀번호 찾기</div>
+            <div class="findPw">비밀번호 찾기</div>
         </a>
     </div>
 </body>
