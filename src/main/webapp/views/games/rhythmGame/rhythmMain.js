@@ -26,7 +26,7 @@ class rhythmMain extends Phaser.Scene{
   this.load.image('trackBackground', 'trackBackground.png');
 
   // 배경음악 파일 로드
-  this.load.audio('music', 'music.mp3');
+  this.load.audio('mainMusic', 'mainMusic.mp3');
 
   this.load.image('notebar', 'notebar.png');
 
@@ -49,7 +49,7 @@ class rhythmMain extends Phaser.Scene{
     this.bg.setDisplaySize(this.scale.width+80, this.scale.height);
 
     // 배경음악 추가
-    this.music = this.sound.add('music');
+    this.music = this.sound.add('mainMusic');
 
     // 배경음악 재생 및 루프 설정
     this.music.play({ loop: false });

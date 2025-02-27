@@ -16,6 +16,8 @@ class rhythmStart extends Phaser.Scene{
 
   this.load.image('startlogo','startLogo.png');
 
+// 배경음악 파일 로드
+	this.load.audio('startMusic', 'startMusic.mp3');
   }
 
   create(){
@@ -32,6 +34,16 @@ class rhythmStart extends Phaser.Scene{
 
     this.add.image(180,80,"startlogo").setOrigin(0, 0);
 
+	// 배경음악 추가
+    this.music = this.sound.add('startMusic');
+
+    // 배경음악 재생 및 루프 설정
+    this.music.play({ loop: true });
+
+    
+    // 배경음악 음량 설정 (선택사항)
+    this.music.setVolume(0.5); // 0.0 ~ 1.0 사이 값으로 음량 조절
+	
     let startBtn = this.add.text(this.cameras.main.width/2,this.cameras.main.height/2+150,"게임 시작",{
       fontSize : "25px",
       padding:{left:10,right:10,top:10,bottom:10}
@@ -49,7 +61,7 @@ class rhythmStart extends Phaser.Scene{
     })
 
     startBtn.on("pointerdown",()=>{
-
+	  this.music.stop();
       this.scene.start("rhythmMain");
     })
 
