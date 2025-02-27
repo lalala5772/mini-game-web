@@ -1,0 +1,143 @@
+/* 다크모드 스타일 */
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background-color: #121212;
+    color: #e0e0e0;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.container {
+    max-width: 800px;
+    padding: 20px;
+}
+
+.error-code {
+    font-size: 120px;
+    font-weight: 700;
+    margin: 0 0 20px 0;
+    background: linear-gradient(90deg, #4a6bff, var(--color-primary), var(--color-primary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1;
+}
+
+.error-title {
+    font-size: 32px;
+    margin: 10px 0 20px;
+    color: #ffffff;
+}
+
+.error-message {
+    font-size: 18px;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.home-button {
+    display: inline-block;
+    background: linear-gradient(90deg, #4a6bff, var(--color-primary));
+    color: white;
+    padding: 12px 30px;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(74, 107, 255, 0.4);
+}
+
+.home-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(74, 107, 255, 0.6);
+}
+
+.game-controller {
+    width: 150px;
+    height: 150px;
+    margin-bottom: 30px;
+    opacity: 0.9;
+}
+
+.glitch-animation {
+    animation: glitch 3s infinite;
+}
+
+.stars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none; /* 별이 클릭 이벤트를 가로채지 않도록 */
+}
+
+.star {
+    position: absolute;
+    background-color: #ffffff;
+    border-radius: 50%;
+    opacity: 0.7;
+    animation: twinkle 4s infinite;
+}
+
+@keyframes twinkle {
+    0% { opacity: 0.2; }
+    50% { opacity: 0.9; }
+    100% { opacity: 0.2; }
+}
+
+ /* 게임 아이콘 스타일 */
+.game-icon {
+    width: 120px;
+    height: 120px;
+    margin: 0px auto;
+    display: block;
+}
+
+.game-icon i {
+    font-size: 100px;
+    background: linear-gradient(90deg, #4a6bff, var(--color-primary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 10px rgba(123, 77, 255, 0.6));
+}
+
+
+/* 미디어 쿼리: 화면 크기 768px 이하 */
+@media screen and (max-width: 768px) {
+    .container{
+        padding: 10vh 5vw;
+    }
+
+    .game-icon{
+        margin: 8vh auto 1vh;
+    }
+
+    /* 글자 크기 조정 */
+    .error-code {
+        font-size: 80px;
+    }
+
+    .error-title {
+        font-size: 24px;
+    }
+
+    .error-message {
+        font-size: 16px;
+    }
+
+    .home-button {
+        font-size: 14px;
+        padding: 10px 25px; /* 버튼 크기 줄이기 */
+    }
+}
