@@ -1,5 +1,28 @@
 /* styles.css */
 
+@media screen and (max-width: 768px) {
+  /* 특정 요소의 글자 크기도 개별적으로 조정 가능 */
+  .board-header, .board-item{
+    font-size: 12px;
+  }
+  
+  .title{
+  flex:3;
+  }
+  .write{
+  flex:2;
+  }
+  .seq{
+  flex:1;
+  }
+  .writeDate{
+  display:none;}
+  
+  .write-general-btn{
+  font-size:13px;
+  }
+  
+}
 
 main {
   width: 90%;
