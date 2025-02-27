@@ -115,6 +115,9 @@ public class UsersController extends HttpServlet {
 						// 회원가입 성공 후 세션 저장
 						HttpSession session = request.getSession();
 						session.setAttribute("loginUser", loginUser);
+						session.setAttribute("nickname", loginUser.getNickname());
+						session.setAttribute("id", loginUser.getId());
+						session.setAttribute("isAdmin", loginUser.getIsAdmin());
 
 						// 회원가입 성공 시
 						request.getRequestDispatcher("/index.jsp").forward(request, response);
