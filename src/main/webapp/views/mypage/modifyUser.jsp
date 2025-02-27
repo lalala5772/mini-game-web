@@ -2,14 +2,14 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="auth.dto.UsersDTO"%>
 <%
-    // 세션에서 로그인 사용자 정보 가져오기
-    UsersDTO loginUser = (UsersDTO) session.getAttribute("loginUser");
-    
-    // 로그인하지 않은 경우
-    if (loginUser == null) {
-        response.sendRedirect("login.jsp");
-        return;
-    }
+// 세션에서 로그인 사용자 정보 가져오기
+UsersDTO loginUser = (UsersDTO) session.getAttribute("loginUser");
+
+// 로그인하지 않은 경우
+if (loginUser == null) {
+	response.sendRedirect("login.jsp");
+	return;
+}
 %>
 <!DOCTYPE html>
 <html>
@@ -20,16 +20,43 @@
 <style>
 body {
 	font-family: Arial, sans-serif;
-	margin: 50px;
+	background-color: black;
+	margin: 0;
+	height: 100vh;
+	display: flex;
+	flex-direction: column; /* 세로 정렬 */
+	align-items: center; /* 가로 가운데 정렬 */
+	justify-content: flex-start; /* 위쪽 정렬 */
+}
+
+.wrapper {
+	display: flex;
+	flex-direction: column; /* 세로로 정렬 */
+	align-items: center; /* 가로 가운데 정렬 */
+	width: 100%;
+}
+
+.logo {
+	width: 400px;
+	height: 130px;
+	margin-top: 20px; /* 상단 여백 */
+	cursor: pointer;
+}
+
+.logo img{
+	width:100%;
+	height:100%;
 }
 
 .container {
 	width: 500px;
-	margin: auto;
 	padding: 20px;
 	border: 1px solid #ccc;
 	border-radius: 10px;
-	box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+	box-shadow: 5px 5px 10px rgba(255, 255, 255, 0.3);
+	color: black;
+	background-color: white;
+	margin-top: 20px; /* 로고와 컨테이너 간의 간격 */
 }
 
 h2 {
@@ -57,7 +84,7 @@ input[type="text"], input[type="password"], input[type="email"] {
 button {
 	width: 100%;
 	padding: 10px;
-	background-color: #4CAF50;
+	background-color: #868789;
 	color: white;
 	border: none;
 	border-radius: 5px;
@@ -66,7 +93,7 @@ button {
 }
 
 button:hover {
-	background-color: #45a049;
+	background-color: #000;
 }
 
 .error-msg {
@@ -94,7 +121,7 @@ button:hover {
 }
 
 .check-button {
-	background-color: #2196F3;
+	background-color: #000;
 	color: white;
 	border: none;
 	border-radius: 4px;
@@ -105,7 +132,7 @@ button:hover {
 }
 
 .check-button:hover {
-	background-color: #0b7dda;
+	background-color: #868789;
 }
 
 .nickname-container {
@@ -122,29 +149,38 @@ button:hover {
 	margin-left: 10px;
 	margin-top: 0;
 }
-.withdraw-btn {
-	background-color : red;
+#withdraw-btn{
+	position:absolute;
+	width:80px;
+	top:850px;
+	left:1500px;
+	background-color:#868789;
 }
+
+
+
 </style>
 </head>
 <body>
-	<div class="container">
+	<div class="wrapper">
+		<div class="logo"><img src="/assets/img/logoW.png"></div>
+		<div class="container">
 		<h2>회원정보 수정</h2>
 		<form id="modifyForm" action="/info.mypage">
 			<div class="form-group">
 				<label for="userId">아이디</label> <input type="text" id="userId"
-					name="userId" value="<%= loginUser.getId() %>" readonly>
+					name="userId" value="<%=loginUser.getId()%>" readonly>
 			</div>
 			<div class="form-group">
 				<label for="userName">이름</label> <input type="text" id="userName"
-					name="userName" value="<%= loginUser.getName() %>">
+					name="userName" value="<%=loginUser.getName()%>">
 				<div id="userNameError" class="error-msg"></div>
 			</div>
 			<div class="form-group">
 				<label for="userNickname">닉네임</label>
 				<div class="nickname-container">
 					<input type="text" id="userNickname" name="userNickname"
-						value="<%= loginUser.getNickname() %>">
+						value="<%=loginUser.getNickname()%>">
 					<button type="button" id="checkNickname" class="check-button">중복확인</button>
 				</div>
 				<div id="userNicknameError" class="error-msg"></div>
@@ -152,30 +188,32 @@ button:hover {
 			</div>
 			<div class="form-group">
 				<label for="userEmail">이메일</label> <input type="email"
-					id="userEmail" name="userEmail" value="<%= loginUser.getEmail() %>">
+					id="userEmail" name="userEmail" value="<%=loginUser.getEmail()%>">
 				<div id="userEmailError" class="error-msg"></div>
 			</div>
 			<div class="form-group">
 				<label for="userPhone">핸드폰 번호</label> <input type="text"
-					id="userPhone" name="userPhone" value="<%= loginUser.getPhone() %>">
+					id="userPhone" name="userPhone" value="<%=loginUser.getPhone()%>">
 				<div id="userPhoneError" class="error-msg"></div>
 			</div>
 			<div class="form-group">
 				<label for="userRnum">생년월일</label> <input type="text" id="userRnum"
-					name="userRnum" value="<%= loginUser.getRnum() %>">
+					name="userRnum" value="<%=loginUser.getRnum()%>">
 				<div id="userRnumError" class="error-msg"></div>
 			</div>
-			<button type="submit">수정하기</button>
+			<button type="submit" class="modify-btn">수정하기</button>
+			<button type="button" class="mypage">마이페이지로</button>
 		</form>
 		<form id="withdraw-frm" action="/withdraw.users">
-		<input type="hidden" name="withdrawId" id="hiddenWithdrawId" /> 
-		<button type="button" id=withdraw-btn>탈퇴하기</button>
+			<input type="hidden" name="withdrawId" id="hiddenWithdrawId" />
+			<button type="button" id=withdraw-btn>탈퇴하기</button>
 		</form>
 
 		<p class="error" id="errorMsg"></p>
 		<p class="success" id="successMsg"></p>
 	</div>
-	
+	</div>
+
 	<script>
 	$(document).ready(function () {
 	    // 정규식 설정
@@ -214,7 +252,7 @@ button:hover {
 	                validationState[field.slice(1)] = true;
 	                
 	                if (field === "#userNickname") {
-	                    if (value !== "<%= loginUser.getNickname() %>") {
+	                    if (value !== "<%=loginUser.getNickname()%>") {
 	                        validationState.nicknameChecked = false;
 	                        $("#userNicknameSuccess").hide();
 	                    } else {
@@ -255,7 +293,7 @@ button:hover {
 	            return;
 	        }
 
-	        if (nickname === "<%= loginUser.getNickname() %>") {
+	        if (nickname === "<%=loginUser.getNickname()%>") {
 	            $successDiv.text("현재 사용 중인 닉네임입니다.").show();
 	            $errorDiv.hide();
 	            validationState.nicknameChecked = true;
@@ -292,7 +330,7 @@ button:hover {
 	    $("#userNickname").on("input", function() {
 	        const value = $(this).val().trim();
 	        
-	        if (value === "<%= loginUser.getNickname() %>") {
+	        if (value === "<%=loginUser.getNickname()%>") {
 	            $("#userNicknameSuccess").text("현재 사용 중인 닉네임입니다.").show();
 	            $("#userNicknameError").hide();
 	            validationState.nicknameChecked = true;
@@ -303,7 +341,7 @@ button:hover {
 	    });
 
 	    // 페이지 로드 시 닉네임 초기 설정
-	    if ($("#userNickname").val().trim() === "<%= loginUser.getNickname() %>") {
+	    if ($("#userNickname").val().trim() === "<%=loginUser.getNickname()%>") {
 	        validationState.nicknameChecked = true;
 	    }
 
@@ -311,7 +349,7 @@ button:hover {
 	    $("#modifyForm").submit(function (event) {
 	        event.preventDefault();
 
-	        if ($("#userNickname").val().trim() !== "<%= loginUser.getNickname() %>" && !validationState.nicknameChecked) {
+	        if ($("#userNickname").val().trim() !== "<%=loginUser.getNickname()%>" && !validationState.nicknameChecked) {
 	            $("#userNicknameError").removeClass("success-msg").addClass("error-msg")
 	                .text("닉네임 중복 확인이 필요합니다.").show();
 	            $("#userNicknameSuccess").hide();
@@ -364,6 +402,15 @@ button:hover {
     	}
     	
     })
+    
+    $(".mypage").on("click",()=>{
+		window.location.href = "/info.mypage";
+	})
+	
+	$(".logo").on("click",()=>{
+		window.location.href = "/index.jsp";
+	})
+	
 </script>
 
 </body>

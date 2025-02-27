@@ -198,7 +198,7 @@
             let newHead = { x: snakeX, y: snakeY };
 
             if (snakeX == food.x && snakeY == food.y) {
-                score++;
+                score+=10;
                 food = {
                     x: Math.floor(Math.random() * columns) * box,
                     y: Math.floor(Math.random() * rows) * box
