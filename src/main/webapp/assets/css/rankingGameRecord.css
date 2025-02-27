@@ -1,0 +1,59 @@
+body {
+	color: #ffffff;
+	background-color: #000000;
+	margin: 0;
+	padding: 0;
+}
+
+.tabs {
+	padding-top:130px;
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	margin-bottom: 30px;
+	gap: 10px;
+}
+
+.tabs button {
+	background: #ffcc00;
+	border: none;
+	padding: 12px 25px;
+	color: #000000;
+	font-weight: bold;
+	cursor: pointer;
+	border-radius: 10px;
+	font-size: 1rem;
+}
+
+.tabs button:hover {
+	background: #ff5733;
+	transform: scale(1.05);
+}
+
+.leaderboard-container {
+	background: rgba(255, 255, 255, 0.1);
+	padding: 20px;
+	border-radius: 15px;
+	max-width: 800px;
+	margin: 0 auto;
+}
+
+.leaderboard {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.leaderboard th, .leaderboard td {
+	padding: 12px;
+	text-align: left;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.leaderboard th {
+	background: #ffcc00;
+	color: #000000;
+}
+
+.leaderboard tr:hover {
+	background: rgba(255, 255, 255, 0.2);
+}
