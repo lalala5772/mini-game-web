@@ -126,9 +126,15 @@ pageContext.setAttribute("userRankings", userRankings);
 
 		<script>
 
-$(".modify").on("click",()=>{
-	window.open("/views/mypage/checkPw.jsp","_blank", "width=500, height=310,top=250,left=500");
-})
+$(".modify").on("click", function() {
+		// 구글 로그인 사용자인 경우 (ID가 google_로 시작)
+	if ("<%=loginUser.getId()%>".startsWith("google_")) {
+		        window.open("/views/mypage/modifyUser.jsp");
+	    } else {
+		   // 일반 사용자는 비밀번호 확인
+		        window.open("/views/mypage/checkPw.jsp", "_blank", "width=500, height=310, top=250, left=500");
+		    }
+});
 
 $(".main").on("click",()=>{
 	window.location.href = "/index.jsp";
@@ -243,8 +249,8 @@ $(".main").on("click",()=>{
 				<c:choose>
 					<c:when test="${empty highestScores[gameId]}">
 						<div class="rank">
-							<span>게임 기록이 존재하지 않습니다</span> <span> <c:out
-									value="${highestScores[gameId]}" />
+							<span>게임 기록이 존재하지 않습니다</span> <span> 
+							<%-- <c:out value="${highestScores[gameId]}" /> --%>
 							</span>
 
 						</div>

@@ -61,15 +61,6 @@ public class MyPageController  extends HttpServlet {
                 throw new ServletException(e);
             }
         }
-        // 사용자가 작성한 게시판 목록 요청         
-        else if(cmd.equals("/mypost.mypage")) {
-        	
-        	
-        }
-        // 사용자가 작성한 댓글 목록 요청   
-        else if(cmd.equals("/myreply.mypage")) {
-        	
-        }
 
     }
 }

@@ -3,7 +3,7 @@ package auth.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Timestamp;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,8 +45,9 @@ public class UsersDAO {
 				if (rs.next()) {
 					return new UsersDTO(rs.getString("id"), null, // pw는 반환하지 않음
 							rs.getString("nickname"), rs.getString("name"), rs.getString("phone"),
-							rs.getString("email"), rs.getString("rnum"), null, rs.getInt("warningcount"), 0, 0,
-							rs.getInt("isadmin"), null
+							rs.getString("email"), rs.getString("rnum"), rs.getTimestamp("joinDate"), rs.getInt("warningcount"),
+							rs.getInt("withdraw"), rs.getInt("status"),
+							rs.getInt("isadmin"), rs.getTimestamp("lastLogin")
 
 					);
 				}
@@ -74,6 +75,9 @@ public class UsersDAO {
 
 	// 회원가입 메서드
 	public int signup(UsersDTO dto) throws Exception {
+		 if (dto.getId().startsWith("google_") && dto.getPw() == null) {
+		        dto.setPw("GOOGLE_USER"); // 기본값 설정
+		    }
 		String sql = "INSERT INTO users(id, pw, nickname, name, phone, email, rnum, joindate, warningcount, withdraw, status, isadmin, lastLogin) "
 				+ "VALUES(?, ?, ?, ?, ?, ?, ?, sysdate, 0, 0, 0, 0, sysdate)";
 
@@ -250,4 +254,75 @@ public class UsersDAO {
 			pstat.executeUpdate();
 		}
 	}
+	
+	public UsersDTO findUserByEmail(String email) throws Exception{
+        String sql = "SELECT * FROM users WHERE email = ?";
+        try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+        	pstat.setString(1, email);
+        	try (ResultSet rs = pstat.executeQuery();) {
+            if (rs.next()) {
+                return new UsersDTO(
+                    rs.getString("id"), null, rs.getString("nickname"), rs.getString("name"),
+                    rs.getString("phone"), rs.getString("email"), rs.getString("rnum"),
+                    rs.getTimestamp("joinDate"), rs.getInt("warningCount"), rs.getInt("withdraw"),
+                    rs.getInt("status"), rs.getInt("isAdmin"), rs.getTimestamp("lastLogin")
+                );
+            }
+        	}
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+	
+
+    public boolean isNicknameExist(String nickname) throws Exception {
+        String sql = "SELECT COUNT(*) FROM users WHERE nickname = ?";
+        try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+        	pstat.setString(1, nickname);
+        	
+            try(ResultSet rs = pstat.executeQuery();){
+            	if (rs.next()) {
+            		return rs.getInt(1) > 0;
+            	}
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public UsersDTO findUserById(String id) throws Exception{
+
+        UsersDTO user = null;
+        
+        String sql = "SELECT * FROM USERS WHERE ID = ?";
+        try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);){
+        	
+            pstat.setString(1, id);
+            
+            try (ResultSet rs = pstat.executeQuery();) {
+            if (rs.next()) {
+                user = new UsersDTO(
+                    rs.getString("ID"),
+                    rs.getString("PW"),
+                    rs.getString("NICKNAME"),
+                    rs.getString("NAME"),
+                    rs.getString("PHONE"),
+                    rs.getString("EMAIL"),
+                    rs.getString("RNUM"),
+                    rs.getInt("WARNING_COUNT"),
+                    rs.getInt("WITHDRAW"),
+                    rs.getInt("STATUS"),
+                    rs.getInt("ISADMIN")
+                );
+            }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return user;
+    }
 }
