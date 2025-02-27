@@ -130,7 +130,7 @@
 	background-color: #868789b9;
 }
 
-.join_membership {
+.to-login{
 	position: absolute;
 	top: 555px;
 	left: 144px;
@@ -140,10 +140,8 @@
 	line-height: 22px;
 	font-weight: 400;
 	color: white;
-	cursor: pointer;
 }
-
-.findId {
+.join_membership {
 	position: absolute;
 	top: 555px;
 	left: 221px;
@@ -153,7 +151,18 @@
 	line-height: 22px;
 	font-weight: 400;
 	color: white;
-	cursor: pointer;
+}
+
+.findPw {
+	position: absolute;
+	top: 555px;
+	left: 308px;
+	width: 91px;
+	height: 24px;
+	font-size: 14px;
+	line-height: 22px;
+	font-weight: 400;
+	color: white;
 }
 
 .container2 {
