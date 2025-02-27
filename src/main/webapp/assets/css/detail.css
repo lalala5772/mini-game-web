@@ -93,14 +93,15 @@ body{
 /* 햄버거 메뉴 */
 .post-menu{
     position: relative;
+    display: flex;
+    align-items: center;
 }
 .menu-btn {
-    padding: 0;
     border: none;
     background-color: transparent;
     font-size: 24px;
     cursor: pointer;
-    padding: 10px;
+    padding: 0 10px;
 }
 /* 드롭다운 메뉴 스타일 */
 .menu-dropdown {
@@ -343,8 +344,8 @@ body{
 
 .scroll-top-btn {
     position: fixed;
-    right: 50px;
-    bottom: 30px;
+    right: 100px;
+    bottom: 110px;
     background: transparent;
     border: 1px solid rgb(211, 211, 211);
     padding: 15px;
@@ -356,6 +357,66 @@ body{
     
 }
 
+@media screen and (max-width: 1024px) {
+	.main-content{
+		width: 98%;
+	}
+	.board-name>h2{
+    	font-size: 30px;
+    	padding-top:150px;
+	}
+	.post-title h2{
+   		font-size: 20px;
+    	padding: 10px 15px;
+	}
+	.post-info{
+		height: 40px;
+		padding: 5px 5px 5px 15px;
+	}
+	.post-info .post-info-left .post-writer{
+	    font-size: 10px;
+	}
+	.post-info .post-info-left .post-write-date{
+    	font-size: 10px;
+	}
+	.post-info .post-info-right p{
+	    font-size: 10px;
+	}
+	.post-info .post-info-right .share-btn{
+		padding-left: 10px;
+    	margin-left: 0;
+	}
+	.post-contents{
+	    margin: 0;
+    	padding: 10px 40px;
+	}
+	.reply-inbox .reply-inbox-name{
+ 		margin: 5px 5px;
+	}
+	
+	.reply{
+ 		margin: 0 10px;
+ 		padding: 0 0 10px 0;
+	}
+	.reply .reply-writer{
+    	margin-left: 0;
+	}
+	.reply .reply-contents{
+    	margin: 0 25px 0 25px;
+	}
+	.sub-reply{
+		padding-left: 50px;
+	}
+	.sub-reply-inbox{
+		margin-left:40px;
+	}
+	
+	.scroll-top-btn {
+    	right: 10px;
+    	bottom: 30px;
+    	padding: 10px;
+	}
+}
 
 
 
