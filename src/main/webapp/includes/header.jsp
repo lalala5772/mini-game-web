@@ -55,7 +55,7 @@
         </button>
     </div>
     <ul class="mobile-nav-list">
-        <li><a href="/#all-games-category">게임하기</a></li>
+        <li><a href="/#all-games-category" class="scroll-to-game">게임하기</a></li>
         <li><a href="/generalList.board?cpage=1">게시판</a></li>
         <li><a href="/faq.board">고객센터</a></li>
         <% if (loginUser != null) { %>
@@ -78,6 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const mobileMenuButton = document.querySelector('.mobile-menu-button');
     const closeMenuButton = document.querySelector('.close-menu');
     const mobileMenu = document.querySelector('.mobile-menu');
+    const scrollToGame = document.querySelector('.scroll-to-game');
 
     if (mobileMenuButton && closeMenuButton && mobileMenu) {
         mobileMenuButton.addEventListener('click', () => {
@@ -86,6 +87,11 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         closeMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+        
+        scrollToGame.addEventListener('click', () => {
             mobileMenu.classList.remove('active');
             document.body.style.overflow = 'auto';
         });

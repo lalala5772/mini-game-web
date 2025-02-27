@@ -16,11 +16,6 @@
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 
 <script>
-	//
-	// share 버튼 눌렀을 시 나올 이벤트 필요
-	//
-
-
 	// 댓글 로드 메소드
 	function loadReplies(){
 		$.ajax({
@@ -42,10 +37,8 @@
             	let replyWriteDate = $("<p>").addClass("reply-write-date").html(replyData.writeDate);
             	replyInfo.append(replyWriteDate);
             	
-             	// 테스트 중
             	let subReplyBtn = $("<button>").addClass("sub-reply-btn").html("답글달기");
             	replyInfo.append(subReplyBtn);
-            	///
             	
             	if(("${nickname}" == replyData.writer) || ("${isAdmin}" == "1")){
             		if("${nickname}" == replyData.writer){
@@ -227,11 +220,7 @@
 	});
 	
 	
-	
-	
-	
 	$(function(){
-		
 		// 로그인한 유저가 작성한 게시글일 경우 드롭다운 메뉴 생성
 		if(("${nickname}" == "${post.writer}") || ("${isAdmin}" == "1")){
 			let postMenu = $("<div>").addClass("post-menu");

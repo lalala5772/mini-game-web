@@ -58,7 +58,10 @@
         <div class="write-container">
             <div class="write-header">
                 <h2>게시글 작성</h2>
-                <button type="submit" class="submit-btn" form="writeForm">등록</button>
+                <div>
+                	<button type="button" class="cancel-btn" onclick="history.back();">취소</button>
+                	<button type="submit" class="submit-btn" form="writeForm">등록</button>
+                </div>
             </div>
 
             <form id="writeForm" action="/write.board" method="post" enctype="multipart/form-data">
